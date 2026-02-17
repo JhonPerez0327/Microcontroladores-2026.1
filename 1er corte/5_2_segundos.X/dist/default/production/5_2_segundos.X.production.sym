@@ -50,7 +50,7 @@ udata 60 62 RAM 60 1
 main_code 7FB4 7FFF CODE 7FB4 0
 resetVec 7FB0 7FB3 CODE 7FB0 0
 %locals
-build/default/debug/newAsmTemplate.o
+build/default/production/newAsmTemplate.o
 newAsmTemplate.asm
 23 7FB0 0 CODE 0
 newAsmTemplate.asm

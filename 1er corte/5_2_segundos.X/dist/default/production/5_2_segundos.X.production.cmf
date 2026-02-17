@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$build/default/debug/newAsmTemplate.o
+$build/default/production/newAsmTemplate.o
 udata RAM 1 60 60 3 1 1
 resetVec CODE 0 7FB0 7FB0 4 1 2
 main_code CODE 0 7FB4 7FB4 4C 1 2
@@ -54,7 +54,7 @@ MEDIUMCONST 800-7FAF 1
 # are in ascending order of addresses.
 # All other numeric values are in decimal.
 %LINETAB
-$build/default/debug/newAsmTemplate.o
+$build/default/production/newAsmTemplate.o
 7FB4 main_code CODE >32:C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\Repositorio Microcontroladores\1er corte\5_2_segundos.X\newAsmTemplate.asm
 7FB6 main_code CODE >33:C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\Repositorio Microcontroladores\1er corte\5_2_segundos.X\newAsmTemplate.asm
 7FB8 main_code CODE >36:C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\Repositorio Microcontroladores\1er corte\5_2_segundos.X\newAsmTemplate.asm
@@ -113,7 +113,7 @@ __Hudata_bank7 0 0 ABS 0 udata_bank7 -
 __L__absolute__ 0 0 ABS 0 __absolute__ -
 __LresetVec 0 0 ABS 0 resetVec -
 __HresetVec 0 0 ABS 0 resetVec -
-isa$xinst 0 0 ABS 0 - build/default/debug/newAsmTemplate.o
+isa$xinst 0 0 ABS 0 - build/default/production/newAsmTemplate.o
 __Hedata 0 0 ABS 0 edata -
 __Hudata 0 0 ABS 0 udata -
 __Hconfig 30000E 0 CONFIG 4 config -
@@ -127,7 +127,7 @@ __S0 8000 0 ABS 0 - -
 __S1 63 0 ABS 0 - -
 __S3 0 0 ABS 0 - -
 __Lconfig 0 0 CONFIG 4 config -
-isa$std 1 0 ABS 0 - build/default/debug/newAsmTemplate.o
+isa$std 1 0 ABS 0 - build/default/production/newAsmTemplate.o
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -
 __Lspace_3 0 0 ABS 0 - -
