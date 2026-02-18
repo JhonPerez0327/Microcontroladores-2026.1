@@ -1,99 +1,77 @@
-;=========================================================
-; Código en Assembler para PIC18F4550
-; Encendido de un led durante 5 segundos y apagado durante 2 segundos
-; Usa retardos sin interrupciones ni Timer0
-; Frecuencia: 4 MHz (Oscilador Interno)
-; Ensamblador: MPLAB XC8 3.0
-;=========================================================
-    
 #include <xc.inc>   ; Incluir definiciones del ensamblador para PIC18F4550
 
     ; Configuración de bits de configuración (Fuses)
-    CONFIG  FOSC = INTOSCIO_EC   ; Usa el oscilador interno a 4 MHz
-    CONFIG  WDT = OFF            ; Deshabilitar el Watchdog Timer. Si queremos trabajar con loops tenemos q tener esto en OFF
-    CONFIG  LVP = OFF            ; Deshabilitar la programación en bajo voltaje, para evitar ruida se OFF
+    CONFIG  FOSC = INTOSCIO_EC   ; Usa el oscilador interno a 8 MHz
+    CONFIG  WDT = OFF            ; Deshabilitar el Watchdog Timer
+    CONFIG  LVP = OFF            ; Deshabilitar la programación en bajo voltaje
     CONFIG  PBADEN = OFF         ; Configurar los pines de PORTB como digitales
-    
-;===============================================
-; Vectores de Inicio
-;===============================================
 
-PSECT  resetVec, class=CODE, reloc=2  ; Sección para el vector de reinicio
-ORG     0x00                          ; Dirección de inicio
-GOTO    Inicio                         ; Saltar a la rutina de inicio
+    ;===============================================
+    ; Vectores de Inicio
+    ;===============================================
+
+    PSECT  resetVec, class=CODE, reloc=2  ; Sección para el vector de reinicio
+    ORG     0x00                          ; Dirección de inicio
+    GOTO    Inicio                         ; Saltar a la rutina de inicio
+
+    ;===============================================
+    ; Código Principal
+    ;===============================================
     
-;===============================================
-; Código Principal
-;===============================================  
-    
-PSECT  main_code, class=CODE, reloc=2  ; Sección de código principal
+    PSECT  main_code, class=CODE, reloc=2  ; Sección de código principal
 
 Inicio:
     CLRF    TRISB       ; Configurar PORTB como salida (0 = salida, 1 = entrada)
     CLRF    LATB        ; Apagar todos los pines de PORTB (LED apagado inicialmente)
-
+;ciclo encender led 5s
+Inicio1:
+    BSF     LATB, 0     ;Cambio a 1 el valor del puerto 0
+    MOVLW   6           ;Asignar 5 a w
+    MOVWF   Cont	;guardar 5 en la variables cont_1
 Loop:
-    BTG     LATB, 0     ; Alternar el estado del LED en RB0 (si está encendido, lo apaga y viceversa)
-    CALL    Retardo_1s  ; Llamar a la rutina de retardo de 1 segundo
-    GOTO    Loop        ; Repetir el proceso de parpadeo en bucle infinito 
-;------------------------------------------------------------------------------------------------------
-    Retardo_1s:
+    CALL Retardo_1s	;Voy a funcion retardo
+    DECFSZ Cont,F	;disminuyo hasta 0 debo añadir line abajo?
     
-    ;CONTADOR DE 5 SEGUNDOS -------
+    GoTo Loop		;
     
-    MOVLW 250 ;255 se va pa W
-    MOVWF CONTADOR1 ;255 se mueve a CONTADOR
- 
-    BUCLE_EXT_5s:
-	MOVLW 200
-	MOVWF CONTADOR2
+;ciclo apagar led
+    BCF LATB,0		;Cambio a 0 el valor del puerto 0
+    MOVLW 2		;Asignar 2 a w
+    MOVWF Cont		;guardar 5 en la variables cont_1
+Loop1:
+    CALL Retardo_1s
+    DECFSZ Cont,F
     
-	BUCLE_INT1_5s:
-	    DECFSZ CONTADOR2, F ;Contador de 200 a 0
-	    GOTO BUCLE_INT1_5s ; Si no está en 0 te vas otra vez pa BUCLE_INT1, si sí, puede seguir tranquilo mi papacho
+    GOTO Loop1
+    GOTo Inicio1
     
-	MOVLW 100
-	MOVWF CONTADOR3
-    
-	BUCLE_INT2_5s:
-	    DECFSZ CONTADOR3, F
-	    GOTO BUCLE_INT2_5s
+Retardo_1s:
+    MOVLW   125          ; Cargar el valor 25 en el registro W (contador externo)
+    MOVWF   ContadorExterno  ; Guardar el valor en la variable ContadorExterno
 
-    DECFSZ CONTADOR1, F
-    GOTO BUCLE_EXT_5s
-    
-    ;CONTADOR DE 2 SEGUNDOS -------
-    
-    MOVLW 250 ;255 se va pa W
-    MOVWF CONTADOR1 ;255 se mueve a CONTADOR
- 
-    BUCLE_EXT_2s:
-	MOVLW 200
-	MOVWF CONTADOR2
-    
-	BUCLE_INT1_2s:
-	    DECFSZ CONTADOR2, F ;Contador de 200 a 0
-	    GOTO BUCLE_INT1_2s ; Si no está en 0 te vas otra vez pa BUCLE_INT1, si sí, puede seguir tranquilo mi papacho
-    
-	MOVLW 40
-	MOVWF CONTADOR3
-    
-	BUCLE_INT2_2s:
-	    DECFSZ CONTADOR3, F
-	    GOTO BUCLE_INT2_2s
+LoopExterno:
+    MOVLW   250         ; Cargar el valor 250 en el registro W (contador interno)
+    MOVWF   ContadorInterno  ; Guardar el valor en la variable ContadorInterno
 
-    DECFSZ CONTADOR1, F
-    GOTO BUCLE_EXT_2s
-    
-    RETURN ;Retornar al programa principal después del retardo
-;===============================================
+LoopInterno:
+    NOP                 ; No hacer nada (consume un ciclo de instrucción)
+    NOP                 ; No hacer nada (consume otro ciclo)
+    NOP                 ; No hacer nada (consume otro ciclo)
+   
+    DECFSZ  ContadorInterno, F  ; Decrementar ContadorInterno, si es cero, salta la siguiente instrucción
+    GOTO    LoopInterno         ; Si no es cero, repetir el bucle interno
+
+    DECFSZ  ContadorExterno, F  ; Decrementar ContadorExterno, si es cero, salta la siguiente instrucción
+    GOTO    LoopExterno         ; Si no es cero, repetir el bucle externo
+
+    RETURN              ; Retornar al programa principal después del retardo    
+    ;===============================================
     ; Definición de Variables
     ;===============================================
 
     PSECT udata  ; Sección de datos sin inicializar (variables en RAM)
-    CONTADOR1:   DS 1   ; Reserva 1 byte de memoria para el contador externo
-    CONTADOR2:   DS 1   ; Reserva 1 byte de memoria para el contador interno
-    CONTADOR3:   DS 1   ; Reserva 1 byte de memoria para el contador interno
+ContadorExterno:   DS 1   ; Reserva 1 byte de memoria para el contador externo
+ContadorInterno:   DS 1   ; Reserva 1 byte de memoria para el contador interno
+Cont:   DS 1   ; Reserva 1 byte de memoria para el contador interno
 
-
-END    ; Fin del código
+    END            ; Fin del código
