@@ -10,7 +10,7 @@
         #include <xc.inc>
 
 ; CONFIG
-        CONFIG  FOSC   = INTOSCIO_EC ;usa ociladorinterno
+        CONFIG  FOSC   = INTOSC_EC ;usa ociladorinterno
         CONFIG  WDT    = OFF	    ;no permite muchos ciclos
         CONFIG  LVP    = OFF	    ;evita q el micro funcione con voltaje bajo
         CONFIG  PBADEN = OFF	    ;rb0-rb4 entradas digitales off, entradas analogicas on
@@ -20,13 +20,15 @@
         CONFIG  DEBUG  = OFF	    ;off funiona normal no reseva recursos debug
 
 ; Vectores de Inicio e Interrupción
+	PSECT  resetVec, class=CODE, reloc=2
         ORG     0b00000000          ; 0x00 Reset
         GOTO    INIT
-	
+	PSECT inVec, class=CODE, reloc=2
         ORG     0b00001000          ; 0x08 Vector de interrupción
         GOTO    ISR
 
 ; Inicio
+	PSECT  main_code, class=CODE, reloc=2
 INIT:
         ; OSCCON:
         ; IRCF2:IRCF0 = 110 -> 4 MHz
