@@ -1,14 +1,12 @@
-# 1 "Ejercicio1_Led_Blink.asm"
+# 1 "Ejercicio2_Led_Blink_Plus.asm"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "Ejercicio1_Led_Blink.asm" 2
+# 1 "Ejercicio2_Led_Blink_Plus.asm" 2
 ;=========================================================
-; Código en Assembler para PIC18F45507
-; Materia: Microcontroladores 2026.1 Universidad del Cauca
-; Presentado por: Jhon Alexander Pérez Arango y Julián David Muñoz Ledezma
+; Código en Assembler para PIC18F4550
 ; Descripción: Encendido de un LED durante 1 segundo y apagado de 2 segundos
 ; Usa retardo de un segundo y se llama los segundos que se necesite
 ; Frecuencia: Oscilador interno de 8 MHz
@@ -5452,9 +5450,9 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 12 "Ejercicio1_Led_Blink.asm" 2
+# 10 "Ejercicio2_Led_Blink_Plus.asm" 2
 ; Configuración de bits de configuración (Fuses)
-CONFIG FOSC = INTOSCIO_EC ; Usa el oscilador interno a 8 MHz
+CONFIG FOSC = INTOSC_EC ; Usa el oscilador interno a 8 MHz
 CONFIG WDT = OFF ; Deshabilitar el Watchdog Timer
 CONFIG LVP = OFF ; Deshabilitar la programación en bajo voltaje
 CONFIG PBADEN = OFF ; Configurar los pines de PORTB como digitales

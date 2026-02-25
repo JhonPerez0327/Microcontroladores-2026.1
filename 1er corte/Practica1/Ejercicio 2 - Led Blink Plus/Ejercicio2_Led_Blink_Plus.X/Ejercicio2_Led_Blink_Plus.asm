@@ -1,16 +1,16 @@
 ;=========================================================
-; Código en Assembler para PIC18F45507
+; Código en Assembler para PIC18F4550
 ; Materia: Microcontroladores 2026.1 Universidad del Cauca
 ; Presentado por: Jhon Alexander Pérez Arango y Julián David Muñoz Ledezma
-; Descripción: Encendido de un LED durante 1 segundo y apagado de 2 segundos y reiniciar la secuencia.
-; Usa retardo de un segundo y se llama los segundos que se necesite
+; Descripción: Un LED debe tener parpadeos de 1 s cada uno en un espacio temporal de 10 
+;	       segundos, luego de esto debe realizar 2 parpadeos de 2 segundos y reiniciar la secuencia.
 ; Frecuencia: Oscilador interno de 8 MHz 
 ; Ensamblador: MPLAB X IDE v6.30
 ;=========================================================
     
 #include <xc.inc>   ; Incluir definiciones del ensamblador para PIC18F4550
 ; Configuración de bits de configuración (Fuses)
-CONFIG  FOSC = INTOSCIO_EC   ; Usa el oscilador interno a 8 MHz
+CONFIG  FOSC = INTOSC_EC   ; Usa el oscilador interno a 8 MHz
 CONFIG  WDT = OFF            ; Deshabilitar el Watchdog Timer
 CONFIG  LVP = OFF            ; Deshabilitar la programación en bajo voltaje
 CONFIG  PBADEN = OFF         ; Configurar los pines de PORTB como digitales
