@@ -4,7 +4,6 @@
 ; Oscilador interno a 8 MHz
 ; Requisitos:
 ;  - PIC18F4550
-;  - FUENTE DE C.C,PROTOBOARD,RESISTENCIA,LED,CABLES
 ;========================================================================
 	#include <xc.inc>
     
@@ -43,9 +42,10 @@ LOOP:
     ;Led apagado
     BCF	    LATB,0
     CALL    RETARDO_1S
+    CALL    RETARDO_1S
     ;RETARDO1S  
 RETARDO_1S:
-    MOVLW   10
+    MOVLW   8
     MOVWF   CONT1
 LOOP1:
     MOVLW   250
