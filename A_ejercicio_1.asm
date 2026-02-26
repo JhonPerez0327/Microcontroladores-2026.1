@@ -39,15 +39,15 @@ INICIO:
 	;Bit7 0 timer apagado
 	;Bit6 0 16bits
 	;bit5 0 ocilador interno(temporizador)
-	;bit4 1 flanco de bajada
+	;bit4 0 flanco de subida
 	;bit3 0 preescaler activado
-	;bit012 si preescaler 1:256
-	;valor 0b11010100
+	;bit012 preescaler 1:256 111
+	;valor 0b00000111
 	MOVLW    0b00000111
-	MOVWF    T0CON		;Asigno config al registro
+	MOVWF    T0CON		;Asigno config al registro T0CON
 
-	BCF	    TRISB, 0	;Rb0 salida
-	BCF	    LATB, 0	;Rb0 apagado
+	BCF	    TRISB, 0	;Rb0 SALIDA DIGITAL
+	BCF	    LATB, 0	;Rb0 APAGADO
 
 LOOP:
 	BSF    LATB,0		;LED ENCENDIDO PUERTO B0
@@ -67,7 +67,7 @@ RETARDO_1S:
 	BCF    INTCON,2	    	;LIMPIO BANDERA TMR0IF DEL REGISTRO INTCON
 	BSF    T0CON,7		;INICIO EL TIMER QUE INICIA DESDE 57723 Y LLEGA HASTA 65536
 COMPROBACION:    
-	BTFSS  INTCON,2		;VERIFICO SI LA BANDERA SE SE DESBORDO 1
+	BTFSS  INTCON,2		;VERIFICO SI LA BANDERA SE SE DESBORDO TMR0IF=1
 	GOTO   COMPROBACION	;SI NO SE DESBORDO VOY A COMPROBAR DE NUEVO HASTA QUE ACABE EL TIMER COMLETE
 	
 	BCF    T0CON,7		;APAGO TIMER
