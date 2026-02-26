@@ -33,6 +33,25 @@ Inicio:
     CLRF    TRISB       ; Configurar PORTB como salida (0 = salida, 1 = entrada)
     CLRF    LATB        ; Apagar todos los pines de PORTB (LED apagado inicialmente)
 
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ; SECUENCIA 1: 5 parpadeos de 1 segundo (10 segundos totales)
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    Secuencia1:
+	MOVLW   5           ; Asignar 5 a w (5 parpadeos)
+	MOVWF   Conta	    ; Guardar 5 en la variable Conta
+	
+	
+	
+	
+	
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ; SECUENCIA 2: 2 parpadeos de 2 segundos
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    Secuencia2:
+	MOVLW   2           ; Asignar 2 a w (2 parpadeos)
+	MOVWF   Conta	    ; Guardar 2 en la variable Conta
+	
+
     ;CICLO ENCENDER LED 1 SEGUNDO
     Inicio1:
 	BSF     LATB, 0     ;Cambio a 1 el valor del puerto 0
