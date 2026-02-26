@@ -1,10 +1,12 @@
-;========================================================================
-; PIC18F4550 - LED con 1s encendido, 2s apagado
-; Descripsion:Programa que realiza el parpadeo de un led:1s encendido 2s apagado
-; Oscilador interno a 8 MHz
-; Requisitos:
-;  - PIC18F4550
-;========================================================================
+;=========================================================
+; Código en Assembler para PIC18F45507
+; Materia: Microcontroladores 2026.1 Universidad del Cauca
+; Presentado por:Julian David Muñoz Ledezma
+; Descripción: Encendido de un LED durante 1 segundo y apagado de 2 segundos
+; Usando timer0 8MHz/4 1/2MHz= 0.5u*256=128us 1/128us=7812.5  65536-7813= "57723" valor inicio para 1 s 
+; Frecuencia: Oscilador interno de 8 MHz 
+; Ensamblador: MPLAB X IDE v6.25
+;=========================================================
 	#include <xc.inc>
     
 ; Config 
@@ -23,53 +25,52 @@
 	PSECT  main_code, class=CODE, reloc=2  ; Sección de código principal
 
 INICIO:
-    ;OSCON
-    ;IRCF2:IRCF0=111 8MHZ
-    ;BIT7 0 PARA Q CUANDO ENVIE UN SLEEP LO EJECUTE LO ACTIVO CON EL PIN MCLR
-    ;BIT6-4 FRECEUNCAI DEL OCILADOR
-    ;BIT3 VAMOS A ESPERAR EL OCILADOR PRIMARIO 
-    ;BIT2 FRECUENCIA ESTABLE
-    ;BIT1-0 OCILADOR INTERNO
-    ;VALOR: Ob01110010
-    MOVLW 0b01110010
-    MOVWF OSCCON, a  
-    BCF	  TRISB, 0	;PUERTO B COMO SALIDA
-    BCF    LATB,0,a	;COLOCO EN 0 PINES DE B AL INICIO	
-LOOP:
-    ;Led encendido
-    BSF	    LATB,0
-    CALL RETARDO_1S
-    ;Led apagado
-    BCF	    LATB,0
-    CALL    RETARDO_1S
-    CALL    RETARDO_1S
-    ;RETARDO1S  
-RETARDO_1S:
-    MOVLW   8
-    MOVWF   CONT1
-LOOP1:
-    MOVLW   250
-    MOVWF   CONT2
-LOOP2:
-    MOVLW    250
-    MOVWF   CONT3
-LOOP3:
-    DECFSZ  CONT3,F
-    GOTO    LOOP3
-    
-    DECFSZ  CONT2,F
-    GOTO    LOOP2
-    
-    DECFSZ  CONT1,F
-    GOTO    LOOP1
-    
-    RETURN
-;========================================================
-; DEFINICION DE VARIABLES
-;========================================================
-        PSECT udata
-CONT1:     DS 1
-CONT2:     DS 1
-CONT3:     DS 1
+	;CONFIGURACION OSCON
+	;IRCF2:IRCF0=111 8MHZ
+	;BIT7 0 PARA Q CUANDO ENVIE UN SLEEP LO EJECUTE, LO REACTIVO CON EL PIN MCLR
+	;BIT6-4 FRECEUNCAI DEL OCILADOR
+	;BIT3 VAMOS A ESPERAR EL OCILADOR PRIMARIO 
+	;BIT2 FRECUENCIA ESTABLE
+	;BIT1-0 OCILADOR INTERNO
+	;VALOR: Ob01110010
+	MOVLW 0b01110010
+	MOVWF OSCCON 
+	;CONFIGURACION T0CON
+	;Bit7 0 timer apagado
+	;Bit6 0 16bits
+	;bit5 0 ocilador interno(temporizador)
+	;bit4 1 flanco de bajada
+	;bit3 0 preescaler activado
+	;bit012 si preescaler 1:256
+	;valor 0b11010100
+	MOVLW    0b00000111
+	MOVWF    T0CON		;Asigno config al registro
 
-        END 
+	BCF	    TRISB, 0	;Rb0 salida
+	BCF	    LATB, 0	;Rb0 apagado
+
+LOOP:
+	BSF    LATB,0		;LED ENCENDIDO PUERTO B0
+	CALL   RETARDO_1S	;VOY A FUNCION DE TIMER RETARDO1_S
+	
+	BCF    LATB,0		;LED APAGADO PUERTO B0
+	CALL   RETARDO_1S	;VOY A FUNCION DE TIMER 1s
+	CALL   RETARDO_1S	;DE NUEVO A FUNCION DE TIMER 2s TOTAL
+	GOTO   LOOP		;REPITO EL CICLO DE ENCENDIDO Y APAGADO
+
+RETARDO_1S:
+	BCF    T0CON,7		;TIMER APAGADO
+	MOVLW  0b11100001
+	MOVWF  TMR0H		;CARGO VALOR ALTO DEL BINARIO 57723 
+	MOVLW   0b01111011
+	MOVWF   TMR0L		;CARGO VALOR BAJO DEL BINARIO 57723
+	BCF    INTCON,2	    	;LIMPIO BANDERA TMR0IF DEL REGISTRO INTCON
+	BSF    T0CON,7		;INICIO EL TIMER QUE INICIA DESDE 57723 Y LLEGA HASTA 65536
+COMPROBACION:    
+	BTFSS  INTCON,2		;VERIFICO SI LA BANDERA SE SE DESBORDO 1
+	GOTO   COMPROBACION	;SI NO SE DESBORDO VOY A COMPROBAR DE NUEVO HASTA QUE ACABE EL TIMER COMLETE
+	
+	BCF    T0CON,7		;APAGO TIMER
+	BCF    INTCON,2		;LIMPIO BANDERA TMR0IF
+	RETURN
+	END
