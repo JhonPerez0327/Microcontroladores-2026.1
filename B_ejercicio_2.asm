@@ -1,0 +1,83 @@
+;=========================================================
+; Código en Assembler para PIC18F45507
+; Materia: Microcontroladores 2026.1 Universidad del Cauca
+; Presentado por:Julian David Muñoz Ledezma
+; Descripción: Led para realizar 5 parpadeos de 1s en t=10s y realizar 2 parpadeos de 2 segundos
+; Usando timer0 8MHz/4 1/2MHz= 0.5u*256=128us 1/128us=7812.5  65536-7813= "57723" valor inicio para 1 s 
+; Frecuencia: Oscilador interno de 8 MHz 
+; Ensamblador: MPLAB X IDE v6.25
+;=========================================================
+	#include <xc.inc>
+    
+; Config 
+	CONFIG FOSC  = INTOSC_EC    ;USA RELOJ INTERNO DE 8MHZ
+	CONFIG WDT   = OFF	    ;NO PERMITE CICLOS ON;PERMITE OFF    
+	CONFIG LVP   = OFF	    ;NO PERMITE PROG CON VOLTAJES BAJOS
+    	CONFIG PBADEN = OFF	    ;PUERTO B CONFIG COMO SALIDA DIGITAL
+	CONFIG MCLRE = OFF	    ;TENGO QUE CONECTAR VOLTAJE 
+	CONFIG XINST = OFF	    ;OFF ENTRADAS AVANZADAS
+	CONFIG PWRT  = ON	    ;ESPERA MILISEGUNDOS PARA ESTABILIZARSE
+	CONFIG DEBUG = OFF	    ;NO RESERVA RECURSOS
+; VECTORES DE INICIO 
+	PSECT udata  ; Sección de datos sin inicializar (variables en RAM)
+CONT1:   DS 1   ; Reserva 1 byte de memoria para el contador externo
+	PSECT	resetVec, class=code, reloc=2
+	ORG	0b00000000	    ;vector de inicializacion hexadec seria 0x00
+	GOTO	INICIO		    ;VOY A FUNCION DE INICIO
+	PSECT  main_code, class=CODE, reloc=2  ; Sección de código principal
+
+INICIO:
+	;CONFIGURACION OSCON
+	;IRCF2:IRCF0=111 8MHZ
+	;BIT7 0 PARA Q CUANDO ENVIE UN SLEEP LO EJECUTE, LO REACTIVO CON EL PIN MCLR
+	;BIT6-4 FRECEUNCAI DEL OCILADOR
+	;BIT3 VAMOS A ESPERAR EL OCILADOR PRIMARIO 
+	;BIT2 FRECUENCIA ESTABLE
+	;BIT1-0 OCILADOR INTERNO
+	;VALOR: Ob01110010
+	MOVLW 0b01110010
+	MOVWF OSCCON 
+	;CONFIGURACION T0CON
+	;Bit7 0 timer apagado
+	;Bit6 0 16bits
+	;bit5 0 ocilador interno(temporizador)
+	;bit4 1 flanco de bajada
+	;bit3 0 preescaler activado
+	;bit012 si preescaler 1:256
+	;valor 0b11010100
+	MOVLW    0b00000111
+	MOVWF    T0CON		;Asigno config al registro
+
+	BCF	    TRISB, 0	;Rb0 salida
+	BCF	    LATB, 0	;Rb0 apagado
+
+LOOP:
+	BSF	    LATB,0	;ENCIENDO LED
+	CALL	    RETARDO_1S	;LLAMO A TIMER  RETARDO 1S
+	
+	BCF	    LATB,0	;APAGO LED
+	CALL	    RETARDO_1S	;LLAMO A TIMER
+	
+	MOVLW	    5		;MUEVO 5 A W
+	MOVWF	    CONT1	;MUEVO 5 A CONTADOR 1
+	DECFSZ	    CONT1, F	;REPITO EL CICLO 5 VECES
+	GOTO	    LOOP
+	
+	
+RETARDO_1S:
+	BCF    T0CON,7		;TIMER APAGADO
+	MOVLW  0b11100001
+	MOVWF  TMR0H		;CARGO VALOR ALTO DEL BINARIO 57723 
+	MOVLW   0b01111011
+	MOVWF   TMR0L		;CARGO VALOR BAJO DEL BINARIO 57723
+	BCF    INTCON,2	    	;LIMPIO BANDERA TMR0IF DEL REGISTRO INTCON
+	BSF    T0CON,7		;INICIO EL TIMER QUE INICIA DESDE 57723 Y LLEGA HASTA 65536	
+	
+COMPROBACION:    
+	BTFSS  INTCON,2		;VERIFICO SI LA BANDERA SE SE DESBORDO 1
+	GOTO   COMPROBACION	;SI NO SE DESBORDO VOY A COMPROBAR DE NUEVO HASTA QUE ACABE EL TIMER COMLETE
+	
+	BCF    T0CON,7		;APAGO TIMER
+	BCF    INTCON,2		;LIMPIO BANDERA TMR0IF
+	RETURN
+	END
