@@ -6,7 +6,7 @@ Linker command line:
   --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
   -cs -h+dist/default/production\Ejercicio2_Led_Blink_Plus.X.production.sym \
   --cmf=dist/default/production\Ejercicio2_Led_Blink_Plus.X.production.cmf \
-  -z -Q18F4550 -oC:\Users\alexa\AppData\Local\Temp\xcAs4i8.0\driver_tmp_3.o \
+  -z -Q18F4550 -oC:\Users\alexa\AppData\Local\Temp\xcAs8ck.0\driver_tmp_3.o \
   --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
   -Mdist/default/production/Ejercicio2_Led_Blink_Plus.X.production.map -E1 \
   -ACODE=00h-07FFFh -ACONST=00h-07FFFh -ASMALLCONST=0800h-08FFhx120 \
@@ -27,14 +27,14 @@ Machine type is 18F4550
                 Name                               Link     Load   Length Selector   Space Scale
 build/default/production/Ejercicio2_Led_Blink_Plus.o
                 config                           300000   300000        E        0       4
-                main_code                          7F86     7F86       7A     3FC3       0
-                resetVec                           7F82     7F82        4     3FC1       0
+                main_code                          7F80     7F80       80     3FC0       0
+                resetVec                           7F7C     7F7C        4     3FBE       0
                 udata                                60       60        5       60       1
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
-                main_code                          7F86     7F86       7A         0
-                resetVec                           7F82     7F82        4         0
+                main_code                          7F80     7F80       80         0
+                resetVec                           7F7C     7F7C        4         0
 
         CLASS   CONST          
 
@@ -83,8 +83,8 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
 
                 udata                          000060  000005  000065        60       1  RAM     
-                resetVec                       007F82  000004  007F86      3FC1       0  CODE    
-                main_code                      007F86  00007A  008000      3FC3       0  CODE    
+                resetVec                       007F7C  000004  007F80      3FBE       0  CODE    
+                main_code                      007F80  000080  008000      3FC0       0  CODE    
 
 
 UNUSED ADDRESS RANGES
@@ -100,15 +100,15 @@ UNUSED ADDRESS RANGES
         BANK7            000700-0007FF              100
         BIGRAM           000000-0007FF              800
         BIGSFR           000F60-000FFF               A0
-        CODE             000000-007F81             7F82
+        CODE             000000-007F7B             7F7C
         COMRAM           000000-00005F               60
-        CONST            000000-007F81             7F82
+        CONST            000000-007F7B             7F7C
         EEDATA           F00000-F000FF              100
         IDLOC            200000-200007                8
-        MEDIUMCONST      000800-007F81             7782
+        MEDIUMCONST      000800-007F7B             777C
         RAM              000065-0007FF              100
         SFR              000F60-000FFF               A0
-        SMALLCONST       000800-007F81              100
+        SMALLCONST       000800-007F7B              100
 
                                   Symbol Table
 

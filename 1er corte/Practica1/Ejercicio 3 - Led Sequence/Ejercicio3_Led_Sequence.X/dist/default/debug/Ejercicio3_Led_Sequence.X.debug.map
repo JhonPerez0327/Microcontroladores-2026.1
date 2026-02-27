@@ -1,0 +1,108 @@
+Microchip MPLAB XC8 PIC(R) Assembler V3.10
+
+Linker command line:
+
+-W-3 \
+  --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
+  -cs -h+dist/default/debug\Ejercicio3_Led_Sequence.X.debug.sym \
+  --cmf=dist/default/debug\Ejercicio3_Led_Sequence.X.debug.cmf -z -Q18F4550 \
+  -oC:\Users\alexa\AppData\Local\Temp\xcAs5k0.0\driver_tmp_3.o \
+  --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
+  -Mdist/default/debug/Ejercicio3_Led_Sequence.X.debug.map -E1 \
+  -ACODE=00h-07FFFh -ACONST=00h-07FFFh -ASMALLCONST=0800h-08FFhx120 \
+  -AMEDIUMCONST=0800h-07FFFh -ACOMRAM=00h-05Fh -AABS1=00h-07FFh \
+  -ABIGRAM=00h-07FFh -ARAM=060h-0FFh,0100h-01FFhx7 -ABANK0=060h-0FFh \
+  -ABANK1=0100h-01FFh -ABANK2=0200h-02FFh -ABANK3=0300h-03FFh \
+  -ABANK4=0400h-04FFh -ABANK5=0500h-05FFh -ABANK6=0600h-06FFh \
+  -ABANK7=0700h-07FFh -ASFR=0F60h-0FFFh -ABIGSFR=0F60h-0FFFh \
+  -ACONFIG=0300000h-030000Dh -AIDLOC=0200000h-0200007h \
+  -AEEDATA=0F00000h-0F000FFh build/default/debug/Ejercicio3_Led_Sequence.o 
+
+Object code version is 3.11
+
+Machine type is 18F4550
+
+
+
+                Name                               Link     Load   Length Selector   Space Scale
+build/default/debug/Ejercicio3_Led_Sequence.o
+                
+
+TOTAL           Name                               Link     Load   Length     Space
+        CLASS   CODE           
+
+        CLASS   CONST          
+
+        CLASS   SMALLCONST     
+
+        CLASS   MEDIUMCONST    
+
+        CLASS   COMRAM         
+
+        CLASS   ABS1           
+
+        CLASS   BIGRAM         
+
+        CLASS   RAM            
+
+        CLASS   BANK0          
+
+        CLASS   BANK1          
+
+        CLASS   BANK2          
+
+        CLASS   BANK3          
+
+        CLASS   BANK4          
+
+        CLASS   BANK5          
+
+        CLASS   BANK6          
+
+        CLASS   BANK7          
+
+        CLASS   SFR            
+
+        CLASS   BIGSFR         
+
+        CLASS   CONFIG         
+
+        CLASS   IDLOC          
+
+        CLASS   EEDATA         
+
+
+
+SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
+
+
+
+UNUSED ADDRESS RANGES
+
+        Name                Unused          Largest block    Delta
+        BANK0            60-FF          A0
+        BANK1            100-1FF         100
+        BANK2            200-2FF         100
+        BANK3            300-3FF         100
+        BANK4            400-4FF         100
+        BANK5            500-5FF         100
+        BANK6            600-6FF         100
+        BANK7            700-7FF         100
+        BIGRAM           0-7FF         800
+        BIGSFR           F60-FFF          A0
+        CODE             0-7FFF        8000
+        COMRAM           0-5F          60
+        CONFIG           300000-30000D           E
+        CONST            0-7FFF        8000
+        EEDATA           F00000-F000FF         100
+        IDLOC            200000-200007           8
+        MEDIUMCONST      800-7FFF        7800
+        RAM              60-7FF         100
+        SFR              F60-FFF          A0
+        SMALLCONST       800-7FFF         100
+
+                                  Symbol Table
+
+__H__absolute__ __absolute__ 0  __Hspace_0      (abs)        0
+__L__absolute__ __absolute__ 0  __Lspace_0      (abs)        0
+isa$std         (abs)        1  isa$xinst       (abs)        0

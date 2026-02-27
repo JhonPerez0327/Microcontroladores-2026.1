@@ -5516,27 +5516,33 @@ Inicio:
  MOVLW 2 ; Asignar 2 a w (2 parpadeos)
  MOVWF Conta ; Guardar 2 en la variable Conta
 
+ BucleParpadeo2s:
+     ;CICLO ENCENDER LED 2 SEGUNDOS
+     BSF LATB, 0 ; Cambio a 1 el valor del puerto 0
+     MOVLW 2 ; Asignar 2 a w
+     MOVWF Cont ; Guardar 2 en la variable Cont
+     LoopEnc2s:
+  CALL Retardo_1s ; Voy a funcion retardo
+  DECFSZ Cont, F ; Disminuyo hasta 0
+     GOTO LoopEnc2s
 
-    ;CICLO ENCENDER LED 1 SEGUNDO
-    Inicio1:
- BSF LATB, 0 ;Cambio a 1 el valor del puerto 0
- MOVLW 1 ;Asignar 5 a w
- MOVWF Cont ;guardar 5 en la variable cont
- Loop:
-     CALL Retardo_1s ;Voy a funcion retardo
-     DECFSZ Cont, F ;disminuyo hasta 0
- GOTO Loop
+     ;CICLO APAGAR LED 2 SEGUNDOS
+     BCF LATB, 0 ; Cambio a 0 el valor del puerto 0
+     MOVLW 2 ; Asignar 2 a w
+     MOVWF Cont ; Guardar 2 en la variable Cont
+     LoopApg2s:
+  CALL Retardo_1s ; Voy a funcion retardo
+  DECFSZ Cont, F ; Disminuyo hasta 0
+     GOTO LoopApg2s
 
-    ;CICLO APAGAR LED 2 SEGUNDOS
- BCF LATB, 0 ;Cambio a 0 el valor del puerto 0
- MOVLW 2 ;Asignar 2 a w
- MOVWF Cont ;guardar 2 en la variable cont
- Loop1:
-     CALL Retardo_1s
-     DECFSZ Cont, F
- GOTO Loop1
-    GOTO Inicio1
+     DECFSZ Conta, F ; Disminuyo el contador de parpadeos
+ GOTO BucleParpadeo2s ; Si no llegó a 0, repito el parpadeo
 
+    GOTO Secuencia1 ; Reiniciar la secuencia completa
+
+;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+; Retardo de un segundo
+;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     Retardo_1s:
  MOVLW 8 ; Contador mega para ajuste fino
  MOVWF ContadorMega ; Guardar valor en ContadorMega

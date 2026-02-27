@@ -1,0 +1,8 @@
+isa$xinst 0 0 ABS 0
+isa$std 1 0 ABS 0
+__H__absolute__ 0 0 ABS 0
+__L__absolute__ 0 0 ABS 0
+__Hspace_0 0 0 ABS 0
+__Lspace_0 0 0 ABS 0
+%segments
+%locals
