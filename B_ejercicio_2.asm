@@ -21,6 +21,8 @@
 ; VECTORES DE INICIO 
 	PSECT udata  ; Sección de datos sin inicializar (variables en RAM)
 CONT1:   DS 1   ; Reserva 1 byte de memoria para el contador externo
+CONT2:   DS 1   ; Reserva 1 byte de memoria para el contador externo
+    
 	PSECT	resetVec, class=code, reloc=2
 	ORG	0b00000000	    ;vector de inicializacion hexadec seria 0x00
 	GOTO	INICIO		    ;VOY A FUNCION DE INICIO
@@ -30,7 +32,7 @@ INICIO:
 	;CONFIGURACION OSCON
 	;IRCF2:IRCF0=111 8MHZ
 	;BIT7 0 PARA Q CUANDO ENVIE UN SLEEP LO EJECUTE, LO REACTIVO CON EL PIN MCLR
-	;BIT6-4 FRECEUNCAI DEL OCILADOR
+	;BIT6-4 FRECEUNCIA DEL OCILADOR
 	;BIT3 VAMOS A ESPERAR EL OCILADOR PRIMARIO 
 	;BIT2 FRECUENCIA ESTABLE
 	;BIT1-0 OCILADOR INTERNO
@@ -41,28 +43,43 @@ INICIO:
 	;Bit7 0 timer apagado
 	;Bit6 0 16bits
 	;bit5 0 ocilador interno(temporizador)
-	;bit4 1 flanco de bajada
+	;bit4 0 flanco de subida
 	;bit3 0 preescaler activado
 	;bit012 si preescaler 1:256
-	;valor 0b11010100
+	;valor 0b00000111
 	MOVLW    0b00000111
 	MOVWF    T0CON		;Asigno config al registro
 
 	BCF	    TRISB, 0	;Rb0 salida
 	BCF	    LATB, 0	;Rb0 apagado
-
+INICIO1:
+	MOVLW	    5		;MUEVO 5 A W
+	MOVWF	    CONT1	;MUEVO 5 A CONTADOR 1    
 LOOP:
 	BSF	    LATB,0	;ENCIENDO LED
 	CALL	    RETARDO_1S	;LLAMO A TIMER  RETARDO 1S
-	
 	BCF	    LATB,0	;APAGO LED
 	CALL	    RETARDO_1S	;LLAMO A TIMER
 	
-	MOVLW	    5		;MUEVO 5 A W
-	MOVWF	    CONT1	;MUEVO 5 A CONTADOR 1
-	DECFSZ	    CONT1, F	;REPITO EL CICLO 5 VECES
+	DECFSZ	    CONT1, F	;REPITO EL CICLO 5 VECES HASTA CERO LUEGO SALTOSTELN
 	GOTO	    LOOP
 	
+	MOVLW	    2		;MUEVO 2 A W
+	MOVWF	    CONT2	;MUEVO 2 A CONT2
+LOOP1:
+	BSF	    LATB,0	;ENCIENDO LED
+	CALL	    RETARDO_1S  ;TIMER 1S
+	CALL	    RETARDO_1S  ;TIMER 1S 1PARPADEO2S
+	
+	BCF	    LATB,0	;APAGO LED
+	CALL	    RETARDO_1S	;TIMER 1S
+	BSF	    LATB,0	;ENCIENDP LED
+	CALL	    RETARDO_1S  ;TIMER 1S
+	CALL	    RETARDO_1S  ;TIMER 1S 2PARPADEO 2S
+	
+	;DECFSZ	    CONT2, F	;REPITO 2 VECES HASTA CERO
+	;GOTO	    LOOP1
+	GOTO	    INICIO1	;REPITO SECUENCIA NUEVAMENTE
 	
 RETARDO_1S:
 	BCF    T0CON,7		;TIMER APAGADO
