@@ -40,6 +40,27 @@ Inicio:
 	MOVLW   5           ; Asignar 5 a w (5 parpadeos)
 	MOVWF   Conta	    ; Guardar 5 en la variable Conta
 	
+	BucleParpadeo1s:
+	    ;CICLO ENCENDER LED 1 SEGUNDO
+	    BSF     LATB, 0     ; Cambio a 1 el valor del puerto 0
+	    MOVLW   1           ; Asignar 1 a w
+	    MOVWF   Cont	    ; Guardar 1 en la variable Cont
+	    LoopEnc1s:
+		CALL Retardo_1s	    ; Voy a funcion retardo
+		DECFSZ Cont, F	    ; Disminuyo hasta 0
+	    GOTO LoopEnc1s
+
+	    ;CICLO APAGAR LED 1 SEGUNDO
+	    BCF     LATB, 0	    ; Cambio a 0 el valor del puerto 0
+	    MOVLW   1	        ; Asignar 1 a w
+	    MOVWF   Cont	    ; Guardar 1 en la variable Cont
+	    LoopApg1s:
+		CALL Retardo_1s     ; Voy a funcion retardo
+		DECFSZ Cont, F      ; Disminuyo hasta 0
+	    GOTO LoopApg1s
+
+	    DECFSZ  Conta, F    ; Disminuyo el contador de parpadeos
+	GOTO BucleParpadeo1s    ; Si no llegó a 0, repito el parpadeo
 	
 	
 	
@@ -98,4 +119,5 @@ ContadorMega:      DS 1   ; Reserva 1 byte de memoria para el contador mega
 ContadorExterno:   DS 1   ; Reserva 1 byte de memoria para el contador externo
 ContadorInterno:   DS 1   ; Reserva 1 byte de memoria para el contador interno
 Cont:              DS 1   ; Reserva 1 byte de memoria para el contador de segundos
+Conta:              DS 1   ; Reserva 1 byte de memoria para el contador de segundos
 END                       ; Fin del código

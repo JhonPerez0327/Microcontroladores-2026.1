@@ -7,8 +7,10 @@
 # 1 "Ejercicio2_Led_Blink_Plus.asm" 2
 ;=========================================================
 ; Código en Assembler para PIC18F4550
-; Descripción: Encendido de un LED durante 1 segundo y apagado de 2 segundos
-; Usa retardo de un segundo y se llama los segundos que se necesite
+; Materia: Microcontroladores 2026.1 Universidad del Cauca
+; Presentado por: Jhon Alexander Pérez Arango y Julián David Muñoz Ledezma
+; Descripción: Un LED debe tener parpadeos de 1 s cada uno en un espacio temporal de 10
+; segundos, luego de esto debe realizar 2 parpadeos de 2 segundos y reiniciar la secuencia.
 ; Frecuencia: Oscilador interno de 8 MHz
 ; Ensamblador: MPLAB X IDE v6.30
 ;=========================================================
@@ -5450,7 +5452,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 10 "Ejercicio2_Led_Blink_Plus.asm" 2
+# 12 "Ejercicio2_Led_Blink_Plus.asm" 2
 ; Configuración de bits de configuración (Fuses)
 CONFIG FOSC = INTOSC_EC ; Usa el oscilador interno a 8 MHz
 CONFIG WDT = OFF ; Deshabilitar el Watchdog Timer
@@ -5474,6 +5476,46 @@ Inicio:
     MOVWF OSCCON
     CLRF TRISB ; Configurar PORTB como salida (0 = salida, 1 = entrada)
     CLRF LATB ; Apagar todos los pines de PORTB (LED apagado inicialmente)
+
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ; SECUENCIA 1: 5 parpadeos de 1 segundo (10 segundos totales)
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    Secuencia1:
+ MOVLW 5 ; Asignar 5 a w (5 parpadeos)
+ MOVWF Conta ; Guardar 5 en la variable Conta
+
+ BucleParpadeo1s:
+     ;CICLO ENCENDER LED 1 SEGUNDO
+     BSF LATB, 0 ; Cambio a 1 el valor del puerto 0
+     MOVLW 1 ; Asignar 1 a w
+     MOVWF Cont ; Guardar 1 en la variable Cont
+     LoopEnc1s:
+  CALL Retardo_1s ; Voy a funcion retardo
+  DECFSZ Cont, F ; Disminuyo hasta 0
+     GOTO LoopEnc1s
+
+     ;CICLO APAGAR LED 1 SEGUNDO
+     BCF LATB, 0 ; Cambio a 0 el valor del puerto 0
+     MOVLW 1 ; Asignar 1 a w
+     MOVWF Cont ; Guardar 1 en la variable Cont
+     LoopApg1s:
+  CALL Retardo_1s ; Voy a funcion retardo
+  DECFSZ Cont, F ; Disminuyo hasta 0
+     GOTO LoopApg1s
+
+     DECFSZ Conta, F ; Disminuyo el contador de parpadeos
+ GOTO BucleParpadeo1s ; Si no llegó a 0, repito el parpadeo
+
+
+
+
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ; SECUENCIA 2: 2 parpadeos de 2 segundos
+    ;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    Secuencia2:
+ MOVLW 2 ; Asignar 2 a w (2 parpadeos)
+ MOVWF Conta ; Guardar 2 en la variable Conta
+
 
     ;CICLO ENCENDER LED 1 SEGUNDO
     Inicio1:
@@ -5521,4 +5563,5 @@ ContadorMega: DS 1 ; Reserva 1 byte de memoria para el contador mega
 ContadorExterno: DS 1 ; Reserva 1 byte de memoria para el contador externo
 ContadorInterno: DS 1 ; Reserva 1 byte de memoria para el contador interno
 Cont: DS 1 ; Reserva 1 byte de memoria para el contador de segundos
+Conta: DS 1 ; Reserva 1 byte de memoria para el contador de segundos
 END ; Fin del código
