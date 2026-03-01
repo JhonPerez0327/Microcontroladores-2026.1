@@ -1,9 +1,0 @@
-### HEXMate logfile and output summary ###
-
-### Command-line arguments ###
- C:\Users\alexa\AppData\Local\Temp\xcAs5k0.0\driver_tmp_3.o
- -Odist/default/debug\Ejercicio3_Led_Sequence.X.debug.hex
- -logfile=dist/default/debug\Ejercicio3_Led_Sequence.X.debug.hxl
- -addressing=1
- -break=300000
-
