@@ -119,3 +119,84 @@ MAIN:
 	MOVWF   LATD, a     ; RD0 y RD3 (esquinas)
 	CALL    DELAY
 	GOTO    MAIN
+
+    DELAY_BASE:
+	MOVLW   250
+	MOVWF   CNT1, a
+	LOOP1:
+	    MOVLW   250
+	    MOVWF   CNT2, a
+	    LOOP2:
+		DECFSZ  CNT2, f, a      ; decrementa CNT2, salta si llega a 0
+	    GOTO    LOOP2
+	    DECFSZ  CNT1, f, a      ; decrementa CNT1, salta si llega a 0
+	GOTO    LOOP1
+    RETURN
+    
+    DELAY:
+    MOVF    VEL, W, a       ; carga velocidad en W
+
+    XORLW   0               ; ¿lenta?
+    BZ      D_LENTA
+
+    MOVF    VEL, W, a
+    XORLW   1               ; ¿media?
+    BZ      D_MEDIA
+
+    MOVF    VEL, W, a
+    XORLW   2               ; ¿rápida?
+    BZ      D_RAPIDA
+
+    GOTO    D_MUY_RAPIDA    ; si no fue 0,1,2 entonces es 3
+
+D_LENTA:
+    CALL    DELAY_BASE      ; 4 llamadas ? 250ms
+    CALL    DELAY_BASE
+D_MEDIA:
+    CALL    DELAY_BASE      ; 2 llamadas ? 125ms
+D_RAPIDA:
+    CALL    DELAY_BASE      ; 1 llamada ? 62ms
+    RETURN
+
+D_MUY_RAPIDA:
+    CALL    DELAY_BASE      ; mitad ? 30ms
+    RETURN
+
+;°°°°°°°°°°°°°°°°°°°°°°°°°°°°AQUI VA UN REBOTE QUE AUN NIDEA DE COMO HACERLO°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°||
+
+ISR:
+    BTFSC   INTCON,  1, a       ; ¿INT0IF=1? (botón secuencia)
+    CALL    PROC_INT0
+
+    BTFSC   INTCON3, 0, a       ; ¿INT1IF=1? (botón velocidad)
+    CALL    PROC_INT1
+
+    RETFIE                      ; regresa y reactiva interrupciones
+
+; --- INT0: cambio de secuencia ---
+PROC_INT0:
+    BCF     INTCON, 1, a        ; limpia bandera INT0IF
+    CALL    DEBOUNCE            ; espera antirrebote
+    BTFSC   PORTB, 0, a         ; ¿RB0 sigue en 0? (presionado)
+    RETURN                      ; no, fue rebote, ignora
+    INCF    SEQ, f, a           ; incrementa secuencia
+    MOVF    SEQ, W, a
+    XORLW   4                   ; ¿llegó a 4?
+    BNZ     FIN_INT0
+    CLRF    SEQ, a              ; reinicia a 0
+FIN_INT0:
+    RETURN
+
+; --- INT1: cambio de velocidad ---
+PROC_INT1:
+    BCF     INTCON3, 0, a       ; limpia bandera INT1IF
+    CALL    DEBOUNCE            ; espera antirrebote
+    BTFSC   PORTB, 1, a         ; ¿RB1 sigue en 0? (presionado)
+    RETURN                      ; no, fue rebote, ignora
+    INCF    VEL, f, a           ; incrementa velocidad
+    MOVF    VEL, W, a
+    XORLW   4                   ; ¿llegó a 4?
+    BNZ     FIN_INT1
+    CLRF    VEL, a              ; reinicia a 0
+FIN_INT1:
+    RETURN
