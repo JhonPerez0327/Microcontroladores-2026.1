@@ -200,3 +200,10 @@ PROC_INT1:
     CLRF    VEL, a              ; reinicia a 0
 FIN_INT1:
     RETURN
+
+PSECT udata
+SEQ:    DS 1        ; secuencia actual (0 a 3)
+VEL:    DS 1        ; velocidad actual (0 a 3)
+CNT1:   DS 1        ; contador interno del delay
+CNT2:   DS 1        ; contador externo del delay
+DB_CNT: DS 1        ; contador del antirrebote
