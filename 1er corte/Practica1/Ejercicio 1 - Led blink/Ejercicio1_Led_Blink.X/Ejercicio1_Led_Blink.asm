@@ -1,7 +1,7 @@
 ;=========================================================
 ; Código en Assembler para PIC18F45507
 ; Materia: Microcontroladores 2026.1 Universidad del Cauca
-; Presentado por: Jhon Alexander Pérez Arango y Julián David Muñoz Ledezma
+; Presentado por: Jhon Alexander Pérez Arango
 ; Descripción: Encendido de un LED durante 1 segundo y apagado de 2 segundos y reiniciar la secuencia.
 ; Usa retardo de un segundo y se llama los segundos que se necesite
 ; Frecuencia: Oscilador interno de 8 MHz 

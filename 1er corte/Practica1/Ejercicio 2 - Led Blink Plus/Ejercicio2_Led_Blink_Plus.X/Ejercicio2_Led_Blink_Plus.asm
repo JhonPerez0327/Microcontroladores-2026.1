@@ -1,7 +1,7 @@
 ;=========================================================
 ; Código en Assembler para PIC18F4550
 ; Materia: Microcontroladores 2026.1 Universidad del Cauca
-; Presentado por: Jhon Alexander Pérez Arango y Julián David Muñoz Ledezma
+; Presentado por: Jhon Alexander Pérez Arango
 ; Descripción: Un LED debe tener parpadeos de 1 s cada uno en un espacio temporal de 10 
 ;	       segundos, luego de esto debe realizar 2 parpadeos de 2 segundos y reiniciar la secuencia.
 ; Frecuencia: Oscilador interno de 8 MHz 
