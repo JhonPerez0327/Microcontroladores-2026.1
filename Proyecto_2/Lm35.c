@@ -1,57 +1,57 @@
 #include <xc.h>
-#pragma config FOSC = INTOSC_EC  // Oscilador interno
-#pragma config WDT = OFF         // Desactivo verificador de ciclos
-#pragma config PBADEN = OFF      // Pines del Puerto B como digitales al reset
+#pragma config FOSC = INTOSC_EC  
+#pragma config WDT = OFF         
+#pragma config PBADEN = OFF      
+#pragma config LVP = OFF
 
 #define _XTAL_FREQ 8000000
+
 //funciones a usar
 void ADC_Init(void);
-unsigned int ADC_Read(unsigned char canal);
+unsigned int ADC_Read(void);
 
 void main(void) {
-    OSCCON = 0x72;     //Oscilador a 8MHz
-    TRISA = 0x01;   // RA0 como entrada para Lm35 
-    TRISD = 0x00;   // Puerto D como salida
-    LATD = 0x00;    // Inicia todo en cero led apagado
+    OSCCON = 0x72;      // 8MHz
+    TRISA = 0x01;       // RA0 como entrada (LM35)
+    TRISD = 0x00;       // Puerto D como salida (LED en RD0)
+    LATD = 0x00;        //Iniciar en 0 puerto d 
     
-    ADC_Init();     // Inicializar el conversor
+    ADC_Init();     //Iniciar conversor 
     
-    unsigned int adc_value;
-    float temperatura;
-//ciclo para medir indefinidamete
+    unsigned int adc_res;
+    unsigned long temp; // Usamos long para evitar que la opracion falle
+
     while(1) {
-        adc_value = ADC_Read(0); // Lee canal AN0 convierte valor de voltaje a valor de 10 bits
-        
+        adc_res = ADC_Read();  // Lee canal AN0 convierte valor de voltaje a valor de 10 bits
         /* * Conversion de voltaje a temperatura 
          *  5V / 1023 pasos = 4.88mV por paso
          * Temperatura: (Valor ADC * 5V / 1023) / 10mV lm35 10mv=1°C
          * Simplificado: (Valor ADC * 500) / 1023
          */
-        temperatura = (adc_value * 500.0) / 1023.0;
+        temp = (unsigned long)adc_res * 500 / 1023;
 
         //Si la temperatura es mayor a 30°C encender led
-        if (temperatura > 30.0) {
+        if (temp > 30) {
             LATDbits.LATD0 = 1; 
         } else {
             LATDbits.LATD0 = 0;
         }
-        __delay_ms(200); // pausa para estabilidad
+        
+        __delay_ms(200); 
     }
 }
-// Funcion del ADC
+
 void ADC_Init(void) {
-    ADCON1 = 0x0D;  //0x0D=00001101 voltaje de referencia 0-5v  AN0 y AN1 como analogicos
-    ADCON2 = 0x95;  // 0x95 justificacion derecha, 8 TAD de tiempo de adquisision 1/(Fosc/16)
+    ADCON1 = 0x0E;  //voltaje de referencia 0-5v solo AN0 como analogico
+    ADCON2 = 0xBD;  // justificacion derecha,20 TAD espera mas larga para estabilidad
 }
-// funcion lectura de canal
-unsigned int ADC_Read(unsigned char canal) {
-    //canal en ADCON0 bits 5-2 y encender módulo ADON
-    ADCON0 = (unsigned char)((canal << 2) | 0x01);
+
+unsigned int ADC_Read(void) {
+    ADCON0 = 0x01;       // Selecciona AN0 y enciende el ADC
+    __delay_us(20);      // Tiempo de seguridad
+    ADCON0bits.GO = 1;   // Inicia conversion
     
-    __delay_us(20);         //Espera tiempo de adquisiocion capacitor se cargue
-    ADCON0bits.GO_DONE = 1; // Iniciar conversion
+    while(ADCON0bits.GO); // Espera a que termine
     
-    while(ADCON0bits.GO_DONE); // Esperar a que termine
-    
-    return ((unsigned int)((ADRESH << 8) + ADRESL)); // unir h y l valor de 10 bits
+    return ((ADRESH << 8) + ADRESL);
 }
