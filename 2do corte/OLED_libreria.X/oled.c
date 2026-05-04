@@ -1,0 +1,129 @@
+#include <xc.h>
+#define _XTAL_FREQ 8000000
+
+#include "oled.h"
+
+/* =========================================
+ * FUENTE 5x8 (ASCII 32?126)
+ * ========================================= */
+const unsigned char font5x8[][5] = {
+    {0x00,0x00,0x00,0x00,0x00}, /* 32 espacio */
+    {0x00,0x00,0x5F,0x00,0x00}, /* 33 ! */
+    {0x00,0x07,0x00,0x07,0x00}, /* 34 " */
+    {0x14,0x7F,0x14,0x7F,0x14}, /* 35 # */
+    {0x24,0x2A,0x7F,0x2A,0x12}, /* 36 $ */
+    {0x23,0x13,0x08,0x64,0x62}, /* 37 % */
+    {0x36,0x49,0x55,0x22,0x50}, /* 38 & */
+    {0x00,0x05,0x03,0x00,0x00}, /* 39 ' */
+    {0x00,0x1C,0x22,0x41,0x00}, /* 40 ( */
+    {0x00,0x41,0x22,0x1C,0x00}, /* 41 ) */
+    {0x08,0x2A,0x1C,0x2A,0x08}, /* 42 * */
+    {0x08,0x08,0x3E,0x08,0x08}, /* 43 + */
+    {0x00,0x50,0x30,0x00,0x00}, /* 44 , */
+    {0x08,0x08,0x08,0x08,0x08}, /* 45 - */
+    {0x00,0x60,0x60,0x00,0x00}, /* 46 . */
+    {0x20,0x10,0x08,0x04,0x02}, /* 47 / */
+    {0x3E,0x51,0x49,0x45,0x3E}, /* 48 0 */
+    {0x00,0x42,0x7F,0x40,0x00}, /* 49 1 */
+    {0x42,0x61,0x51,0x49,0x46}, /* 50 2 */
+    {0x21,0x41,0x45,0x4B,0x31}, /* 51 3 */
+    {0x18,0x14,0x12,0x7F,0x10}, /* 52 4 */
+    {0x27,0x45,0x45,0x45,0x39}, /* 53 5 */
+    {0x3C,0x4A,0x49,0x49,0x30}, /* 54 6 */
+    {0x01,0x71,0x09,0x05,0x03}, /* 55 7 */
+    {0x36,0x49,0x49,0x49,0x36}, /* 56 8 */
+    {0x06,0x49,0x49,0x29,0x1E}, /* 57 9 */
+    /* Puedes completar más caracteres si quieres */
+};
+
+/* =========================================
+ * FUNCIONES OLED
+ * ========================================= */
+
+void OLED_Comando(unsigned char cmd){
+    I2C_Start(OLED_ADDR);
+    I2C_Write(OLED_CMD);
+    I2C_Write(cmd);
+    I2C_Stop();
+}
+
+void OLED_Dato(unsigned char dato){
+    I2C_Start(OLED_ADDR);
+    I2C_Write(OLED_DATA);
+    I2C_Write(dato);
+    I2C_Stop();
+}
+
+void OLED_Clear(void){
+    unsigned char i, j;
+
+    for(i = 0; i < 8; i++){
+        OLED_Comando(0xB0 | i);
+        OLED_Comando(0x00);
+        OLED_Comando(0x10);
+
+        for(j = 0; j < 128; j++){
+            OLED_Dato(0x00);
+        }
+    }
+}
+
+void OLED_SetCursor(unsigned char pagina, unsigned char col){
+    OLED_Comando(0xB0 | pagina);
+    OLED_Comando(col & 0x0F);
+    OLED_Comando(0x10 | ((col >> 4) & 0x0F));
+}
+
+void OLED_Init(void){
+    __delay_ms(100);
+
+    OLED_Comando(0xAE); // display off
+    OLED_Comando(0xD5);
+    OLED_Comando(0x80);
+    OLED_Comando(0xA8);
+    OLED_Comando(0x3F);
+    OLED_Comando(0xD3);
+    OLED_Comando(0x00);
+    OLED_Comando(0x40);
+    OLED_Comando(0x8D);
+    OLED_Comando(0x14);
+    OLED_Comando(0x20);
+    OLED_Comando(0x00);
+    OLED_Comando(0xA1);
+    OLED_Comando(0xC8);
+    OLED_Comando(0xDA);
+    OLED_Comando(0x12);
+    OLED_Comando(0x81);
+    OLED_Comando(0xCF);
+    OLED_Comando(0xD9);
+    OLED_Comando(0xF1);
+    OLED_Comando(0xDB);
+    OLED_Comando(0x40);
+    OLED_Comando(0xA4);
+    OLED_Comando(0xA6);
+    OLED_Comando(0xAF); // display ON
+
+    __delay_ms(10);
+    OLED_Clear();
+}
+
+void OLED_Char(unsigned char c){
+    unsigned char i;
+
+    if(c < 32 || c > 126) c = 32;
+
+    for(i = 0; i < 5; i++){
+        OLED_Dato(font5x8[c - 32][i]);
+    }
+
+    OLED_Dato(0x00);
+}
+
+void OLED_String(unsigned char pagina, unsigned char col, const char *texto){
+    OLED_SetCursor(pagina, col);
+
+    while(*texto){
+        OLED_Char(*texto);
+        texto++;
+    }
+}

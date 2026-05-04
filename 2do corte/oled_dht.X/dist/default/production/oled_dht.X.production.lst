@@ -1,0 +1,2462 @@
+
+
+Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
+                                                                                               Wed Apr 22 15:50:02 2026
+
+Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	smallconst,global,reloc=2,class=SMALLCONST,space=0,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,space=0,delta=1
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	text0,global,reloc=2,class=CODE,space=0,delta=1
+     9                           	psect	text1,global,reloc=2,class=CODE,space=0,delta=1
+    10                           	psect	text2,global,reloc=2,class=CODE,space=0,delta=1,group=1
+    11                           	psect	text3,global,reloc=2,class=CODE,space=0,delta=1,group=1
+    12                           	psect	text4,global,reloc=2,class=CODE,space=0,delta=1
+    13                           	psect	text5,global,reloc=2,class=CODE,space=0,delta=1
+    14                           	psect	text6,global,reloc=2,class=CODE,space=0,delta=1
+    15                           	psect	text7,global,reloc=2,class=CODE,space=0,delta=1
+    16                           	psect	text8,global,reloc=2,class=CODE,space=0,delta=1
+    17                           	psect	text9,global,reloc=2,class=CODE,space=0,delta=1
+    18                           	psect	text10,global,reloc=2,class=CODE,space=0,delta=1
+    19                           	psect	text11,global,reloc=2,class=CODE,space=0,delta=1
+    20                           	psect	text12,global,reloc=2,class=CODE,space=0,delta=1
+    21                           	psect	text13,global,reloc=2,class=CODE,space=0,delta=1
+    22                           	psect	text14,global,reloc=2,class=CODE,space=0,delta=1
+    23                           	psect	text15,global,reloc=2,class=CODE,space=0,delta=1
+    24                           	psect	text16,global,reloc=2,class=CODE,space=0,delta=1
+    25                           	psect	text17,global,reloc=2,class=CODE,space=0,delta=1
+    26                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    27                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    28                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    29   000000                     
+    30                           ; Generated 17/01/2025 GMT
+    31                           ; 
+    32                           ; Copyright © 2025, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    33                           ; All rights reserved.
+    34                           ; 
+    35                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    36                           ; 
+    37                           ; Redistribution and use in source and binary forms, with or without modification, are
+    38                           ; permitted provided that the following conditions are met:
+    39                           ; 
+    40                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    41                           ;        conditions and the following disclaimer.
+    42                           ; 
+    43                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    44                           ;        of conditions and the following disclaimer in the documentation and/or other
+    45                           ;        materials provided with the distribution. Publication is not required when
+    46                           ;        this file is used in an embedded application.
+    47                           ; 
+    48                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    49                           ;        software without specific prior written permission.
+    50                           ; 
+    51                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    52                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    53                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    54                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    55                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    56                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    57                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    58                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    59                           ; 
+    60                           ; 
+    61                           ; Code-generator required, PIC18F4550 Definitions
+    62                           ; 
+    63                           ; SFR Addresses
+    64   000FE0                     bsr             equ	4064
+    65   000FE9                     fsr0            equ	4073
+    66   000FEA                     fsr0h           equ	4074
+    67   000FE9                     fsr0l           equ	4073
+    68   000FE1                     fsr1            equ	4065
+    69   000FE2                     fsr1h           equ	4066
+    70   000FE1                     fsr1l           equ	4065
+    71   000FD9                     fsr2            equ	4057
+    72   000FDA                     fsr2h           equ	4058
+    73   000FD9                     fsr2l           equ	4057
+    74   000FEF                     indf0           equ	4079
+    75   000FE7                     indf1           equ	4071
+    76   000FDF                     indf2           equ	4063
+    77   000FF2                     intcon          equ	4082
+    78   000000                     nvmcon          equ	0
+    79   000FF9                     pcl             equ	4089
+    80   000FFA                     pclath          equ	4090
+    81   000FFB                     pclatu          equ	4091
+    82   000FEB                     plusw0          equ	4075
+    83   000FE3                     plusw1          equ	4067
+    84   000FDB                     plusw2          equ	4059
+    85   000FED                     postdec0        equ	4077
+    86   000FE5                     postdec1        equ	4069
+    87   000FDD                     postdec2        equ	4061
+    88   000FEE                     postinc0        equ	4078
+    89   000FE6                     postinc1        equ	4070
+    90   000FDE                     postinc2        equ	4062
+    91   000FEC                     preinc0         equ	4076
+    92   000FE4                     preinc1         equ	4068
+    93   000FDC                     preinc2         equ	4060
+    94   000FF3                     prod            equ	4083
+    95   000FF4                     prodh           equ	4084
+    96   000FF3                     prodl           equ	4083
+    97   000FD8                     status          equ	4056
+    98   000FF5                     tablat          equ	4085
+    99   000FF6                     tblptr          equ	4086
+   100   000FF7                     tblptrh         equ	4087
+   101   000FF6                     tblptrl         equ	4086
+   102   000FF8                     tblptru         equ	4088
+   103   000FFD                     tosl            equ	4093
+   104   000FE8                     wreg            equ	4072
+   105   000F62                     SPPDATA         equ	3938	;# 
+   106   000F63                     SPPCFG          equ	3939	;# 
+   107   000F64                     SPPEPS          equ	3940	;# 
+   108   000F65                     SPPCON          equ	3941	;# 
+   109   000F66                     UFRM            equ	3942	;# 
+   110   000F66                     UFRML           equ	3942	;# 
+   111   000F67                     UFRMH           equ	3943	;# 
+   112   000F68                     UIR             equ	3944	;# 
+   113   000F69                     UIE             equ	3945	;# 
+   114   000F6A                     UEIR            equ	3946	;# 
+   115   000F6B                     UEIE            equ	3947	;# 
+   116   000F6C                     USTAT           equ	3948	;# 
+   117   000F6D                     UCON            equ	3949	;# 
+   118   000F6E                     UADDR           equ	3950	;# 
+   119   000F6F                     UCFG            equ	3951	;# 
+   120   000F70                     UEP0            equ	3952	;# 
+   121   000F71                     UEP1            equ	3953	;# 
+   122   000F72                     UEP2            equ	3954	;# 
+   123   000F73                     UEP3            equ	3955	;# 
+   124   000F74                     UEP4            equ	3956	;# 
+   125   000F75                     UEP5            equ	3957	;# 
+   126   000F76                     UEP6            equ	3958	;# 
+   127   000F77                     UEP7            equ	3959	;# 
+   128   000F78                     UEP8            equ	3960	;# 
+   129   000F79                     UEP9            equ	3961	;# 
+   130   000F7A                     UEP10           equ	3962	;# 
+   131   000F7B                     UEP11           equ	3963	;# 
+   132   000F7C                     UEP12           equ	3964	;# 
+   133   000F7D                     UEP13           equ	3965	;# 
+   134   000F7E                     UEP14           equ	3966	;# 
+   135   000F7F                     UEP15           equ	3967	;# 
+   136   000F80                     PORTA           equ	3968	;# 
+   137   000F81                     PORTB           equ	3969	;# 
+   138   000F82                     PORTC           equ	3970	;# 
+   139   000F83                     PORTD           equ	3971	;# 
+   140   000F84                     PORTE           equ	3972	;# 
+   141   000F89                     LATA            equ	3977	;# 
+   142   000F8A                     LATB            equ	3978	;# 
+   143   000F8B                     LATC            equ	3979	;# 
+   144   000F8C                     LATD            equ	3980	;# 
+   145   000F8D                     LATE            equ	3981	;# 
+   146   000F92                     TRISA           equ	3986	;# 
+   147   000F92                     DDRA            equ	3986	;# 
+   148   000F93                     TRISB           equ	3987	;# 
+   149   000F93                     DDRB            equ	3987	;# 
+   150   000F94                     TRISC           equ	3988	;# 
+   151   000F94                     DDRC            equ	3988	;# 
+   152   000F95                     TRISD           equ	3989	;# 
+   153   000F95                     DDRD            equ	3989	;# 
+   154   000F96                     TRISE           equ	3990	;# 
+   155   000F96                     DDRE            equ	3990	;# 
+   156   000F9B                     OSCTUNE         equ	3995	;# 
+   157   000F9D                     PIE1            equ	3997	;# 
+   158   000F9E                     PIR1            equ	3998	;# 
+   159   000F9F                     IPR1            equ	3999	;# 
+   160   000FA0                     PIE2            equ	4000	;# 
+   161   000FA1                     PIR2            equ	4001	;# 
+   162   000FA2                     IPR2            equ	4002	;# 
+   163   000FA6                     EECON1          equ	4006	;# 
+   164   000FA7                     EECON2          equ	4007	;# 
+   165   000FA8                     EEDATA          equ	4008	;# 
+   166   000FA9                     EEADR           equ	4009	;# 
+   167   000FAB                     RCSTA           equ	4011	;# 
+   168   000FAB                     RCSTA1          equ	4011	;# 
+   169   000FAC                     TXSTA           equ	4012	;# 
+   170   000FAC                     TXSTA1          equ	4012	;# 
+   171   000FAD                     TXREG           equ	4013	;# 
+   172   000FAD                     TXREG1          equ	4013	;# 
+   173   000FAE                     RCREG           equ	4014	;# 
+   174   000FAE                     RCREG1          equ	4014	;# 
+   175   000FAF                     SPBRG           equ	4015	;# 
+   176   000FAF                     SPBRG1          equ	4015	;# 
+   177   000FB0                     SPBRGH          equ	4016	;# 
+   178   000FB1                     T3CON           equ	4017	;# 
+   179   000FB2                     TMR3            equ	4018	;# 
+   180   000FB2                     TMR3L           equ	4018	;# 
+   181   000FB3                     TMR3H           equ	4019	;# 
+   182   000FB4                     CMCON           equ	4020	;# 
+   183   000FB5                     CVRCON          equ	4021	;# 
+   184   000FB6                     ECCP1AS         equ	4022	;# 
+   185   000FB6                     CCP1AS          equ	4022	;# 
+   186   000FB7                     ECCP1DEL        equ	4023	;# 
+   187   000FB7                     CCP1DEL         equ	4023	;# 
+   188   000FB8                     BAUDCON         equ	4024	;# 
+   189   000FB8                     BAUDCTL         equ	4024	;# 
+   190   000FBA                     CCP2CON         equ	4026	;# 
+   191   000FBB                     CCPR2           equ	4027	;# 
+   192   000FBB                     CCPR2L          equ	4027	;# 
+   193   000FBC                     CCPR2H          equ	4028	;# 
+   194   000FBD                     CCP1CON         equ	4029	;# 
+   195   000FBD                     ECCP1CON        equ	4029	;# 
+   196   000FBE                     CCPR1           equ	4030	;# 
+   197   000FBE                     CCPR1L          equ	4030	;# 
+   198   000FBF                     CCPR1H          equ	4031	;# 
+   199   000FC0                     ADCON2          equ	4032	;# 
+   200   000FC1                     ADCON1          equ	4033	;# 
+   201   000FC2                     ADCON0          equ	4034	;# 
+   202   000FC3                     ADRES           equ	4035	;# 
+   203   000FC3                     ADRESL          equ	4035	;# 
+   204   000FC4                     ADRESH          equ	4036	;# 
+   205   000FC5                     SSPCON2         equ	4037	;# 
+   206   000FC6                     SSPCON1         equ	4038	;# 
+   207   000FC7                     SSPSTAT         equ	4039	;# 
+   208   000FC8                     SSPADD          equ	4040	;# 
+   209   000FC9                     SSPBUF          equ	4041	;# 
+   210   000FCA                     T2CON           equ	4042	;# 
+   211   000FCB                     PR2             equ	4043	;# 
+   212   000FCB                     MEMCON          equ	4043	;# 
+   213   000FCC                     TMR2            equ	4044	;# 
+   214   000FCD                     T1CON           equ	4045	;# 
+   215   000FCE                     TMR1            equ	4046	;# 
+   216   000FCE                     TMR1L           equ	4046	;# 
+   217   000FCF                     TMR1H           equ	4047	;# 
+   218   000FD0                     RCON            equ	4048	;# 
+   219   000FD1                     WDTCON          equ	4049	;# 
+   220   000FD2                     HLVDCON         equ	4050	;# 
+   221   000FD2                     LVDCON          equ	4050	;# 
+   222   000FD3                     OSCCON          equ	4051	;# 
+   223   000FD5                     T0CON           equ	4053	;# 
+   224   000FD6                     TMR0            equ	4054	;# 
+   225   000FD6                     TMR0L           equ	4054	;# 
+   226   000FD7                     TMR0H           equ	4055	;# 
+   227   000FD8                     STATUS          equ	4056	;# 
+   228   000FD9                     FSR2            equ	4057	;# 
+   229   000FD9                     FSR2L           equ	4057	;# 
+   230   000FDA                     FSR2H           equ	4058	;# 
+   231   000FDB                     PLUSW2          equ	4059	;# 
+   232   000FDC                     PREINC2         equ	4060	;# 
+   233   000FDD                     POSTDEC2        equ	4061	;# 
+   234   000FDE                     POSTINC2        equ	4062	;# 
+   235   000FDF                     INDF2           equ	4063	;# 
+   236   000FE0                     BSR             equ	4064	;# 
+   237   000FE1                     FSR1            equ	4065	;# 
+   238   000FE1                     FSR1L           equ	4065	;# 
+   239   000FE2                     FSR1H           equ	4066	;# 
+   240   000FE3                     PLUSW1          equ	4067	;# 
+   241   000FE4                     PREINC1         equ	4068	;# 
+   242   000FE5                     POSTDEC1        equ	4069	;# 
+   243   000FE6                     POSTINC1        equ	4070	;# 
+   244   000FE7                     INDF1           equ	4071	;# 
+   245   000FE8                     WREG            equ	4072	;# 
+   246   000FE9                     FSR0            equ	4073	;# 
+   247   000FE9                     FSR0L           equ	4073	;# 
+   248   000FEA                     FSR0H           equ	4074	;# 
+   249   000FEB                     PLUSW0          equ	4075	;# 
+   250   000FEC                     PREINC0         equ	4076	;# 
+   251   000FED                     POSTDEC0        equ	4077	;# 
+   252   000FEE                     POSTINC0        equ	4078	;# 
+   253   000FEF                     INDF0           equ	4079	;# 
+   254   000FF0                     INTCON3         equ	4080	;# 
+   255   000FF1                     INTCON2         equ	4081	;# 
+   256   000FF2                     INTCON          equ	4082	;# 
+   257   000FF3                     PROD            equ	4083	;# 
+   258   000FF3                     PRODL           equ	4083	;# 
+   259   000FF4                     PRODH           equ	4084	;# 
+   260   000FF5                     TABLAT          equ	4085	;# 
+   261   000FF6                     TBLPTR          equ	4086	;# 
+   262   000FF6                     TBLPTRL         equ	4086	;# 
+   263   000FF7                     TBLPTRH         equ	4087	;# 
+   264   000FF8                     TBLPTRU         equ	4088	;# 
+   265   000FF9                     PCLAT           equ	4089	;# 
+   266   000FF9                     PC              equ	4089	;# 
+   267   000FF9                     PCL             equ	4089	;# 
+   268   000FFA                     PCLATH          equ	4090	;# 
+   269   000FFB                     PCLATU          equ	4091	;# 
+   270   000FFC                     STKPTR          equ	4092	;# 
+   271   000FFD                     TOS             equ	4093	;# 
+   272   000FFD                     TOSL            equ	4093	;# 
+   273   000FFE                     TOSH            equ	4094	;# 
+   274   000FFF                     TOSU            equ	4095	;# 
+   275   000FD3                     _OSCCON         set	4051
+   276   000FC3                     _ADRESL         set	4035
+   277   000FC4                     _ADRESH         set	4036
+   278   000FC2                     _ADCON0bits     set	4034
+   279   000FC2                     _ADCON0         set	4034
+   280   000FC0                     _ADCON2         set	4032
+   281   000FC1                     _ADCON1         set	4033
+   282   000F92                     _TRISAbits      set	3986
+   283   000F8A                     _LATBbits       set	3978
+   284   000F93                     _TRISBbits      set	3987
+   285                           
+   286                           	psect	smallconst
+   287   000800                     __psmallconst:
+   288                           	callstack 0
+   289   000800  00                 	db	0
+   290   000801                     STR_4:
+   291   000801  41                 	db	65	;'A'
+   292   000802  49                 	db	73	;'I'
+   293   000803  52                 	db	82	;'R'
+   294   000804  45                 	db	69	;'E'
+   295   000805  00                 	db	0
+   296   000806                     STR_5:
+   297   000806  4D                 	db	77	;'M'
+   298   000807  41                 	db	65	;'A'
+   299   000808  4C                 	db	76	;'L'
+   300   000809  4F                 	db	79	;'O'
+   301   00080A  00                 	db	0
+   302   00080B                     STR_2:
+   303   00080B  54                 	db	84	;'T'
+   304   00080C  45                 	db	69	;'E'
+   305   00080D  4D                 	db	77	;'M'
+   306   00080E  50                 	db	80	;'P'
+   307   00080F  00                 	db	0
+   308   000810                     STR_3:
+   309   000810  4C                 	db	76	;'L'
+   310   000811  55                 	db	85	;'U'
+   311   000812  5A                 	db	90	;'Z'
+   312   000813  00                 	db	0
+   313   000814                     STR_6:
+   314   000814  4F                 	db	79	;'O'
+   315   000815  4B                 	db	75	;'K'
+   316   000816  00                 	db	0
+   317   000817                     STR_1:
+   318   000817  30                 	db	48	;'0'
+   319   000818  00                 	db	0
+   320   000819  00                 	db	0	; dummy byte at the end
+   321   000800                     __smallconst    set	__psmallconst
+   322   000800                     __mediumconst   set	__psmallconst
+   323   000001                     __activetblptr  equ	1
+   324                           
+   325                           ; #config settings
+   326                           
+   327                           	psect	cinit
+   328   000D28                     __pcinit:
+   329                           	callstack 0
+   330   000D28                     start_initialization:
+   331                           	callstack 0
+   332   000D28                     __initialization:
+   333                           	callstack 0
+   334   000D28                     end_of_initialization:
+   335                           	callstack 0
+   336   000D28                     __end_of__initialization:
+   337                           	callstack 0
+   338   000D28  0E00               	movlw	low (__Lsmallconst shr (0+16))
+   339   000D2A  6EF8               	movwf	tblptru,c
+   340   000D2C  0E08               	movlw	high __Lsmallconst
+   341   000D2E  6EF7               	movwf	tblptrh,c
+   342   000D30  0100               	movlb	0
+   343   000D32  EF0D  F004         	goto	_main	;jump to C main() function
+   344                           
+   345                           	psect	cstackCOMRAM
+   346   000001                     __pcstackCOMRAM:
+   347                           	callstack 0
+   348   000001                     ?___lwdiv:
+   349                           	callstack 0
+   350   000001                     ?___lwmod:
+   351                           	callstack 0
+   352   000001                     ?_ADC_Read:
+   353                           	callstack 0
+   354   000001                     ___lwdiv@dividend:
+   355                           	callstack 0
+   356   000001                     ___lwmod@dividend:
+   357                           	callstack 0
+   358   000001                     ??_I2C_Write:
+   359   000001                     
+   360                           ; 1 bytes @ 0x0
+   361   000001                     	ds	1
+   362   000002                     I2C_Write@data:
+   363                           	callstack 0
+   364                           
+   365                           ; 1 bytes @ 0x1
+   366   000002                     	ds	1
+   367   000003                     I2C_Write@i:
+   368                           	callstack 0
+   369   000003                     ___lwdiv@divisor:
+   370                           	callstack 0
+   371   000003                     ___lwmod@divisor:
+   372                           	callstack 0
+   373   000003                     ??_ADC_Read:
+   374                           
+   375                           ; 1 bytes @ 0x2
+   376   000003                     	ds	1
+   377   000004                     OLED_Comando@cmd:
+   378                           	callstack 0
+   379   000004                     OLED_Dato@d:
+   380                           	callstack 0
+   381   000004                     
+   382                           ; 1 bytes @ 0x3
+   383   000004                     	ds	1
+   384   000005                     OLED_SetCursor@c:
+   385                           	callstack 0
+   386   000005                     OLED_Char@i:
+   387                           	callstack 0
+   388   000005                     ADC_Read@c:
+   389                           	callstack 0
+   390   000005                     ___lwmod@counter:
+   391                           	callstack 0
+   392   000005                     ___lwdiv@quotient:
+   393                           	callstack 0
+   394   000005                     
+   395                           ; 1 bytes @ 0x4
+   396   000005                     	ds	1
+   397   000006                     ?_ADC_ReadAvg:
+   398                           	callstack 0
+   399   000006                     OLED_SetCursor@p:
+   400                           	callstack 0
+   401   000006                     
+   402                           ; 1 bytes @ 0x5
+   403   000006                     	ds	1
+   404   000007                     OLED_Clear@j:
+   405                           	callstack 0
+   406   000007                     OLED_String@c:
+   407                           	callstack 0
+   408   000007                     ___lwdiv@counter:
+   409                           	callstack 0
+   410   000007                     
+   411                           ; 1 bytes @ 0x6
+   412   000007                     	ds	1
+   413   000008                     OLED_Clear@i:
+   414                           	callstack 0
+   415   000008                     OLED_String@t:
+   416                           	callstack 0
+   417   000008                     ??_ADC_ReadAvg:
+   418                           
+   419                           ; 1 bytes @ 0x7
+   420   000008                     	ds	1
+   421   000009                     OLED_String@p:
+   422                           	callstack 0
+   423   000009                     ??_OLED_Init:
+   424   000009                     
+   425                           ; 1 bytes @ 0x8
+   426   000009                     	ds	1
+   427   00000A                     OLED_Numero@c:
+   428                           	callstack 0
+   429                           
+   430                           ; 1 bytes @ 0x9
+   431   00000A                     	ds	1
+   432   00000B                     OLED_Numero@num:
+   433                           	callstack 0
+   434                           
+   435                           ; 2 bytes @ 0xA
+   436   00000B                     	ds	1
+   437   00000C                     ADC_ReadAvg@c:
+   438                           	callstack 0
+   439                           
+   440                           ; 1 bytes @ 0xB
+   441   00000C                     	ds	1
+   442   00000D                     ADC_ReadAvg@s:
+   443                           	callstack 0
+   444   00000D                     OLED_Numero@buf:
+   445                           	callstack 0
+   446   00000D                     
+   447                           ; 1 bytes @ 0xC
+   448   00000D                     	ds	4
+   449   000011                     ADC_ReadAvg@i:
+   450                           	callstack 0
+   451                           
+   452                           ; 1 bytes @ 0x10
+   453   000011                     	ds	2
+   454   000013                     OLED_Numero@p:
+   455                           	callstack 0
+   456                           
+   457                           ; 1 bytes @ 0x12
+   458   000013                     	ds	1
+   459   000014                     OLED_Numero@i:
+   460                           	callstack 0
+   461                           
+   462                           ; 2 bytes @ 0x13
+   463   000014                     	ds	2
+   464   000016                     ??_main:
+   465                           
+   466                           ; 1 bytes @ 0x15
+   467   000016                     	ds	5
+   468   00001B                     main@t:
+   469                           	callstack 0
+   470                           
+   471                           ; 2 bytes @ 0x1A
+   472   00001B                     	ds	2
+   473   00001D                     main@l:
+   474                           	callstack 0
+   475                           
+   476                           ; 2 bytes @ 0x1C
+   477   00001D                     	ds	2
+   478   00001F                     main@a:
+   479                           	callstack 0
+   480                           
+   481                           ; 2 bytes @ 0x1E
+   482   00001F                     	ds	2
+   483   000021                     main@temp:
+   484                           	callstack 0
+   485                           
+   486                           ; 2 bytes @ 0x20
+   487   000021                     	ds	2
+   488                           
+   489 ;;
+   490 ;;Main: autosize = 0, tempsize = 5, incstack = 0, save=0
+   491 ;;
+   492 ;; *************** function _main *****************
+   493 ;; Defined at:
+   494 ;;		line 150 in file "oled_dht.c"
+   495 ;; Parameters:    Size  Location     Type
+   496 ;;		None
+   497 ;; Auto vars:     Size  Location     Type
+   498 ;;  temp            2   32[COMRAM] unsigned int 
+   499 ;;  a               2   30[COMRAM] unsigned int 
+   500 ;;  l               2   28[COMRAM] unsigned int 
+   501 ;;  t               2   26[COMRAM] unsigned int 
+   502 ;; Return value:  Size  Location     Type
+   503 ;;                  1    wreg      void 
+   504 ;; Registers used:
+   505 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+   506 ;; Tracked objects:
+   507 ;;		On entry : 0/0
+   508 ;;		On exit  : 0/0
+   509 ;;		Unchanged: 0/0
+   510 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   511 ;;      Params:         0       0       0       0       0       0       0       0       0
+   512 ;;      Locals:         8       0       0       0       0       0       0       0       0
+   513 ;;      Temps:          5       0       0       0       0       0       0       0       0
+   514 ;;      Totals:        13       0       0       0       0       0       0       0       0
+   515 ;;Total ram usage:       13 bytes
+   516 ;; Hardware stack levels required when called: 4
+   517 ;; This function calls:
+   518 ;;		_ADC_Init
+   519 ;;		_ADC_ReadAvg
+   520 ;;		_OLED_Clear
+   521 ;;		_OLED_Init
+   522 ;;		_OLED_Numero
+   523 ;;		_OLED_String
+   524 ;; This function is called by:
+   525 ;;		Startup code after reset
+   526 ;; This function uses a non-reentrant model
+   527 ;;
+   528                           
+   529                           	psect	text0
+   530   00081A                     __ptext0:
+   531                           	callstack 0
+   532   00081A                     _main:
+   533                           	callstack 27
+   534   00081A                     
+   535                           ;oled_dht.c: 152:     unsigned int t,l,a;;oled_dht.c: 153:     unsigned int temp;;oled_d
+      +                          ht.c: 155:     OSCCON = 0x72;
+   536   00081A  0E72               	movlw	114
+   537   00081C  6ED3               	movwf	211,c	;volatile
+   538   00081E                     
+   539                           ;oled_dht.c: 157:     ADC_Init();
+   540   00081E  EC8A  F006         	call	_ADC_Init	;wreg free
+   541   000822                     
+   542                           ;oled_dht.c: 158:     OLED_Init();
+   543   000822  EC1F  F006         	call	_OLED_Init	;wreg free
+   544   000826                     l1276:
+   545                           
+   546                           ;oled_dht.c: 162:         t = ADC_ReadAvg(0);
+   547   000826  0E00               	movlw	0
+   548   000828  ECF2  F004         	call	_ADC_ReadAvg
+   549   00082C  C006  F01B         	movff	?_ADC_ReadAvg,main@t
+   550   000830  C007  F01C         	movff	?_ADC_ReadAvg+1,main@t+1
+   551   000834                     
+   552                           ;oled_dht.c: 163:         l = ADC_ReadAvg(1);
+   553   000834  0E01               	movlw	1
+   554   000836  ECF2  F004         	call	_ADC_ReadAvg
+   555   00083A  C006  F01D         	movff	?_ADC_ReadAvg,main@l
+   556   00083E  C007  F01E         	movff	?_ADC_ReadAvg+1,main@l+1
+   557   000842                     
+   558                           ;oled_dht.c: 164:         a = ADC_ReadAvg(2);
+   559   000842  0E02               	movlw	2
+   560   000844  ECF2  F004         	call	_ADC_ReadAvg
+   561   000848  C006  F01F         	movff	?_ADC_ReadAvg,main@a
+   562   00084C  C007  F020         	movff	?_ADC_ReadAvg+1,main@a+1
+   563   000850                     
+   564                           ;oled_dht.c: 166:         temp = (t * 500) / 1024;
+   565   000850  0EF4               	movlw	244
+   566   000852  6E16               	movwf	??_main^0,c
+   567   000854  0E01               	movlw	1
+   568   000856  6E17               	movwf	(??_main+1)^0,c
+   569   000858  5016               	movf	??_main^0,w,c
+   570   00085A  021B               	mulwf	main@t^0,c
+   571   00085C  CFF3 F018          	movff	prodl,??_main+2
+   572   000860  CFF4 F019          	movff	prodh,??_main+3
+   573   000864  021C               	mulwf	(main@t+1)^0,c
+   574   000866  50F3               	movf	prodl,w,c
+   575   000868  2619               	addwf	(??_main+3)^0,f,c
+   576   00086A  5017               	movf	(??_main+1)^0,w,c
+   577   00086C  021B               	mulwf	main@t^0,c
+   578   00086E  50F3               	movf	prodl,w,c
+   579   000870  2619               	addwf	(??_main+3)^0,f,c
+   580   000872  0E0A               	movlw	10
+   581   000874  6E1A               	movwf	(??_main+4)^0,c
+   582   000876                     u375:
+   583   000876  90D8               	bcf	status,0,c
+   584   000878  3219               	rrcf	(??_main+3)^0,f,c
+   585   00087A  3218               	rrcf	(??_main+2)^0,f,c
+   586   00087C  2E1A               	decfsz	(??_main+4)^0,f,c
+   587   00087E  EF3B  F004         	goto	u375
+   588   000882  C018  F021         	movff	??_main+2,main@temp
+   589   000886  C019  F022         	movff	??_main+3,main@temp+1
+   590   00088A                     
+   591                           ;oled_dht.c: 168:         OLED_Clear();
+   592   00088A  ECE6  F005         	call	_OLED_Clear	;wreg free
+   593   00088E                     
+   594                           ;oled_dht.c: 170:         OLED_String(0,0,"TEMP");
+   595   00088E  0E00               	movlw	0
+   596   000890  6E07               	movwf	OLED_String@c^0,c
+   597   000892  0E0B               	movlw	low STR_2
+   598   000894  6E08               	movwf	OLED_String@t^0,c
+   599   000896  0E00               	movlw	0
+   600   000898  EC03  F006         	call	_OLED_String
+   601   00089C                     
+   602                           ;oled_dht.c: 171:         OLED_Numero(2,0,temp);
+   603   00089C  0E00               	movlw	0
+   604   00089E  6E0A               	movwf	OLED_Numero@c^0,c
+   605   0008A0  C021  F00B         	movff	main@temp,OLED_Numero@num
+   606   0008A4  C022  F00C         	movff	main@temp+1,OLED_Numero@num+1
+   607   0008A8  0E02               	movlw	2
+   608   0008AA  EC98  F004         	call	_OLED_Numero
+   609   0008AE                     
+   610                           ;oled_dht.c: 173:         OLED_String(4,0,"LUZ");
+   611   0008AE  0E00               	movlw	0
+   612   0008B0  6E07               	movwf	OLED_String@c^0,c
+   613   0008B2  0E10               	movlw	low STR_3
+   614   0008B4  6E08               	movwf	OLED_String@t^0,c
+   615   0008B6  0E04               	movlw	4
+   616   0008B8  EC03  F006         	call	_OLED_String
+   617   0008BC                     
+   618                           ;oled_dht.c: 174:         OLED_Numero(4,40,l);
+   619   0008BC  0E28               	movlw	40
+   620   0008BE  6E0A               	movwf	OLED_Numero@c^0,c
+   621   0008C0  C01D  F00B         	movff	main@l,OLED_Numero@num
+   622   0008C4  C01E  F00C         	movff	main@l+1,OLED_Numero@num+1
+   623   0008C8  0E04               	movlw	4
+   624   0008CA  EC98  F004         	call	_OLED_Numero
+   625   0008CE                     
+   626                           ;oled_dht.c: 176:         OLED_String(6,0,"AIRE");
+   627   0008CE  0E00               	movlw	0
+   628   0008D0  6E07               	movwf	OLED_String@c^0,c
+   629   0008D2  0E01               	movlw	low STR_4
+   630   0008D4  6E08               	movwf	OLED_String@t^0,c
+   631   0008D6  0E06               	movlw	6
+   632   0008D8  EC03  F006         	call	_OLED_String
+   633   0008DC                     
+   634                           ;oled_dht.c: 178:         if(a > 400)
+   635   0008DC  0E91               	movlw	145
+   636   0008DE  5C1F               	subwf	main@a^0,w,c
+   637   0008E0  0E01               	movlw	1
+   638   0008E2  5820               	subwfb	(main@a+1)^0,w,c
+   639   0008E4  A0D8               	btfss	status,0,c
+   640   0008E6  EF77  F004         	goto	u381
+   641   0008EA  EF79  F004         	goto	u380
+   642   0008EE                     u381:
+   643   0008EE  EF82  F004         	goto	l1300
+   644   0008F2                     u380:
+   645   0008F2                     
+   646                           ;oled_dht.c: 179:             OLED_String(6,40,"MALO");
+   647   0008F2  0E28               	movlw	40
+   648   0008F4  6E07               	movwf	OLED_String@c^0,c
+   649   0008F6  0E06               	movlw	low STR_5
+   650   0008F8  6E08               	movwf	OLED_String@t^0,c
+   651   0008FA  0E06               	movlw	6
+   652   0008FC  EC03  F006         	call	_OLED_String
+   653   000900  EF89  F004         	goto	l1302
+   654   000904                     l1300:
+   655                           
+   656                           ;oled_dht.c: 181:             OLED_String(6,40,"OK");
+   657   000904  0E28               	movlw	40
+   658   000906  6E07               	movwf	OLED_String@c^0,c
+   659   000908  0E14               	movlw	low STR_6
+   660   00090A  6E08               	movwf	OLED_String@t^0,c
+   661   00090C  0E06               	movlw	6
+   662   00090E  EC03  F006         	call	_OLED_String
+   663   000912                     l1302:
+   664                           
+   665                           ;oled_dht.c: 183:         _delay((unsigned long)((500)*(8000000/4000.0)));
+   666   000912  0E06               	movlw	6
+   667   000914  6E17               	movwf	(??_main+1)^0,c
+   668   000916  0E13               	movlw	19
+   669   000918  6E16               	movwf	??_main^0,c
+   670   00091A  0EAE               	movlw	174
+   671   00091C                     u397:
+   672   00091C  2EE8               	decfsz	wreg,f,c
+   673   00091E  D7FE               	bra	u397
+   674   000920  2E16               	decfsz	??_main^0,f,c
+   675   000922  D7FC               	bra	u397
+   676   000924  2E17               	decfsz	(??_main+1)^0,f,c
+   677   000926  D7FA               	bra	u397
+   678   000928  EF13  F004         	goto	l1276
+   679   00092C  EFFE  F03F         	goto	start
+   680   000930                     __end_of_main:
+   681                           	callstack 0
+   682                           
+   683 ;; *************** function _OLED_Numero *****************
+   684 ;; Defined at:
+   685 ;;		line 105 in file "oled_dht.c"
+   686 ;; Parameters:    Size  Location     Type
+   687 ;;  p               1    wreg     unsigned char 
+   688 ;;  c               1    9[COMRAM] unsigned char 
+   689 ;;  num             2   10[COMRAM] unsigned int 
+   690 ;; Auto vars:     Size  Location     Type
+   691 ;;  p               1   18[COMRAM] unsigned char 
+   692 ;;  buf             6   12[COMRAM] unsigned char [6]
+   693 ;;  i               2   19[COMRAM] int 
+   694 ;; Return value:  Size  Location     Type
+   695 ;;                  1    wreg      void 
+   696 ;; Registers used:
+   697 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   698 ;; Tracked objects:
+   699 ;;		On entry : 0/0
+   700 ;;		On exit  : 0/0
+   701 ;;		Unchanged: 0/0
+   702 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   703 ;;      Params:         3       0       0       0       0       0       0       0       0
+   704 ;;      Locals:         9       0       0       0       0       0       0       0       0
+   705 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   706 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   707 ;;Total ram usage:       12 bytes
+   708 ;; Hardware stack levels used: 1
+   709 ;; Hardware stack levels required when called: 2
+   710 ;; This function calls:
+   711 ;;		_OLED_Char
+   712 ;;		_OLED_SetCursor
+   713 ;;		_OLED_String
+   714 ;;		___lwdiv
+   715 ;;		___lwmod
+   716 ;; This function is called by:
+   717 ;;		_main
+   718 ;; This function uses a non-reentrant model
+   719 ;;
+   720                           
+   721                           	psect	text1
+   722   000930                     __ptext1:
+   723                           	callstack 0
+   724   000930                     _OLED_Numero:
+   725                           	callstack 28
+   726                           
+   727                           ;incstack = 0
+   728                           ;OLED_Numero@p stored from wreg
+   729   000930  6E13               	movwf	OLED_Numero@p^0,c
+   730   000932                     
+   731                           ;oled_dht.c: 106:     char buf[6];;oled_dht.c: 107:     int i=0;
+   732   000932  6A15               	clrf	(OLED_Numero@i+1)^0,c
+   733   000934  0E00               	movlw	0
+   734   000936  6E14               	movwf	OLED_Numero@i^0,c
+   735   000938                     
+   736                           ;oled_dht.c: 108:     if(num==0){ OLED_String(p,c,"0"); return; }
+   737   000938  500B               	movf	OLED_Numero@num^0,w,c
+   738   00093A  100C               	iorwf	(OLED_Numero@num+1)^0,w,c
+   739   00093C  A4D8               	btfss	status,2,c
+   740   00093E  EFA3  F004         	goto	u321
+   741   000942  EFA5  F004         	goto	u320
+   742   000946                     u321:
+   743   000946  EFCD  F004         	goto	l1242
+   744   00094A                     u320:
+   745   00094A  C00A  F007         	movff	OLED_Numero@c,OLED_String@c
+   746   00094E  0E17               	movlw	low STR_1
+   747   000950  6E08               	movwf	OLED_String@t^0,c
+   748   000952  5013               	movf	OLED_Numero@p^0,w,c
+   749   000954  EC03  F006         	call	_OLED_String
+   750   000958  EFF1  F004         	goto	l70
+   751   00095C                     l1236:
+   752   00095C  5014               	movf	OLED_Numero@i^0,w,c
+   753   00095E  0F0D               	addlw	low OLED_Numero@buf
+   754   000960  6ED9               	movwf	fsr2l,c
+   755   000962  6ADA               	clrf	fsr2h,c
+   756   000964  C00B  F001         	movff	OLED_Numero@num,___lwmod@dividend
+   757   000968  C00C  F002         	movff	OLED_Numero@num+1,___lwmod@dividend+1
+   758   00096C  6A04               	clrf	(___lwmod@divisor+1)^0,c
+   759   00096E  0E0A               	movlw	10
+   760   000970  6E03               	movwf	___lwmod@divisor^0,c
+   761   000972  EC68  F005         	call	___lwmod	;wreg free
+   762   000976  5001               	movf	?___lwmod^0,w,c
+   763   000978  0F30               	addlw	48
+   764   00097A  6EDF               	movwf	indf2,c
+   765   00097C  4A14               	infsnz	OLED_Numero@i^0,f,c
+   766   00097E  2A15               	incf	(OLED_Numero@i+1)^0,f,c
+   767   000980  C00B  F001         	movff	OLED_Numero@num,___lwdiv@dividend
+   768   000984  C00C  F002         	movff	OLED_Numero@num+1,___lwdiv@dividend+1
+   769   000988  6A04               	clrf	(___lwdiv@divisor+1)^0,c
+   770   00098A  0E0A               	movlw	10
+   771   00098C  6E03               	movwf	___lwdiv@divisor^0,c
+   772   00098E  EC2F  F005         	call	___lwdiv	;wreg free
+   773   000992  C001  F00B         	movff	?___lwdiv,OLED_Numero@num
+   774   000996  C002  F00C         	movff	?___lwdiv+1,OLED_Numero@num+1
+   775   00099A                     l1242:
+   776   00099A  500B               	movf	OLED_Numero@num^0,w,c
+   777   00099C  100C               	iorwf	(OLED_Numero@num+1)^0,w,c
+   778   00099E  A4D8               	btfss	status,2,c
+   779   0009A0  EFD4  F004         	goto	u331
+   780   0009A4  EFD6  F004         	goto	u330
+   781   0009A8                     u331:
+   782   0009A8  EFAE  F004         	goto	l1236
+   783   0009AC                     u330:
+   784   0009AC                     
+   785                           ;oled_dht.c: 110:     OLED_SetCursor(p,c);
+   786   0009AC  C00A  F005         	movff	OLED_Numero@c,OLED_SetCursor@c
+   787   0009B0  5013               	movf	OLED_Numero@p^0,w,c
+   788   0009B2  EC48  F006         	call	_OLED_SetCursor
+   789                           
+   790                           ;oled_dht.c: 111:     while(i--) OLED_Char(buf[i]);
+   791   0009B6  EFE4  F004         	goto	l1248
+   792   0009BA                     l1246:
+   793   0009BA  5014               	movf	OLED_Numero@i^0,w,c
+   794   0009BC  0F0D               	addlw	low OLED_Numero@buf
+   795   0009BE  6ED9               	movwf	fsr2l,c
+   796   0009C0  6ADA               	clrf	fsr2h,c
+   797   0009C2  50DF               	movf	indf2,w,c
+   798   0009C4  EC37  F006         	call	_OLED_Char
+   799   0009C8                     l1248:
+   800   0009C8  0614               	decf	OLED_Numero@i^0,f,c
+   801   0009CA  A0D8               	btfss	status,0,c
+   802   0009CC  0615               	decf	(OLED_Numero@i+1)^0,f,c
+   803   0009CE  2814               	incf	OLED_Numero@i^0,w,c
+   804   0009D0  E106               	bnz	u341
+   805   0009D2  2815               	incf	(OLED_Numero@i+1)^0,w,c
+   806   0009D4  A4D8               	btfss	status,2,c
+   807   0009D6  EFEF  F004         	goto	u341
+   808   0009DA  EFF1  F004         	goto	u340
+   809   0009DE                     u341:
+   810   0009DE  EFDD  F004         	goto	l1246
+   811   0009E2                     u340:
+   812   0009E2                     l70:
+   813   0009E2  0012               	return		;funcret
+   814   0009E4                     __end_of_OLED_Numero:
+   815                           	callstack 0
+   816                           
+   817 ;; *************** function ___lwmod *****************
+   818 ;; Defined at:
+   819 ;;		line 7 in file "C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwmod.c"
+   820 ;; Parameters:    Size  Location     Type
+   821 ;;  dividend        2    0[COMRAM] unsigned int 
+   822 ;;  divisor         2    2[COMRAM] unsigned int 
+   823 ;; Auto vars:     Size  Location     Type
+   824 ;;  counter         1    4[COMRAM] unsigned char 
+   825 ;; Return value:  Size  Location     Type
+   826 ;;                  2    0[COMRAM] unsigned int 
+   827 ;; Registers used:
+   828 ;;		wreg, status,2, status,0
+   829 ;; Tracked objects:
+   830 ;;		On entry : 0/0
+   831 ;;		On exit  : 0/0
+   832 ;;		Unchanged: 0/0
+   833 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   834 ;;      Params:         4       0       0       0       0       0       0       0       0
+   835 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   836 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   837 ;;      Totals:         5       0       0       0       0       0       0       0       0
+   838 ;;Total ram usage:        5 bytes
+   839 ;; Hardware stack levels used: 1
+   840 ;; This function calls:
+   841 ;;		Nothing
+   842 ;; This function is called by:
+   843 ;;		_OLED_Numero
+   844 ;; This function uses a non-reentrant model
+   845 ;;
+   846                           
+   847                           	psect	text2
+   848   000AD0                     __ptext2:
+   849                           	callstack 0
+   850   000AD0                     ___lwmod:
+   851                           	callstack 29
+   852   000AD0  5003               	movf	___lwmod@divisor^0,w,c
+   853   000AD2  1004               	iorwf	(___lwmod@divisor+1)^0,w,c
+   854   000AD4  B4D8               	btfsc	status,2,c
+   855   000AD6  EF6F  F005         	goto	u291
+   856   000ADA  EF71  F005         	goto	u290
+   857   000ADE                     u291:
+   858   000ADE  EF95  F005         	goto	l714
+   859   000AE2                     u290:
+   860   000AE2  0E01               	movlw	1
+   861   000AE4  6E05               	movwf	___lwmod@counter^0,c
+   862   000AE6  EF79  F005         	goto	l1208
+   863   000AEA                     l1206:
+   864   000AEA  90D8               	bcf	status,0,c
+   865   000AEC  3603               	rlcf	___lwmod@divisor^0,f,c
+   866   000AEE  3604               	rlcf	(___lwmod@divisor+1)^0,f,c
+   867   000AF0  2A05               	incf	___lwmod@counter^0,f,c
+   868   000AF2                     l1208:
+   869   000AF2  AE04               	btfss	(___lwmod@divisor+1)^0,7,c
+   870   000AF4  EF7E  F005         	goto	u301
+   871   000AF8  EF80  F005         	goto	u300
+   872   000AFC                     u301:
+   873   000AFC  EF75  F005         	goto	l1206
+   874   000B00                     u300:
+   875   000B00                     l1210:
+   876   000B00  5003               	movf	___lwmod@divisor^0,w,c
+   877   000B02  5C01               	subwf	___lwmod@dividend^0,w,c
+   878   000B04  5004               	movf	(___lwmod@divisor+1)^0,w,c
+   879   000B06  5802               	subwfb	(___lwmod@dividend+1)^0,w,c
+   880   000B08  A0D8               	btfss	status,0,c
+   881   000B0A  EF89  F005         	goto	u311
+   882   000B0E  EF8B  F005         	goto	u310
+   883   000B12                     u311:
+   884   000B12  EF8F  F005         	goto	l1214
+   885   000B16                     u310:
+   886   000B16  5003               	movf	___lwmod@divisor^0,w,c
+   887   000B18  5E01               	subwf	___lwmod@dividend^0,f,c
+   888   000B1A  5004               	movf	(___lwmod@divisor+1)^0,w,c
+   889   000B1C  5A02               	subwfb	(___lwmod@dividend+1)^0,f,c
+   890   000B1E                     l1214:
+   891   000B1E  90D8               	bcf	status,0,c
+   892   000B20  3204               	rrcf	(___lwmod@divisor+1)^0,f,c
+   893   000B22  3203               	rrcf	___lwmod@divisor^0,f,c
+   894   000B24  2E05               	decfsz	___lwmod@counter^0,f,c
+   895   000B26  EF80  F005         	goto	l1210
+   896   000B2A                     l714:
+   897   000B2A  C001  F001         	movff	___lwmod@dividend,?___lwmod
+   898   000B2E  C002  F002         	movff	___lwmod@dividend+1,?___lwmod+1
+   899   000B32  0012               	return		;funcret
+   900   000B34                     __end_of___lwmod:
+   901                           	callstack 0
+   902                           
+   903 ;; *************** function ___lwdiv *****************
+   904 ;; Defined at:
+   905 ;;		line 7 in file "C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwdiv.c"
+   906 ;; Parameters:    Size  Location     Type
+   907 ;;  dividend        2    0[COMRAM] unsigned int 
+   908 ;;  divisor         2    2[COMRAM] unsigned int 
+   909 ;; Auto vars:     Size  Location     Type
+   910 ;;  quotient        2    4[COMRAM] unsigned int 
+   911 ;;  counter         1    6[COMRAM] unsigned char 
+   912 ;; Return value:  Size  Location     Type
+   913 ;;                  2    0[COMRAM] unsigned int 
+   914 ;; Registers used:
+   915 ;;		wreg, status,2, status,0
+   916 ;; Tracked objects:
+   917 ;;		On entry : 0/0
+   918 ;;		On exit  : 0/0
+   919 ;;		Unchanged: 0/0
+   920 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   921 ;;      Params:         4       0       0       0       0       0       0       0       0
+   922 ;;      Locals:         3       0       0       0       0       0       0       0       0
+   923 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   924 ;;      Totals:         7       0       0       0       0       0       0       0       0
+   925 ;;Total ram usage:        7 bytes
+   926 ;; Hardware stack levels used: 1
+   927 ;; This function calls:
+   928 ;;		Nothing
+   929 ;; This function is called by:
+   930 ;;		_OLED_Numero
+   931 ;; This function uses a non-reentrant model
+   932 ;;
+   933                           
+   934                           	psect	text3
+   935   000A5E                     __ptext3:
+   936                           	callstack 0
+   937   000A5E                     ___lwdiv:
+   938                           	callstack 29
+   939   000A5E  6A06               	clrf	(___lwdiv@quotient+1)^0,c
+   940   000A60  0E00               	movlw	0
+   941   000A62  6E05               	movwf	___lwdiv@quotient^0,c
+   942   000A64  5003               	movf	___lwdiv@divisor^0,w,c
+   943   000A66  1004               	iorwf	(___lwdiv@divisor+1)^0,w,c
+   944   000A68  B4D8               	btfsc	status,2,c
+   945   000A6A  EF39  F005         	goto	u261
+   946   000A6E  EF3B  F005         	goto	u260
+   947   000A72                     u261:
+   948   000A72  EF63  F005         	goto	l704
+   949   000A76                     u260:
+   950   000A76  0E01               	movlw	1
+   951   000A78  6E07               	movwf	___lwdiv@counter^0,c
+   952   000A7A  EF43  F005         	goto	l1188
+   953   000A7E                     l1186:
+   954   000A7E  90D8               	bcf	status,0,c
+   955   000A80  3603               	rlcf	___lwdiv@divisor^0,f,c
+   956   000A82  3604               	rlcf	(___lwdiv@divisor+1)^0,f,c
+   957   000A84  2A07               	incf	___lwdiv@counter^0,f,c
+   958   000A86                     l1188:
+   959   000A86  AE04               	btfss	(___lwdiv@divisor+1)^0,7,c
+   960   000A88  EF48  F005         	goto	u271
+   961   000A8C  EF4A  F005         	goto	u270
+   962   000A90                     u271:
+   963   000A90  EF3F  F005         	goto	l1186
+   964   000A94                     u270:
+   965   000A94                     l1190:
+   966   000A94  90D8               	bcf	status,0,c
+   967   000A96  3605               	rlcf	___lwdiv@quotient^0,f,c
+   968   000A98  3606               	rlcf	(___lwdiv@quotient+1)^0,f,c
+   969   000A9A  5003               	movf	___lwdiv@divisor^0,w,c
+   970   000A9C  5C01               	subwf	___lwdiv@dividend^0,w,c
+   971   000A9E  5004               	movf	(___lwdiv@divisor+1)^0,w,c
+   972   000AA0  5802               	subwfb	(___lwdiv@dividend+1)^0,w,c
+   973   000AA2  A0D8               	btfss	status,0,c
+   974   000AA4  EF56  F005         	goto	u281
+   975   000AA8  EF58  F005         	goto	u280
+   976   000AAC                     u281:
+   977   000AAC  EF5D  F005         	goto	l1198
+   978   000AB0                     u280:
+   979   000AB0  5003               	movf	___lwdiv@divisor^0,w,c
+   980   000AB2  5E01               	subwf	___lwdiv@dividend^0,f,c
+   981   000AB4  5004               	movf	(___lwdiv@divisor+1)^0,w,c
+   982   000AB6  5A02               	subwfb	(___lwdiv@dividend+1)^0,f,c
+   983   000AB8  8005               	bsf	___lwdiv@quotient^0,0,c
+   984   000ABA                     l1198:
+   985   000ABA  90D8               	bcf	status,0,c
+   986   000ABC  3204               	rrcf	(___lwdiv@divisor+1)^0,f,c
+   987   000ABE  3203               	rrcf	___lwdiv@divisor^0,f,c
+   988   000AC0  2E07               	decfsz	___lwdiv@counter^0,f,c
+   989   000AC2  EF4A  F005         	goto	l1190
+   990   000AC6                     l704:
+   991   000AC6  C005  F001         	movff	___lwdiv@quotient,?___lwdiv
+   992   000ACA  C006  F002         	movff	___lwdiv@quotient+1,?___lwdiv+1
+   993   000ACE  0012               	return		;funcret
+   994   000AD0                     __end_of___lwdiv:
+   995                           	callstack 0
+   996                           
+   997 ;; *************** function _OLED_String *****************
+   998 ;; Defined at:
+   999 ;;		line 100 in file "oled_dht.c"
+  1000 ;; Parameters:    Size  Location     Type
+  1001 ;;  p               1    wreg     unsigned char 
+  1002 ;;  c               1    6[COMRAM] unsigned char 
+  1003 ;;  t               1    7[COMRAM] PTR const unsigned char 
+  1004 ;;		 -> STR_6(3), STR_5(5), STR_4(5), STR_3(4), 
+  1005 ;;		 -> STR_2(5), STR_1(2), 
+  1006 ;; Auto vars:     Size  Location     Type
+  1007 ;;  p               1    8[COMRAM] unsigned char 
+  1008 ;; Return value:  Size  Location     Type
+  1009 ;;                  1    wreg      void 
+  1010 ;; Registers used:
+  1011 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+  1012 ;; Tracked objects:
+  1013 ;;		On entry : 0/0
+  1014 ;;		On exit  : 0/0
+  1015 ;;		Unchanged: 0/0
+  1016 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1017 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1018 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1019 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1020 ;;      Totals:         3       0       0       0       0       0       0       0       0
+  1021 ;;Total ram usage:        3 bytes
+  1022 ;; Hardware stack levels used: 1
+  1023 ;; This function calls:
+  1024 ;;		_OLED_Char
+  1025 ;;		_OLED_SetCursor
+  1026 ;; This function is called by:
+  1027 ;;		_OLED_Numero
+  1028 ;;		_main
+  1029 ;; This function uses a non-reentrant model
+  1030 ;;
+  1031                           
+  1032                           	psect	text4
+  1033   000C06                     __ptext4:
+  1034                           	callstack 0
+  1035   000C06                     _OLED_String:
+  1036                           	callstack 29
+  1037                           
+  1038                           ;incstack = 0
+  1039                           ;OLED_String@p stored from wreg
+  1040   000C06  6E09               	movwf	OLED_String@p^0,c
+  1041   000C08                     
+  1042                           ;oled_dht.c: 101:     OLED_SetCursor(p,c);
+  1043   000C08  C007  F005         	movff	OLED_String@c,OLED_SetCursor@c
+  1044   000C0C  5009               	movf	OLED_String@p^0,w,c
+  1045   000C0E  EC48  F006         	call	_OLED_SetCursor
+  1046                           
+  1047                           ;oled_dht.c: 102:     while(*t) OLED_Char(*t++);
+  1048   000C12  EF12  F006         	goto	l1168
+  1049   000C16                     l1164:
+  1050   000C16  C008  FFF6         	movff	OLED_String@t,tblptrl
+  1051   000C1A                     	if	0	;There is only one active tblptr byte
+  1052   000C1A                     	endif
+  1053   000C1A                     	if	0	;tblptru may be non-zero
+  1054   000C1A                     	endif
+  1055   000C1A                     	if	0	;tblptru may be non-zero
+  1056   000C1A                     	endif
+  1057   000C1A  0008               	tblrd		*
+  1058   000C1C  50F5               	movf	tablat,w,c
+  1059   000C1E  EC37  F006         	call	_OLED_Char
+  1060   000C22  2A08               	incf	OLED_String@t^0,f,c
+  1061   000C24                     l1168:
+  1062   000C24  C008  FFF6         	movff	OLED_String@t,tblptrl
+  1063   000C28                     	if	0	;There is only one active tblptr byte
+  1064   000C28                     	endif
+  1065   000C28                     	if	0	;tblptru may be non-zero
+  1066   000C28                     	endif
+  1067   000C28                     	if	0	;tblptru may be non-zero
+  1068   000C28                     	endif
+  1069   000C28  0008               	tblrd		*
+  1070   000C2A  50F5               	movf	tablat,w,c
+  1071   000C2C  0900               	iorlw	0
+  1072   000C2E  A4D8               	btfss	status,2,c
+  1073   000C30  EF1C  F006         	goto	u241
+  1074   000C34  EF1E  F006         	goto	u240
+  1075   000C38                     u241:
+  1076   000C38  EF0B  F006         	goto	l1164
+  1077   000C3C                     u240:
+  1078   000C3C  0012               	return		;funcret
+  1079   000C3E                     __end_of_OLED_String:
+  1080                           	callstack 0
+  1081                           
+  1082 ;; *************** function _OLED_Char *****************
+  1083 ;; Defined at:
+  1084 ;;		line 95 in file "oled_dht.c"
+  1085 ;; Parameters:    Size  Location     Type
+  1086 ;;  c               1    wreg     unsigned char 
+  1087 ;; Auto vars:     Size  Location     Type
+  1088 ;;  c               1    0[COMRAM] unsigned char 
+  1089 ;;  i               1    4[COMRAM] unsigned char 
+  1090 ;; Return value:  Size  Location     Type
+  1091 ;;                  1    wreg      void 
+  1092 ;; Registers used:
+  1093 ;;		wreg, status,2, status,0, cstack
+  1094 ;; Tracked objects:
+  1095 ;;		On entry : 0/0
+  1096 ;;		On exit  : 0/0
+  1097 ;;		Unchanged: 0/0
+  1098 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1099 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1100 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1101 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1102 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1103 ;;Total ram usage:        1 bytes
+  1104 ;; Hardware stack levels used: 1
+  1105 ;; This function calls:
+  1106 ;;		_OLED_Dato
+  1107 ;; This function is called by:
+  1108 ;;		_OLED_String
+  1109 ;;		_OLED_Numero
+  1110 ;; This function uses a non-reentrant model
+  1111 ;;
+  1112                           
+  1113                           	psect	text5
+  1114   000C6E                     __ptext5:
+  1115                           	callstack 0
+  1116   000C6E                     _OLED_Char:
+  1117                           	callstack 28
+  1118   000C6E                     
+  1119                           ;oled_dht.c: 96:     for(char i=0;i<5;i++) OLED_Dato(0xFF);
+  1120   000C6E  6A05               	clrf	OLED_Char@i^0,c
+  1121   000C70                     l958:
+  1122   000C70  0EFF               	movlw	255
+  1123   000C72  EC66  F006         	call	_OLED_Dato
+  1124   000C76  2A05               	incf	OLED_Char@i^0,f,c
+  1125   000C78  0E04               	movlw	4
+  1126   000C7A  6405               	cpfsgt	OLED_Char@i^0,c
+  1127   000C7C  EF42  F006         	goto	u41
+  1128   000C80  EF44  F006         	goto	u40
+  1129   000C84                     u41:
+  1130   000C84  EF38  F006         	goto	l958
+  1131   000C88                     u40:
+  1132   000C88                     
+  1133                           ;oled_dht.c: 97:     OLED_Dato(0x00);
+  1134   000C88  0E00               	movlw	0
+  1135   000C8A  EC66  F006         	call	_OLED_Dato
+  1136   000C8E  0012               	return		;funcret
+  1137   000C90                     __end_of_OLED_Char:
+  1138                           	callstack 0
+  1139                           
+  1140 ;; *************** function _OLED_Init *****************
+  1141 ;; Defined at:
+  1142 ;;		line 86 in file "oled_dht.c"
+  1143 ;; Parameters:    Size  Location     Type
+  1144 ;;		None
+  1145 ;; Auto vars:     Size  Location     Type
+  1146 ;;		None
+  1147 ;; Return value:  Size  Location     Type
+  1148 ;;                  1    wreg      void 
+  1149 ;; Registers used:
+  1150 ;;		wreg, status,2, status,0, cstack
+  1151 ;; Tracked objects:
+  1152 ;;		On entry : 0/0
+  1153 ;;		On exit  : 0/0
+  1154 ;;		Unchanged: 0/0
+  1155 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1156 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1157 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1158 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1159 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1160 ;;Total ram usage:        2 bytes
+  1161 ;; Hardware stack levels used: 1
+  1162 ;; Hardware stack levels required when called: 1
+  1163 ;; This function calls:
+  1164 ;;		_OLED_Clear
+  1165 ;;		_OLED_Comando
+  1166 ;; This function is called by:
+  1167 ;;		_main
+  1168 ;; This function uses a non-reentrant model
+  1169 ;;
+  1170                           
+  1171                           	psect	text6
+  1172   000C3E                     __ptext6:
+  1173                           	callstack 0
+  1174   000C3E                     _OLED_Init:
+  1175                           	callstack 29
+  1176   000C3E                     
+  1177                           ;oled_dht.c: 87:     _delay((unsigned long)((100)*(8000000/4000.0)));
+  1178   000C3E  0E02               	movlw	2
+  1179   000C40  6E0A               	movwf	(??_OLED_Init+1)^0,c
+  1180   000C42  0E04               	movlw	4
+  1181   000C44  6E09               	movwf	??_OLED_Init^0,c
+  1182   000C46  0EBA               	movlw	186
+  1183   000C48                     u407:
+  1184   000C48  2EE8               	decfsz	wreg,f,c
+  1185   000C4A  D7FE               	bra	u407
+  1186   000C4C  2E09               	decfsz	??_OLED_Init^0,f,c
+  1187   000C4E  D7FC               	bra	u407
+  1188   000C50  2E0A               	decfsz	(??_OLED_Init+1)^0,f,c
+  1189   000C52  D7FA               	bra	u407
+  1190   000C54  D000               	nop2	
+  1191   000C56                     
+  1192                           ;oled_dht.c: 88:     OLED_Comando(0xAE);
+  1193   000C56  0EAE               	movlw	174
+  1194   000C58  EC57  F006         	call	_OLED_Comando
+  1195   000C5C                     
+  1196                           ;oled_dht.c: 89:     OLED_Comando(0xA6);
+  1197   000C5C  0EA6               	movlw	166
+  1198   000C5E  EC57  F006         	call	_OLED_Comando
+  1199   000C62                     
+  1200                           ;oled_dht.c: 90:     OLED_Comando(0xAF);
+  1201   000C62  0EAF               	movlw	175
+  1202   000C64  EC57  F006         	call	_OLED_Comando
+  1203   000C68                     
+  1204                           ;oled_dht.c: 91:     OLED_Clear();
+  1205   000C68  ECE6  F005         	call	_OLED_Clear	;wreg free
+  1206   000C6C  0012               	return		;funcret
+  1207   000C6E                     __end_of_OLED_Init:
+  1208                           	callstack 0
+  1209                           
+  1210 ;; *************** function _OLED_Clear *****************
+  1211 ;; Defined at:
+  1212 ;;		line 79 in file "oled_dht.c"
+  1213 ;; Parameters:    Size  Location     Type
+  1214 ;;		None
+  1215 ;; Auto vars:     Size  Location     Type
+  1216 ;;  j               1    6[COMRAM] unsigned char 
+  1217 ;;  i               1    7[COMRAM] unsigned char 
+  1218 ;; Return value:  Size  Location     Type
+  1219 ;;                  1    wreg      void 
+  1220 ;; Registers used:
+  1221 ;;		wreg, status,2, status,0, cstack
+  1222 ;; Tracked objects:
+  1223 ;;		On entry : 0/0
+  1224 ;;		On exit  : 0/0
+  1225 ;;		Unchanged: 0/0
+  1226 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1227 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1228 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1229 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1230 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1231 ;;Total ram usage:        2 bytes
+  1232 ;; Hardware stack levels used: 1
+  1233 ;; This function calls:
+  1234 ;;		_OLED_Dato
+  1235 ;;		_OLED_SetCursor
+  1236 ;; This function is called by:
+  1237 ;;		_OLED_Init
+  1238 ;;		_main
+  1239 ;; This function uses a non-reentrant model
+  1240 ;;
+  1241                           
+  1242                           	psect	text7
+  1243   000BCC                     __ptext7:
+  1244                           	callstack 0
+  1245   000BCC                     _OLED_Clear:
+  1246                           	callstack 29
+  1247   000BCC                     
+  1248                           ;oled_dht.c: 80:     for(char i=0;i<8;i++){
+  1249   000BCC  6A08               	clrf	OLED_Clear@i^0,c
+  1250   000BCE                     l1144:
+  1251                           
+  1252                           ;oled_dht.c: 81:         OLED_SetCursor(i,0);
+  1253   000BCE  0E00               	movlw	0
+  1254   000BD0  6E05               	movwf	OLED_SetCursor@c^0,c
+  1255   000BD2  5008               	movf	OLED_Clear@i^0,w,c
+  1256   000BD4  EC48  F006         	call	_OLED_SetCursor
+  1257   000BD8                     
+  1258                           ;oled_dht.c: 82:         for(char j=0;j<128;j++) OLED_Dato(0x00);
+  1259   000BD8  6A07               	clrf	OLED_Clear@j^0,c
+  1260   000BDA                     l1152:
+  1261   000BDA  0E00               	movlw	0
+  1262   000BDC  EC66  F006         	call	_OLED_Dato
+  1263   000BE0  2A07               	incf	OLED_Clear@j^0,f,c
+  1264   000BE2  0E7F               	movlw	127
+  1265   000BE4  6407               	cpfsgt	OLED_Clear@j^0,c
+  1266   000BE6  EFF7  F005         	goto	u221
+  1267   000BEA  EFF9  F005         	goto	u220
+  1268   000BEE                     u221:
+  1269   000BEE  EFED  F005         	goto	l1152
+  1270   000BF2                     u220:
+  1271   000BF2                     
+  1272                           ;oled_dht.c: 83:     }
+  1273   000BF2  2A08               	incf	OLED_Clear@i^0,f,c
+  1274   000BF4  0E07               	movlw	7
+  1275   000BF6  6408               	cpfsgt	OLED_Clear@i^0,c
+  1276   000BF8  EF00  F006         	goto	u231
+  1277   000BFC  EF02  F006         	goto	u230
+  1278   000C00                     u231:
+  1279   000C00  EFE7  F005         	goto	l1144
+  1280   000C04                     u230:
+  1281   000C04  0012               	return		;funcret
+  1282   000C06                     __end_of_OLED_Clear:
+  1283                           	callstack 0
+  1284                           
+  1285 ;; *************** function _OLED_SetCursor *****************
+  1286 ;; Defined at:
+  1287 ;;		line 73 in file "oled_dht.c"
+  1288 ;; Parameters:    Size  Location     Type
+  1289 ;;  p               1    wreg     unsigned char 
+  1290 ;;  c               1    4[COMRAM] unsigned char 
+  1291 ;; Auto vars:     Size  Location     Type
+  1292 ;;  p               1    5[COMRAM] unsigned char 
+  1293 ;; Return value:  Size  Location     Type
+  1294 ;;                  1    wreg      void 
+  1295 ;; Registers used:
+  1296 ;;		wreg, status,2, status,0, cstack
+  1297 ;; Tracked objects:
+  1298 ;;		On entry : 0/0
+  1299 ;;		On exit  : 0/0
+  1300 ;;		Unchanged: 0/0
+  1301 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1302 ;;      Params:         1       0       0       0       0       0       0       0       0
+  1303 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1304 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1305 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1306 ;;Total ram usage:        2 bytes
+  1307 ;; Hardware stack levels used: 1
+  1308 ;; This function calls:
+  1309 ;;		_OLED_Comando
+  1310 ;; This function is called by:
+  1311 ;;		_OLED_Clear
+  1312 ;;		_OLED_String
+  1313 ;;		_OLED_Numero
+  1314 ;; This function uses a non-reentrant model
+  1315 ;;
+  1316                           
+  1317                           	psect	text8
+  1318   000C90                     __ptext8:
+  1319                           	callstack 0
+  1320   000C90                     _OLED_SetCursor:
+  1321                           	callstack 28
+  1322                           
+  1323                           ;incstack = 0
+  1324                           ;OLED_SetCursor@p stored from wreg
+  1325   000C90  6E06               	movwf	OLED_SetCursor@p^0,c
+  1326   000C92                     
+  1327                           ;oled_dht.c: 74:     OLED_Comando(0xB0 | p);
+  1328   000C92  5006               	movf	OLED_SetCursor@p^0,w,c
+  1329   000C94  09B0               	iorlw	176
+  1330   000C96  EC57  F006         	call	_OLED_Comando
+  1331                           
+  1332                           ;oled_dht.c: 75:     OLED_Comando(c & 0x0F);
+  1333   000C9A  5005               	movf	OLED_SetCursor@c^0,w,c
+  1334   000C9C  0B0F               	andlw	15
+  1335   000C9E  EC57  F006         	call	_OLED_Comando
+  1336                           
+  1337                           ;oled_dht.c: 76:     OLED_Comando(0x10 | (c >> 4));
+  1338   000CA2  3805               	swapf	OLED_SetCursor@c^0,w,c
+  1339   000CA4  0B0F               	andlw	15
+  1340   000CA6  0910               	iorlw	16
+  1341   000CA8  EC57  F006         	call	_OLED_Comando
+  1342   000CAC  0012               	return		;funcret
+  1343   000CAE                     __end_of_OLED_SetCursor:
+  1344                           	callstack 0
+  1345                           
+  1346 ;; *************** function _OLED_Comando *****************
+  1347 ;; Defined at:
+  1348 ;;		line 57 in file "oled_dht.c"
+  1349 ;; Parameters:    Size  Location     Type
+  1350 ;;  cmd             1    wreg     unsigned char 
+  1351 ;; Auto vars:     Size  Location     Type
+  1352 ;;  cmd             1    3[COMRAM] unsigned char 
+  1353 ;; Return value:  Size  Location     Type
+  1354 ;;                  1    wreg      void 
+  1355 ;; Registers used:
+  1356 ;;		wreg, status,2, status,0, cstack
+  1357 ;; Tracked objects:
+  1358 ;;		On entry : 0/0
+  1359 ;;		On exit  : 0/0
+  1360 ;;		Unchanged: 0/0
+  1361 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1362 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1363 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1364 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1365 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1366 ;;Total ram usage:        1 bytes
+  1367 ;; Hardware stack levels used: 1
+  1368 ;; This function calls:
+  1369 ;;		_I2C_Start
+  1370 ;;		_I2C_Stop
+  1371 ;;		_I2C_Write
+  1372 ;; This function is called by:
+  1373 ;;		_OLED_SetCursor
+  1374 ;;		_OLED_Init
+  1375 ;; This function uses a non-reentrant model
+  1376 ;;
+  1377                           
+  1378                           	psect	text9
+  1379   000CAE                     __ptext9:
+  1380                           	callstack 0
+  1381   000CAE                     _OLED_Comando:
+  1382                           	callstack 27
+  1383                           
+  1384                           ;incstack = 0
+  1385                           ;OLED_Comando@cmd stored from wreg
+  1386   000CAE  6E04               	movwf	OLED_Comando@cmd^0,c
+  1387   000CB0                     
+  1388                           ;oled_dht.c: 58:     I2C_Start();
+  1389   000CB0  EC75  F006         	call	_I2C_Start	;wreg free
+  1390   000CB4                     
+  1391                           ;oled_dht.c: 59:     I2C_Write(0x78);
+  1392   000CB4  0E78               	movlw	120
+  1393   000CB6  EC9A  F005         	call	_I2C_Write
+  1394   000CBA                     
+  1395                           ;oled_dht.c: 60:     I2C_Write(0x00);
+  1396   000CBA  0E00               	movlw	0
+  1397   000CBC  EC9A  F005         	call	_I2C_Write
+  1398   000CC0                     
+  1399                           ;oled_dht.c: 61:     I2C_Write(cmd);
+  1400   000CC0  5004               	movf	OLED_Comando@cmd^0,w,c
+  1401   000CC2  EC9A  F005         	call	_I2C_Write
+  1402   000CC6                     
+  1403                           ;oled_dht.c: 62:     I2C_Stop();
+  1404   000CC6  EC80  F006         	call	_I2C_Stop	;wreg free
+  1405   000CCA  0012               	return		;funcret
+  1406   000CCC                     __end_of_OLED_Comando:
+  1407                           	callstack 0
+  1408                           
+  1409 ;; *************** function _OLED_Dato *****************
+  1410 ;; Defined at:
+  1411 ;;		line 65 in file "oled_dht.c"
+  1412 ;; Parameters:    Size  Location     Type
+  1413 ;;  d               1    wreg     unsigned char 
+  1414 ;; Auto vars:     Size  Location     Type
+  1415 ;;  d               1    3[COMRAM] unsigned char 
+  1416 ;; Return value:  Size  Location     Type
+  1417 ;;                  1    wreg      void 
+  1418 ;; Registers used:
+  1419 ;;		wreg, status,2, status,0, cstack
+  1420 ;; Tracked objects:
+  1421 ;;		On entry : 0/0
+  1422 ;;		On exit  : 0/0
+  1423 ;;		Unchanged: 0/0
+  1424 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1425 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1426 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1427 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1428 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1429 ;;Total ram usage:        1 bytes
+  1430 ;; Hardware stack levels used: 1
+  1431 ;; This function calls:
+  1432 ;;		_I2C_Start
+  1433 ;;		_I2C_Stop
+  1434 ;;		_I2C_Write
+  1435 ;; This function is called by:
+  1436 ;;		_OLED_Clear
+  1437 ;;		_OLED_Char
+  1438 ;; This function uses a non-reentrant model
+  1439 ;;
+  1440                           
+  1441                           	psect	text10
+  1442   000CCC                     __ptext10:
+  1443                           	callstack 0
+  1444   000CCC                     _OLED_Dato:
+  1445                           	callstack 27
+  1446                           
+  1447                           ;incstack = 0
+  1448                           ;OLED_Dato@d stored from wreg
+  1449   000CCC  6E04               	movwf	OLED_Dato@d^0,c
+  1450   000CCE                     
+  1451                           ;oled_dht.c: 66:     I2C_Start();
+  1452   000CCE  EC75  F006         	call	_I2C_Start	;wreg free
+  1453   000CD2                     
+  1454                           ;oled_dht.c: 67:     I2C_Write(0x78);
+  1455   000CD2  0E78               	movlw	120
+  1456   000CD4  EC9A  F005         	call	_I2C_Write
+  1457   000CD8                     
+  1458                           ;oled_dht.c: 68:     I2C_Write(0x40);
+  1459   000CD8  0E40               	movlw	64
+  1460   000CDA  EC9A  F005         	call	_I2C_Write
+  1461   000CDE                     
+  1462                           ;oled_dht.c: 69:     I2C_Write(d);
+  1463   000CDE  5004               	movf	OLED_Dato@d^0,w,c
+  1464   000CE0  EC9A  F005         	call	_I2C_Write
+  1465   000CE4                     
+  1466                           ;oled_dht.c: 70:     I2C_Stop();
+  1467   000CE4  EC80  F006         	call	_I2C_Stop	;wreg free
+  1468   000CE8  0012               	return		;funcret
+  1469   000CEA                     __end_of_OLED_Dato:
+  1470                           	callstack 0
+  1471                           
+  1472 ;; *************** function _I2C_Write *****************
+  1473 ;; Defined at:
+  1474 ;;		line 43 in file "oled_dht.c"
+  1475 ;; Parameters:    Size  Location     Type
+  1476 ;;  data            1    wreg     unsigned char 
+  1477 ;; Auto vars:     Size  Location     Type
+  1478 ;;  data            1    1[COMRAM] unsigned char 
+  1479 ;;  i               1    2[COMRAM] unsigned char 
+  1480 ;; Return value:  Size  Location     Type
+  1481 ;;                  1    wreg      void 
+  1482 ;; Registers used:
+  1483 ;;		wreg, status,2, status,0, cstack
+  1484 ;; Tracked objects:
+  1485 ;;		On entry : 0/0
+  1486 ;;		On exit  : 0/0
+  1487 ;;		Unchanged: 0/0
+  1488 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1489 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1490 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1491 ;;      Temps:          1       0       0       0       0       0       0       0       0
+  1492 ;;      Totals:         3       0       0       0       0       0       0       0       0
+  1493 ;;Total ram usage:        3 bytes
+  1494 ;; Hardware stack levels used: 1
+  1495 ;; This function calls:
+  1496 ;;		_I2C_Delay
+  1497 ;; This function is called by:
+  1498 ;;		_OLED_Comando
+  1499 ;;		_OLED_Dato
+  1500 ;; This function uses a non-reentrant model
+  1501 ;;
+  1502                           
+  1503                           	psect	text11
+  1504   000B34                     __ptext11:
+  1505                           	callstack 0
+  1506   000B34                     _I2C_Write:
+  1507                           	callstack 26
+  1508                           
+  1509                           ;incstack = 0
+  1510                           ;I2C_Write@data stored from wreg
+  1511   000B34  6E02               	movwf	I2C_Write@data^0,c
+  1512   000B36                     
+  1513                           ;oled_dht.c: 44:     for(char i=0;i<8;i++){
+  1514   000B36  6A03               	clrf	I2C_Write@i^0,c
+  1515   000B38                     l910:
+  1516                           
+  1517                           ;oled_dht.c: 45:         LATBbits.LATB0 = (data & 0x80) ? 1 : 0;
+  1518   000B38  BE02               	btfsc	I2C_Write@data^0,7,c
+  1519   000B3A  EFA1  F005         	goto	u11
+  1520   000B3E  EFA5  F005         	goto	u10
+  1521   000B42                     u11:
+  1522   000B42  6A01               	clrf	??_I2C_Write^0,c
+  1523   000B44  2A01               	incf	??_I2C_Write^0,f,c
+  1524   000B46  EFA6  F005         	goto	u28
+  1525   000B4A                     u10:
+  1526   000B4A  6A01               	clrf	??_I2C_Write^0,c
+  1527   000B4C                     u28:
+  1528   000B4C  508A               	movf	138,w,c	;volatile
+  1529   000B4E  1801               	xorwf	??_I2C_Write^0,w,c
+  1530   000B50  0BFE               	andlw	-2
+  1531   000B52  1801               	xorwf	??_I2C_Write^0,w,c
+  1532   000B54  6E8A               	movwf	138,c	;volatile
+  1533   000B56                     
+  1534                           ;oled_dht.c: 46:         LATBbits.LATB1 = 1; I2C_Delay();
+  1535   000B56  828A               	bsf	138,1,c	;volatile
+  1536   000B58  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1537   000B5C                     
+  1538                           ;oled_dht.c: 47:         LATBbits.LATB1 = 0; I2C_Delay();
+  1539   000B5C  928A               	bcf	138,1,c	;volatile
+  1540   000B5E  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1541                           
+  1542                           ;oled_dht.c: 48:         data <<= 1;
+  1543   000B62  90D8               	bcf	status,0,c
+  1544   000B64  3602               	rlcf	I2C_Write@data^0,f,c
+  1545   000B66                     
+  1546                           ;oled_dht.c: 49:     }
+  1547   000B66  2A03               	incf	I2C_Write@i^0,f,c
+  1548   000B68  0E07               	movlw	7
+  1549   000B6A  6403               	cpfsgt	I2C_Write@i^0,c
+  1550   000B6C  EFBA  F005         	goto	u31
+  1551   000B70  EFBC  F005         	goto	u30
+  1552   000B74                     u31:
+  1553   000B74  EF9C  F005         	goto	l910
+  1554   000B78                     u30:
+  1555   000B78                     
+  1556                           ;oled_dht.c: 50:     TRISBbits.TRISB0 = 1;
+  1557   000B78  8093               	bsf	147,0,c	;volatile
+  1558                           
+  1559                           ;oled_dht.c: 51:     LATBbits.LATB1 = 1; I2C_Delay();
+  1560   000B7A  828A               	bsf	138,1,c	;volatile
+  1561   000B7C  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1562   000B80                     
+  1563                           ;oled_dht.c: 52:     LATBbits.LATB1 = 0;
+  1564   000B80  928A               	bcf	138,1,c	;volatile
+  1565   000B82                     
+  1566                           ;oled_dht.c: 53:     TRISBbits.TRISB0 = 0;
+  1567   000B82  9093               	bcf	147,0,c	;volatile
+  1568   000B84  0012               	return		;funcret
+  1569   000B86                     __end_of_I2C_Write:
+  1570                           	callstack 0
+  1571                           
+  1572 ;; *************** function _I2C_Stop *****************
+  1573 ;; Defined at:
+  1574 ;;		line 33 in file "oled_dht.c"
+  1575 ;; Parameters:    Size  Location     Type
+  1576 ;;		None
+  1577 ;; Auto vars:     Size  Location     Type
+  1578 ;;		None
+  1579 ;; Return value:  Size  Location     Type
+  1580 ;;                  1    wreg      void 
+  1581 ;; Registers used:
+  1582 ;;		wreg, cstack
+  1583 ;; Tracked objects:
+  1584 ;;		On entry : 0/0
+  1585 ;;		On exit  : 0/0
+  1586 ;;		Unchanged: 0/0
+  1587 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1588 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1589 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1590 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1591 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1592 ;;Total ram usage:        0 bytes
+  1593 ;; Hardware stack levels used: 1
+  1594 ;; This function calls:
+  1595 ;;		_I2C_Delay
+  1596 ;; This function is called by:
+  1597 ;;		_OLED_Comando
+  1598 ;;		_OLED_Dato
+  1599 ;; This function uses a non-reentrant model
+  1600 ;;
+  1601                           
+  1602                           	psect	text12
+  1603   000D00                     __ptext12:
+  1604                           	callstack 0
+  1605   000D00                     _I2C_Stop:
+  1606                           	callstack 26
+  1607   000D00                     
+  1608                           ;oled_dht.c: 34:     TRISBbits.TRISB0 = 0;
+  1609   000D00  9093               	bcf	147,0,c	;volatile
+  1610                           
+  1611                           ;oled_dht.c: 35:     LATBbits.LATB1 = 0;
+  1612   000D02  928A               	bcf	138,1,c	;volatile
+  1613                           
+  1614                           ;oled_dht.c: 36:     LATBbits.LATB0 = 0;
+  1615   000D04  908A               	bcf	138,0,c	;volatile
+  1616   000D06                     
+  1617                           ;oled_dht.c: 37:     I2C_Delay();
+  1618   000D06  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1619   000D0A                     
+  1620                           ;oled_dht.c: 38:     LATBbits.LATB1 = 1;
+  1621   000D0A  828A               	bsf	138,1,c	;volatile
+  1622                           
+  1623                           ;oled_dht.c: 39:     I2C_Delay();
+  1624   000D0C  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1625   000D10                     
+  1626                           ;oled_dht.c: 40:     LATBbits.LATB0 = 1;
+  1627   000D10  808A               	bsf	138,0,c	;volatile
+  1628   000D12  0012               	return		;funcret
+  1629   000D14                     __end_of_I2C_Stop:
+  1630                           	callstack 0
+  1631                           
+  1632 ;; *************** function _I2C_Start *****************
+  1633 ;; Defined at:
+  1634 ;;		line 24 in file "oled_dht.c"
+  1635 ;; Parameters:    Size  Location     Type
+  1636 ;;		None
+  1637 ;; Auto vars:     Size  Location     Type
+  1638 ;;		None
+  1639 ;; Return value:  Size  Location     Type
+  1640 ;;                  1    wreg      void 
+  1641 ;; Registers used:
+  1642 ;;		wreg, cstack
+  1643 ;; Tracked objects:
+  1644 ;;		On entry : 0/0
+  1645 ;;		On exit  : 0/0
+  1646 ;;		Unchanged: 0/0
+  1647 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1648 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1649 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1650 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1651 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1652 ;;Total ram usage:        0 bytes
+  1653 ;; Hardware stack levels used: 1
+  1654 ;; This function calls:
+  1655 ;;		_I2C_Delay
+  1656 ;; This function is called by:
+  1657 ;;		_OLED_Comando
+  1658 ;;		_OLED_Dato
+  1659 ;; This function uses a non-reentrant model
+  1660 ;;
+  1661                           
+  1662                           	psect	text13
+  1663   000CEA                     __ptext13:
+  1664                           	callstack 0
+  1665   000CEA                     _I2C_Start:
+  1666                           	callstack 26
+  1667   000CEA                     
+  1668                           ;oled_dht.c: 25:     TRISBbits.TRISB0 = 0; TRISBbits.TRISB1 = 0;
+  1669   000CEA  9093               	bcf	147,0,c	;volatile
+  1670   000CEC  9293               	bcf	147,1,c	;volatile
+  1671                           
+  1672                           ;oled_dht.c: 26:     LATBbits.LATB0 = 1; LATBbits.LATB1 = 1;
+  1673   000CEE  808A               	bsf	138,0,c	;volatile
+  1674   000CF0  828A               	bsf	138,1,c	;volatile
+  1675   000CF2                     
+  1676                           ;oled_dht.c: 27:     I2C_Delay();
+  1677   000CF2  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1678   000CF6                     
+  1679                           ;oled_dht.c: 28:     LATBbits.LATB0 = 0;
+  1680   000CF6  908A               	bcf	138,0,c	;volatile
+  1681                           
+  1682                           ;oled_dht.c: 29:     I2C_Delay();
+  1683   000CF8  EC9B  F006         	call	_I2C_Delay	;wreg free
+  1684   000CFC                     
+  1685                           ;oled_dht.c: 30:     LATBbits.LATB1 = 0;
+  1686   000CFC  928A               	bcf	138,1,c	;volatile
+  1687   000CFE  0012               	return		;funcret
+  1688   000D00                     __end_of_I2C_Start:
+  1689                           	callstack 0
+  1690                           
+  1691 ;; *************** function _I2C_Delay *****************
+  1692 ;; Defined at:
+  1693 ;;		line 22 in file "oled_dht.c"
+  1694 ;; Parameters:    Size  Location     Type
+  1695 ;;		None
+  1696 ;; Auto vars:     Size  Location     Type
+  1697 ;;		None
+  1698 ;; Return value:  Size  Location     Type
+  1699 ;;                  1    wreg      void 
+  1700 ;; Registers used:
+  1701 ;;		wreg
+  1702 ;; Tracked objects:
+  1703 ;;		On entry : 0/0
+  1704 ;;		On exit  : 0/0
+  1705 ;;		Unchanged: 0/0
+  1706 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1707 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1708 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1709 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1710 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1711 ;;Total ram usage:        0 bytes
+  1712 ;; Hardware stack levels used: 1
+  1713 ;; This function calls:
+  1714 ;;		Nothing
+  1715 ;; This function is called by:
+  1716 ;;		_I2C_Start
+  1717 ;;		_I2C_Stop
+  1718 ;;		_I2C_Write
+  1719 ;; This function uses a non-reentrant model
+  1720 ;;
+  1721                           
+  1722                           	psect	text14
+  1723   000D36                     __ptext14:
+  1724                           	callstack 0
+  1725   000D36                     _I2C_Delay:
+  1726                           	callstack 25
+  1727   000D36  0E03               	movlw	3
+  1728   000D38                     u417:
+  1729   000D38  2EE8               	decfsz	wreg,f,c
+  1730   000D3A  D7FE               	bra	u417
+  1731   000D3C  0000               	nop	
+  1732   000D3E  0012               	return		;funcret
+  1733   000D40                     __end_of_I2C_Delay:
+  1734                           	callstack 0
+  1735                           
+  1736 ;; *************** function _ADC_ReadAvg *****************
+  1737 ;; Defined at:
+  1738 ;;		line 140 in file "oled_dht.c"
+  1739 ;; Parameters:    Size  Location     Type
+  1740 ;;  c               1    wreg     unsigned char 
+  1741 ;; Auto vars:     Size  Location     Type
+  1742 ;;  c               1   11[COMRAM] unsigned char 
+  1743 ;;  i               1   16[COMRAM] unsigned char 
+  1744 ;;  s               4   12[COMRAM] unsigned long 
+  1745 ;; Return value:  Size  Location     Type
+  1746 ;;                  2    5[COMRAM] unsigned int 
+  1747 ;; Registers used:
+  1748 ;;		wreg, status,2, status,0, cstack
+  1749 ;; Tracked objects:
+  1750 ;;		On entry : 0/0
+  1751 ;;		On exit  : 0/0
+  1752 ;;		Unchanged: 0/0
+  1753 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1754 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1755 ;;      Locals:         6       0       0       0       0       0       0       0       0
+  1756 ;;      Temps:          4       0       0       0       0       0       0       0       0
+  1757 ;;      Totals:        12       0       0       0       0       0       0       0       0
+  1758 ;;Total ram usage:       12 bytes
+  1759 ;; Hardware stack levels used: 1
+  1760 ;; Hardware stack levels required when called: 1
+  1761 ;; This function calls:
+  1762 ;;		_ADC_Read
+  1763 ;; This function is called by:
+  1764 ;;		_main
+  1765 ;; This function uses a non-reentrant model
+  1766 ;;
+  1767                           
+  1768                           	psect	text15
+  1769   0009E4                     __ptext15:
+  1770                           	callstack 0
+  1771   0009E4                     _ADC_ReadAvg:
+  1772                           	callstack 29
+  1773                           
+  1774                           ;incstack = 0
+  1775                           ;ADC_ReadAvg@c stored from wreg
+  1776   0009E4  6E0C               	movwf	ADC_ReadAvg@c^0,c
+  1777   0009E6                     
+  1778                           ;oled_dht.c: 141:     unsigned long s=0;
+  1779   0009E6  0E00               	movlw	0
+  1780   0009E8  6E0D               	movwf	ADC_ReadAvg@s^0,c
+  1781   0009EA  0E00               	movlw	0
+  1782   0009EC  6E0E               	movwf	(ADC_ReadAvg@s+1)^0,c
+  1783   0009EE  0E00               	movlw	0
+  1784   0009F0  6E0F               	movwf	(ADC_ReadAvg@s+2)^0,c
+  1785   0009F2  0E00               	movlw	0
+  1786   0009F4  6E10               	movwf	(ADC_ReadAvg@s+3)^0,c
+  1787   0009F6                     
+  1788                           ;oled_dht.c: 142:     for(char i=0;i<8;i++){
+  1789   0009F6  6A11               	clrf	ADC_ReadAvg@i^0,c
+  1790   0009F8                     l1258:
+  1791                           
+  1792                           ;oled_dht.c: 143:         s+=ADC_Read(c);
+  1793   0009F8  500C               	movf	ADC_ReadAvg@c^0,w,c
+  1794   0009FA  ECC3  F005         	call	_ADC_Read
+  1795   0009FE  5001               	movf	?_ADC_Read^0,w,c
+  1796   000A00  260D               	addwf	ADC_ReadAvg@s^0,f,c
+  1797   000A02  5002               	movf	(?_ADC_Read+1)^0,w,c
+  1798   000A04  220E               	addwfc	(ADC_ReadAvg@s+1)^0,f,c
+  1799   000A06  0E00               	movlw	0
+  1800   000A08  220F               	addwfc	(ADC_ReadAvg@s+2)^0,f,c
+  1801   000A0A  0E00               	movlw	0
+  1802   000A0C  2210               	addwfc	(ADC_ReadAvg@s+3)^0,f,c
+  1803   000A0E                     
+  1804                           ;oled_dht.c: 144:         _delay((unsigned long)((1)*(8000000/4000.0)));
+  1805   000A0E  0E03               	movlw	3
+  1806   000A10  6E08               	movwf	??_ADC_ReadAvg^0,c
+  1807   000A12  0E98               	movlw	152
+  1808   000A14                     u427:
+  1809   000A14  2EE8               	decfsz	wreg,f,c
+  1810   000A16  D7FE               	bra	u427
+  1811   000A18  2E08               	decfsz	??_ADC_ReadAvg^0,f,c
+  1812   000A1A  D7FC               	bra	u427
+  1813   000A1C                     
+  1814                           ;oled_dht.c: 145:     }
+  1815   000A1C  2A11               	incf	ADC_ReadAvg@i^0,f,c
+  1816   000A1E  0E07               	movlw	7
+  1817   000A20  6411               	cpfsgt	ADC_ReadAvg@i^0,c
+  1818   000A22  EF15  F005         	goto	u351
+  1819   000A26  EF17  F005         	goto	u350
+  1820   000A2A                     u351:
+  1821   000A2A  EFFC  F004         	goto	l1258
+  1822   000A2E                     u350:
+  1823   000A2E                     
+  1824                           ;oled_dht.c: 146:     return s/8;
+  1825   000A2E  C00D  F008         	movff	ADC_ReadAvg@s,??_ADC_ReadAvg
+  1826   000A32  C00E  F009         	movff	ADC_ReadAvg@s+1,??_ADC_ReadAvg+1
+  1827   000A36  C00F  F00A         	movff	ADC_ReadAvg@s+2,??_ADC_ReadAvg+2
+  1828   000A3A  C010  F00B         	movff	ADC_ReadAvg@s+3,??_ADC_ReadAvg+3
+  1829   000A3E  0E04               	movlw	4
+  1830   000A40  EF27  F005         	goto	u360
+  1831   000A44                     u365:
+  1832   000A44  90D8               	bcf	status,0,c
+  1833   000A46  320B               	rrcf	(??_ADC_ReadAvg+3)^0,f,c
+  1834   000A48  320A               	rrcf	(??_ADC_ReadAvg+2)^0,f,c
+  1835   000A4A  3209               	rrcf	(??_ADC_ReadAvg+1)^0,f,c
+  1836   000A4C  3208               	rrcf	??_ADC_ReadAvg^0,f,c
+  1837   000A4E                     u360:
+  1838   000A4E  2EE8               	decfsz	wreg,f,c
+  1839   000A50  EF22  F005         	goto	u365
+  1840   000A54  C008  F006         	movff	??_ADC_ReadAvg,?_ADC_ReadAvg
+  1841   000A58  C009  F007         	movff	??_ADC_ReadAvg+1,?_ADC_ReadAvg+1
+  1842   000A5C  0012               	return		;funcret
+  1843   000A5E                     __end_of_ADC_ReadAvg:
+  1844                           	callstack 0
+  1845                           
+  1846 ;; *************** function _ADC_Read *****************
+  1847 ;; Defined at:
+  1848 ;;		line 132 in file "oled_dht.c"
+  1849 ;; Parameters:    Size  Location     Type
+  1850 ;;  c               1    wreg     unsigned char 
+  1851 ;; Auto vars:     Size  Location     Type
+  1852 ;;  c               1    4[COMRAM] unsigned char 
+  1853 ;; Return value:  Size  Location     Type
+  1854 ;;                  2    0[COMRAM] unsigned int 
+  1855 ;; Registers used:
+  1856 ;;		wreg, status,2, status,0
+  1857 ;; Tracked objects:
+  1858 ;;		On entry : 0/0
+  1859 ;;		On exit  : 0/0
+  1860 ;;		Unchanged: 0/0
+  1861 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1862 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1863 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1864 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1865 ;;      Totals:         5       0       0       0       0       0       0       0       0
+  1866 ;;Total ram usage:        5 bytes
+  1867 ;; Hardware stack levels used: 1
+  1868 ;; This function calls:
+  1869 ;;		Nothing
+  1870 ;; This function is called by:
+  1871 ;;		_ADC_ReadAvg
+  1872 ;; This function uses a non-reentrant model
+  1873 ;;
+  1874                           
+  1875                           	psect	text16
+  1876   000B86                     __ptext16:
+  1877                           	callstack 0
+  1878   000B86                     _ADC_Read:
+  1879                           	callstack 29
+  1880                           
+  1881                           ;incstack = 0
+  1882                           ;ADC_Read@c stored from wreg
+  1883   000B86  6E05               	movwf	ADC_Read@c^0,c
+  1884   000B88                     
+  1885                           ;oled_dht.c: 133:     ADCON0 = (ADCON0 & 0xC3) | (c << 2);
+  1886   000B88  C005  F003         	movff	ADC_Read@c,??_ADC_Read
+  1887   000B8C  90D8               	bcf	status,0,c
+  1888   000B8E  3603               	rlcf	??_ADC_Read^0,f,c
+  1889   000B90  90D8               	bcf	status,0,c
+  1890   000B92  3603               	rlcf	??_ADC_Read^0,f,c
+  1891   000B94  50C2               	movf	194,w,c	;volatile
+  1892   000B96  0BC3               	andlw	195
+  1893   000B98  1003               	iorwf	??_ADC_Read^0,w,c
+  1894   000B9A  6EC2               	movwf	194,c	;volatile
+  1895   000B9C                     
+  1896                           ;oled_dht.c: 134:     _delay((unsigned long)((50)*(8000000/4000000.0)));
+  1897   000B9C  0E21               	movlw	33
+  1898   000B9E                     u437:
+  1899   000B9E  2EE8               	decfsz	wreg,f,c
+  1900   000BA0  D7FE               	bra	u437
+  1901   000BA2  0000               	nop	
+  1902   000BA4                     
+  1903                           ;oled_dht.c: 135:     ADCON0bits.GO = 1;
+  1904   000BA4  82C2               	bsf	194,1,c	;volatile
+  1905   000BA6                     l82:
+  1906   000BA6  B2C2               	btfsc	194,1,c	;volatile
+  1907   000BA8  EFD8  F005         	goto	u251
+  1908   000BAC  EFDA  F005         	goto	u250
+  1909   000BB0                     u251:
+  1910   000BB0  EFD3  F005         	goto	l82
+  1911   000BB4                     u250:
+  1912   000BB4                     
+  1913                           ;oled_dht.c: 137:     return ((ADRESH<<8)|ADRESL);
+  1914   000BB4  50C3               	movf	195,w,c	;volatile
+  1915   000BB6  CFC4 F003          	movff	4036,??_ADC_Read	;volatile
+  1916   000BBA  6A04               	clrf	(??_ADC_Read+1)^0,c
+  1917   000BBC  C003  F004         	movff	??_ADC_Read,??_ADC_Read+1
+  1918   000BC0  6A03               	clrf	??_ADC_Read^0,c
+  1919   000BC2  1003               	iorwf	??_ADC_Read^0,w,c
+  1920   000BC4  6E01               	movwf	?_ADC_Read^0,c
+  1921   000BC6  5004               	movf	(??_ADC_Read+1)^0,w,c
+  1922   000BC8  6E02               	movwf	(?_ADC_Read+1)^0,c
+  1923   000BCA  0012               	return		;funcret
+  1924   000BCC                     __end_of_ADC_Read:
+  1925                           	callstack 0
+  1926                           
+  1927 ;; *************** function _ADC_Init *****************
+  1928 ;; Defined at:
+  1929 ;;		line 122 in file "oled_dht.c"
+  1930 ;; Parameters:    Size  Location     Type
+  1931 ;;		None
+  1932 ;; Auto vars:     Size  Location     Type
+  1933 ;;		None
+  1934 ;; Return value:  Size  Location     Type
+  1935 ;;                  1    wreg      void 
+  1936 ;; Registers used:
+  1937 ;;		wreg, status,2
+  1938 ;; Tracked objects:
+  1939 ;;		On entry : 0/0
+  1940 ;;		On exit  : 0/0
+  1941 ;;		Unchanged: 0/0
+  1942 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1943 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1944 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1945 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1946 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1947 ;;Total ram usage:        0 bytes
+  1948 ;; Hardware stack levels used: 1
+  1949 ;; This function calls:
+  1950 ;;		Nothing
+  1951 ;; This function is called by:
+  1952 ;;		_main
+  1953 ;; This function uses a non-reentrant model
+  1954 ;;
+  1955                           
+  1956                           	psect	text17
+  1957   000D14                     __ptext17:
+  1958                           	callstack 0
+  1959   000D14                     _ADC_Init:
+  1960                           	callstack 30
+  1961   000D14                     
+  1962                           ;oled_dht.c: 123:     TRISAbits.TRISA0 = 1;
+  1963   000D14  8092               	bsf	146,0,c	;volatile
+  1964                           
+  1965                           ;oled_dht.c: 124:     TRISAbits.TRISA1 = 1;
+  1966   000D16  8292               	bsf	146,1,c	;volatile
+  1967                           
+  1968                           ;oled_dht.c: 125:     TRISAbits.TRISA2 = 1;
+  1969   000D18  8492               	bsf	146,2,c	;volatile
+  1970   000D1A                     
+  1971                           ;oled_dht.c: 127:     ADCON1 = 0x0C;
+  1972   000D1A  0E0C               	movlw	12
+  1973   000D1C  6EC1               	movwf	193,c	;volatile
+  1974                           
+  1975                           ;oled_dht.c: 128:     ADCON2 = 0xBD;
+  1976   000D1E  0EBD               	movlw	189
+  1977   000D20  6EC0               	movwf	192,c	;volatile
+  1978                           
+  1979                           ;oled_dht.c: 129:     ADCON0 = 0x01;
+  1980   000D22  0E01               	movlw	1
+  1981   000D24  6EC2               	movwf	194,c	;volatile
+  1982   000D26  0012               	return		;funcret
+  1983   000D28                     __end_of_ADC_Init:
+  1984                           	callstack 0
+  1985                           
+  1986                           	psect	rparam
+  1987   000001                     ___rparam_used  equ	1
+  1988   000000                     ___param_bank   equ	0
+  1989   000000                     __Lparam        equ	__Lrparam
+  1990   000000                     __Hparam        equ	__Hrparam
+  1991                           
+  1992                           	psect	config
+  1993                           
+  1994                           ;Config register CONFIG1L @ 0x300000
+  1995                           ;	unspecified, using default values
+  1996                           ;	PLL Prescaler Selection bits
+  1997                           ;	PLLDIV = 0x0, unprogrammed default
+  1998                           ;	System Clock Postscaler Selection bits
+  1999                           ;	CPUDIV = 0x0, unprogrammed default
+  2000                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+  2001                           ;	USBDIV = 0x0, unprogrammed default
+  2002   300000                     	org	3145728
+  2003   300000  00                 	db	0
+  2004                           
+  2005                           ;Config register CONFIG1H @ 0x300001
+  2006                           ;	Oscillator Selection bits
+  2007                           ;	FOSC = INTOSC_EC, Internal oscillator, CLKO function on RA6, EC used by USB (INTCKO)
+  2008                           ;	Fail-Safe Clock Monitor Enable bit
+  2009                           ;	FCMEN = 0x0, unprogrammed default
+  2010                           ;	Internal/External Oscillator Switchover bit
+  2011                           ;	IESO = 0x0, unprogrammed default
+  2012   300001                     	org	3145729
+  2013   300001  09                 	db	9
+  2014                           
+  2015                           ;Config register CONFIG2L @ 0x300002
+  2016                           ;	unspecified, using default values
+  2017                           ;	Power-up Timer Enable bit
+  2018                           ;	PWRT = 0x1, unprogrammed default
+  2019                           ;	Brown-out Reset Enable bits
+  2020                           ;	BOR = 0x3, unprogrammed default
+  2021                           ;	Brown-out Reset Voltage bits
+  2022                           ;	BORV = 0x3, unprogrammed default
+  2023                           ;	USB Voltage Regulator Enable bit
+  2024                           ;	VREGEN = 0x0, unprogrammed default
+  2025   300002                     	org	3145730
+  2026   300002  1F                 	db	31
+  2027                           
+  2028                           ;Config register CONFIG2H @ 0x300003
+  2029                           ;	Watchdog Timer Enable bit
+  2030                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  2031                           ;	Watchdog Timer Postscale Select bits
+  2032                           ;	WDTPS = 0xF, unprogrammed default
+  2033   300003                     	org	3145731
+  2034   300003  1E                 	db	30
+  2035                           
+  2036                           ; Padding undefined space
+  2037   300004                     	org	3145732
+  2038   300004  FF                 	db	255
+  2039                           
+  2040                           ;Config register CONFIG3H @ 0x300005
+  2041                           ;	CCP2 MUX bit
+  2042                           ;	CCP2MX = 0x1, unprogrammed default
+  2043                           ;	PORTB A/D Enable bit
+  2044                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+  2045                           ;	Low-Power Timer 1 Oscillator Enable bit
+  2046                           ;	LPT1OSC = 0x0, unprogrammed default
+  2047                           ;	MCLR Pin Enable bit
+  2048                           ;	MCLRE = OFF, RE3 input pin enabled; MCLR pin disabled
+  2049   300005                     	org	3145733
+  2050   300005  01                 	db	1
+  2051                           
+  2052                           ;Config register CONFIG4L @ 0x300006
+  2053                           ;	Stack Full/Underflow Reset Enable bit
+  2054                           ;	STVREN = 0x1, unprogrammed default
+  2055                           ;	Single-Supply ICSP Enable bit
+  2056                           ;	LVP = OFF, Single-Supply ICSP disabled
+  2057                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  2058                           ;	ICPRT = 0x0, unprogrammed default
+  2059                           ;	Extended Instruction Set Enable bit
+  2060                           ;	XINST = 0x0, unprogrammed default
+  2061                           ;	Background Debugger Enable bit
+  2062                           ;	DEBUG = 0x1, unprogrammed default
+  2063   300006                     	org	3145734
+  2064   300006  81                 	db	129
+  2065                           
+  2066                           ; Padding undefined space
+  2067   300007                     	org	3145735
+  2068   300007  FF                 	db	255
+  2069                           tosu	equ	0xFFF
+  2070                           tosh	equ	0xFFE
+  2071                           tosl	equ	0xFFD
+  2072                           stkptr	equ	0xFFC
+  2073                           pclatu	equ	0xFFB
+  2074                           pclath	equ	0xFFA
+  2075                           pcl	equ	0xFF9
+  2076                           tblptru	equ	0xFF8
+  2077                           tblptrh	equ	0xFF7
+  2078                           tblptrl	equ	0xFF6
+  2079                           tablat	equ	0xFF5
+  2080                           prodh	equ	0xFF4
+  2081                           prodl	equ	0xFF3
+  2082                           indf0	equ	0xFEF
+  2083                           postinc0	equ	0xFEE
+  2084                           postdec0	equ	0xFED
+  2085                           preinc0	equ	0xFEC
+  2086                           plusw0	equ	0xFEB
+  2087                           fsr0h	equ	0xFEA
+  2088                           fsr0l	equ	0xFE9
+  2089                           wreg	equ	0xFE8
+  2090                           indf1	equ	0xFE7
+  2091                           postinc1	equ	0xFE6
+  2092                           postdec1	equ	0xFE5
+  2093                           preinc1	equ	0xFE4
+  2094                           plusw1	equ	0xFE3
+  2095                           fsr1h	equ	0xFE2
+  2096                           fsr1l	equ	0xFE1
+  2097                           bsr	equ	0xFE0
+  2098                           indf2	equ	0xFDF
+  2099                           postinc2	equ	0xFDE
+  2100                           postdec2	equ	0xFDD
+  2101                           preinc2	equ	0xFDC
+  2102                           plusw2	equ	0xFDB
+  2103                           fsr2h	equ	0xFDA
+  2104                           fsr2l	equ	0xFD9
+  2105                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     24
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     34      34
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    OLED_String@t	PTR const unsigned char  size(1) Largest target is 5
+		 -> STR_1(CODE[2]), STR_2(CODE[5]), STR_3(CODE[4]), STR_4(CODE[5]), 
+		 -> STR_5(CODE[5]), STR_6(CODE[3]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_OLED_Numero
+    _OLED_Numero->_OLED_String
+    _OLED_String->_OLED_SetCursor
+    _OLED_Char->_OLED_Dato
+    _OLED_Init->_OLED_Clear
+    _OLED_Clear->_OLED_SetCursor
+    _OLED_SetCursor->_OLED_Comando
+    _OLED_Comando->_I2C_Write
+    _OLED_Dato->_I2C_Write
+    _ADC_ReadAvg->_ADC_Read
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                13    13      0    2429
+                                             21 COMRAM    13    13      0
+                           _ADC_Init
+                        _ADC_ReadAvg
+                         _OLED_Clear
+                          _OLED_Init
+                        _OLED_Numero
+                        _OLED_String
+ ---------------------------------------------------------------------------------
+ (1) _OLED_Numero                                         12     9      3    1195
+                                              9 COMRAM    12     9      3
+                          _OLED_Char
+                     _OLED_SetCursor
+                        _OLED_String
+                            ___lwdiv
+                            ___lwmod
+ ---------------------------------------------------------------------------------
+ (2) ___lwmod                                              5     1      4     161
+                                              0 COMRAM     5     1      4
+ ---------------------------------------------------------------------------------
+ (2) ___lwdiv                                              7     3      4     164
+                                              0 COMRAM     7     3      4
+ ---------------------------------------------------------------------------------
+ (2) _OLED_String                                          3     1      2     334
+                                              6 COMRAM     3     1      2
+                          _OLED_Char
+                     _OLED_SetCursor
+ ---------------------------------------------------------------------------------
+ (3) _OLED_Char                                            2     2      0      90
+                                              4 COMRAM     1     1      0
+                          _OLED_Dato
+ ---------------------------------------------------------------------------------
+ (1) _OLED_Init                                            2     2      0     370
+                                              8 COMRAM     2     2      0
+                         _OLED_Clear
+                       _OLED_Comando
+ ---------------------------------------------------------------------------------
+ (2) _OLED_Clear                                           2     2      0     310
+                                              6 COMRAM     2     2      0
+                          _OLED_Dato
+                     _OLED_SetCursor
+ ---------------------------------------------------------------------------------
+ (3) _OLED_SetCursor                                       2     1      1     136
+                                              4 COMRAM     2     1      1
+                       _OLED_Comando
+ ---------------------------------------------------------------------------------
+ (4) _OLED_Comando                                         1     1      0      60
+                                              3 COMRAM     1     1      0
+                          _I2C_Start
+                           _I2C_Stop
+                          _I2C_Write
+ ---------------------------------------------------------------------------------
+ (4) _OLED_Dato                                            1     1      0      60
+                                              3 COMRAM     1     1      0
+                          _I2C_Start
+                           _I2C_Stop
+                          _I2C_Write
+ ---------------------------------------------------------------------------------
+ (5) _I2C_Write                                            3     3      0      45
+                                              0 COMRAM     3     3      0
+                          _I2C_Delay
+ ---------------------------------------------------------------------------------
+ (5) _I2C_Stop                                             0     0      0       0
+                          _I2C_Delay
+ ---------------------------------------------------------------------------------
+ (5) _I2C_Start                                            0     0      0       0
+                          _I2C_Delay
+ ---------------------------------------------------------------------------------
+ (6) _I2C_Delay                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _ADC_ReadAvg                                         12    10      2     128
+                                              5 COMRAM    12    10      2
+                           _ADC_Read
+ ---------------------------------------------------------------------------------
+ (2) _ADC_Read                                             5     3      2      29
+                                              0 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ (1) _ADC_Init                                             0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 6
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _ADC_Init
+   _ADC_ReadAvg
+     _ADC_Read
+   _OLED_Clear
+     _OLED_Dato
+       _I2C_Start
+         _I2C_Delay
+       _I2C_Stop
+         _I2C_Delay
+       _I2C_Write
+         _I2C_Delay
+     _OLED_SetCursor
+       _OLED_Comando
+         _I2C_Start
+         _I2C_Stop
+         _I2C_Write
+   _OLED_Init
+     _OLED_Clear
+     _OLED_Comando
+   _OLED_Numero
+     _OLED_Char
+       _OLED_Dato
+     _OLED_SetCursor
+     _OLED_String
+       _OLED_Char
+       _OLED_SetCursor
+     ___lwdiv
+     ___lwmod
+   _OLED_String
+
+Address spaces:
+Name               Size   Autos  Total    Usage
+BITCOMRAM           95      0       0      0.0%
+BITBANK0           160      0       0      0.0%
+BITBANK1           256      0       0      0.0%
+BITBANK2           256      0       0      0.0%
+BITBANK3           256      0       0      0.0%
+BITBANK4           256      0       0      0.0%
+BITBANK5           256      0       0      0.0%
+BITBANK6           256      0       0      0.0%
+BITBANK7           256      0       0      0.0%
+BITBIGSFRh          61      0       0      0.0%
+BITBIGSFRlh         46      0       0      0.0%
+BITBIGSFRlll        42      0       0      0.0%
+BITBIGSFRllh         8      0       0      0.0%
+COMRAM              95     34      34     35.8%
+BANK0              160      0       0      0.0%
+BANK1              256      0       0      0.0%
+BANK2              256      0       0      0.0%
+BANK3              256      0       0      0.0%
+BANK4              256      0       0      0.0%
+BANK5              256      0       0      0.0%
+BANK6              256      0       0      0.0%
+BANK7              256      0       0      0.0%
+BIGRAM            2047      0       0      0.0%
+STACK                0      0       0      0.0%
+DATA                 0      0      34      0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
+Symbol Table                                                                                   Wed Apr 22 15:50:02 2026
+
+                     l31 0D12                       l25 0D3E                       l42 0CE8  
+                     l35 0B78                       l28 0CFE                       l36 0B84  
+                     l52 0C04                       l60 0C8E                       l45 0CAC  
+                     l70 09E2                       l39 0CCA                       l55 0C6C  
+                     l82 0BA6                       l90 0A5C                       l66 0C3C  
+                     l85 0BCA                       l79 0D26                       u10 0B4A  
+                     u11 0B42                       u30 0B78                       u31 0B74  
+                     u40 0C88                       u41 0C84                       u28 0B4C  
+                    l711 0ACE                      l704 0AC6                      l721 0B32  
+                    l714 0B2A                      l900 0D0A                      l902 0D10  
+                    l910 0B38                      l920 0B66                      l912 0B56  
+                    l904 0B36                      l922 0B68                      l914 0B58  
+                    l930 0CB0                      l924 0B7C                      l916 0B5C  
+                    l940 0CCE                      l932 0CB4                      l926 0B80  
+                    l918 0B5E                      l942 0CD2                      l934 0CBA  
+                    l928 0B82                      l944 0CD8                      l936 0CC0  
+                    l960 0C76                      l952 0C6E                      l890 0CF2  
+                    l946 0CDE                      l938 0CC6                      l962 0C78  
+                    l892 0CF6                      l948 0CE4                      l964 0C88  
+                    l886 0D36                      l894 0CFC                      l958 0C70  
+                    l888 0CEA                      l896 0D00                      l898 0D06  
+                    u220 0BF2                      u300 0B00                      u221 0BEE  
+                    u301 0AFC                      u230 0C04                      u310 0B16  
+                    u231 0C00                      u311 0B12                      u240 0C3C  
+                    u320 094A                      u241 0C38                      u321 0946  
+                    u250 0BB4                      u330 09AC                      u251 0BB0  
+                    u331 09A8                      u260 0A76                      u340 09E2  
+                    u261 0A72                      u341 09DE                      u350 0A2E  
+                    u270 0A94                      u351 0A2A                      u407 0C48  
+                    u271 0A90                      u360 0A4E                      u280 0AB0  
+                    u417 0D38                      u281 0AAC                      u290 0AE2  
+                    u427 0A14                      u291 0ADE                      u380 08F2  
+                    u437 0B9E                      u365 0A44                      u381 08EE  
+                    u375 0876                      u397 091C         ??_OLED_SetCursor 0006  
+                    wreg 0FE8                     l1200 0AC0                     l1210 0B00  
+                   l1202 0AD0                     l1220 0C56                     l1212 0B16  
+                   l1204 0AE2                     l1300 0904                     l1222 0C5C  
+                   l1214 0B1E                     l1206 0AEA                     l1230 0938  
+                   l1302 0912                     l1080 0D1A                     l1136 0C92  
+                   l1160 0BF4                     l1152 0BDA                     l1144 0BCE  
+                   l1224 0C62                     l1216 0B24                     l1208 0AF2  
+                   l1240 0980                     l1232 094A                     l1170 0B88  
+                   l1250 09E6                     l1154 0BE0                     l1146 0BD8  
+                   l1138 0BCC                     l1226 0C68                     l1218 0C3E  
+                   l1162 0C08                     l1242 099A                     l1172 0B9C  
+                   l1260 0A0E                     l1252 09F6                     l1156 0BE2  
+                   l1164 0C16                     l1180 0A5E                     l1244 09AC  
+                   l1236 095C                     l1228 0932                     l1078 0D14  
+                   l1174 0BA4                     l1262 0A1C                     l1158 0BF2  
+                   l1166 0C22                     l1190 0A94                     l1182 0A64  
+                   l1246 09BA                     l1238 097C                     l1270 081A  
+                   l1176 0BB4                     l1264 0A1E                     l1168 0C24  
+                   l1192 0A9A                     l1184 0A76                     l1248 09C8  
+                   l1280 0842                     l1272 081E                     l1266 0A2E  
+                   l1258 09F8                     l1194 0AB0                     l1186 0A7E  
+                   l1290 08AE                     l1282 0850                     l1274 0822  
+                   l1196 0AB8                     l1188 0A86                     l1292 08BC  
+                   l1284 088A                     l1276 0826                     l1198 0ABA  
+                   l1294 08CE                     l1286 088E                     l1278 0834  
+                   l1296 08DC                     l1288 089C                     l1298 08F2  
+                   STR_1 0817                     STR_2 080B                     STR_3 0810  
+                   STR_4 0801                     STR_5 0806                     STR_6 0814  
+            ?_OLED_Clear 0001                     _main 081A                     fsr2h 0FDA  
+                   indf2 0FDF                     fsr2l 0FD9         __end_of_I2C_Stop 0D14  
+       __end_of_ADC_Init 0D28         __end_of_ADC_Read 0BCC                     prodh 0FF4  
+                   prodl 0FF3                     start 7FFC             ___param_bank 0000  
+                  ?_main 0001          __end_of___lwdiv 0AD0          __end_of___lwmod 0B34  
+           ?_OLED_Numero 000A             ?_OLED_String 0007        __end_of_I2C_Delay 0D40  
+                  main@a 001F                    main@l 001D                    main@t 001B  
+      __end_of_I2C_Start 0D00        __end_of_I2C_Write 0B86                    tablat 0FF5  
+                  status 0FD8          __initialization 0D28             __end_of_main 0930  
+                 ??_main 0016            __activetblptr 0001                   _ADCON0 0FC2  
+                 _ADCON1 0FC1                   _ADCON2 0FC0                   _ADRESH 0FC4  
+                 _ADRESL 0FC3                ADC_Read@c 0005        __end_of_OLED_Char 0C90  
+      __end_of_OLED_Dato 0CEA        __end_of_OLED_Init 0C6E                   _OSCCON 0FD3  
+          ?_OLED_Comando 0001                ??___lwdiv 0005                ??___lwmod 0005  
+            OLED_Clear@i 0008              OLED_Clear@j 0007                   isa$std 0001  
+              ?_I2C_Stop 0001                ?_ADC_Init 0001                ?_ADC_Read 0001  
+           __mediumconst 0800                   tblptrh 0FF7                   tblptrl 0FF6  
+                 tblptru 0FF8           ??_OLED_Comando 0004               __accesstop 0060  
+__end_of__initialization 0D28            ___rparam_used 0001           __pcstackCOMRAM 0001  
+             ??_I2C_Stop 0001               ??_ADC_Init 0001               ??_ADC_Read 0003  
+           ??_OLED_Clear 0007               I2C_Write@i 0003       __end_of_OLED_Clear 0C06  
+          ??_ADC_ReadAvg 0008                _I2C_Delay 0D36                _I2C_Start 0CEA  
+              _I2C_Write 0B34                  __Hparam 0000                  __Lparam 0000  
+           ADC_ReadAvg@c 000C             ADC_ReadAvg@i 0011             ADC_ReadAvg@s 000D  
+                ___lwdiv 0A5E                  ___lwmod 0AD0             __psmallconst 0800  
+                __pcinit 0D28     __end_of_OLED_Comando 0CCC                  __ramtop 0800  
+                __ptext0 081A                  __ptext1 0930                  __ptext2 0AD0  
+                __ptext3 0A5E                  __ptext4 0C06                  __ptext5 0C6E  
+                __ptext6 0C3E                  __ptext7 0BCC                  __ptext8 0C90  
+                __ptext9 0CAE     end_of_initialization 0D28      __end_of_ADC_ReadAvg 0A5E  
+             ?_I2C_Delay 0001                _OLED_Char 0C6E                _OLED_Dato 0CCC  
+              _OLED_Init 0C3E               ?_I2C_Start 0001               ?_I2C_Write 0001  
+           OLED_Numero@c 000A             OLED_Numero@i 0014             OLED_Numero@p 0013  
+           OLED_String@c 0007             OLED_String@p 0009             OLED_String@t 0008  
+              _TRISAbits 0F92                _TRISBbits 0F93          OLED_Comando@cmd 0004  
+             ?_OLED_Char 0001               ?_OLED_Dato 0001               ?_OLED_Init 0001  
+    start_initialization 0D28              _ADC_ReadAvg 09E4              ??_I2C_Delay 0001  
+            ??_I2C_Start 0001              ??_I2C_Write 0001               OLED_Char@c 0001  
+             OLED_Char@i 0005               OLED_Dato@d 0004            ??_OLED_Numero 000D  
+          ??_OLED_String 0009           _OLED_SetCursor 0C90             _OLED_Comando 0CAE  
+            ??_OLED_Char 0005              ??_OLED_Dato 0004              ??_OLED_Init 0009  
+       ___lwdiv@dividend 0001          OLED_SetCursor@c 0005          OLED_SetCursor@p 0006  
+               ?___lwdiv 0001                 ?___lwmod 0001              __smallconst 0800  
+               _I2C_Stop 0D00                 _ADC_Init 0D14                 _ADC_Read 0B86  
+       ___lwdiv@quotient 0005   __end_of_OLED_SetCursor 0CAE      __end_of_OLED_Numero 09E4  
+    __end_of_OLED_String 0C3E                 _LATBbits 0F8A               _ADCON0bits 0FC2  
+        ?_OLED_SetCursor 0005                 __Hrparam 0000                 __Lrparam 0000  
+           __Lsmallconst 0800            I2C_Write@data 0002             ?_ADC_ReadAvg 0006  
+        ___lwdiv@divisor 0003              _OLED_Numero 0930          ___lwdiv@counter 0007  
+            _OLED_String 0C06                 __ptext10 0CCC                 __ptext11 0B34  
+               __ptext12 0D00                 __ptext13 0CEA                 __ptext14 0D36  
+               __ptext15 09E4                 __ptext16 0B86                 __ptext17 0D14  
+               isa$xinst 0000           OLED_Numero@buf 000D           OLED_Numero@num 000B  
+               main@temp 0021               _OLED_Clear 0BCC         ___lwmod@dividend 0001  
+        ___lwmod@divisor 0003          ___lwmod@counter 0005  
