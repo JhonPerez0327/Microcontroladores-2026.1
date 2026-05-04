@@ -1,0 +1,1249 @@
+
+
+Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
+                                                                                               Mon Apr 20 16:00:58 2026
+
+Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	cinit,global,reloc=2,class=CODE,space=0,delta=1
+     6                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     7                           	psect	text0,global,reloc=2,class=CODE,space=0,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,space=0,delta=1
+     9                           	psect	text2,global,reloc=2,class=CODE,space=0,delta=1,group=1
+    10                           	psect	text3,global,reloc=2,class=CODE,space=0,delta=1
+    11                           	psect	text4,global,reloc=2,class=CODE,space=0,delta=1
+    12                           	psect	text5,global,reloc=2,class=CODE,space=0,delta=1
+    13                           	psect	smallconst,global,reloc=2,class=SMALLCONST,space=0,delta=1,noexec
+    14                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    15                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    16                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    17   000000                     
+    18                           ; Generated 17/01/2025 GMT
+    19                           ; 
+    20                           ; Copyright © 2025, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    21                           ; All rights reserved.
+    22                           ; 
+    23                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    24                           ; 
+    25                           ; Redistribution and use in source and binary forms, with or without modification, are
+    26                           ; permitted provided that the following conditions are met:
+    27                           ; 
+    28                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    29                           ;        conditions and the following disclaimer.
+    30                           ; 
+    31                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    32                           ;        of conditions and the following disclaimer in the documentation and/or other
+    33                           ;        materials provided with the distribution. Publication is not required when
+    34                           ;        this file is used in an embedded application.
+    35                           ; 
+    36                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    37                           ;        software without specific prior written permission.
+    38                           ; 
+    39                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    40                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    41                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    42                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    43                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    44                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    45                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    46                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    47                           ; 
+    48                           ; 
+    49                           ; Code-generator required, PIC18F4550 Definitions
+    50                           ; 
+    51                           ; SFR Addresses
+    52   000FE0                     bsr             equ	4064
+    53   000FE9                     fsr0            equ	4073
+    54   000FEA                     fsr0h           equ	4074
+    55   000FE9                     fsr0l           equ	4073
+    56   000FE1                     fsr1            equ	4065
+    57   000FE2                     fsr1h           equ	4066
+    58   000FE1                     fsr1l           equ	4065
+    59   000FD9                     fsr2            equ	4057
+    60   000FDA                     fsr2h           equ	4058
+    61   000FD9                     fsr2l           equ	4057
+    62   000FEF                     indf0           equ	4079
+    63   000FE7                     indf1           equ	4071
+    64   000FDF                     indf2           equ	4063
+    65   000FF2                     intcon          equ	4082
+    66   000000                     nvmcon          equ	0
+    67   000FF9                     pcl             equ	4089
+    68   000FFA                     pclath          equ	4090
+    69   000FFB                     pclatu          equ	4091
+    70   000FEB                     plusw0          equ	4075
+    71   000FE3                     plusw1          equ	4067
+    72   000FDB                     plusw2          equ	4059
+    73   000FED                     postdec0        equ	4077
+    74   000FE5                     postdec1        equ	4069
+    75   000FDD                     postdec2        equ	4061
+    76   000FEE                     postinc0        equ	4078
+    77   000FE6                     postinc1        equ	4070
+    78   000FDE                     postinc2        equ	4062
+    79   000FEC                     preinc0         equ	4076
+    80   000FE4                     preinc1         equ	4068
+    81   000FDC                     preinc2         equ	4060
+    82   000FF3                     prod            equ	4083
+    83   000FF4                     prodh           equ	4084
+    84   000FF3                     prodl           equ	4083
+    85   000FD8                     status          equ	4056
+    86   000FF5                     tablat          equ	4085
+    87   000FF6                     tblptr          equ	4086
+    88   000FF7                     tblptrh         equ	4087
+    89   000FF6                     tblptrl         equ	4086
+    90   000FF8                     tblptru         equ	4088
+    91   000FFD                     tosl            equ	4093
+    92   000FE8                     wreg            equ	4072
+    93   000F62                     SPPDATA         equ	3938	;# 
+    94   000F63                     SPPCFG          equ	3939	;# 
+    95   000F64                     SPPEPS          equ	3940	;# 
+    96   000F65                     SPPCON          equ	3941	;# 
+    97   000F66                     UFRM            equ	3942	;# 
+    98   000F66                     UFRML           equ	3942	;# 
+    99   000F67                     UFRMH           equ	3943	;# 
+   100   000F68                     UIR             equ	3944	;# 
+   101   000F69                     UIE             equ	3945	;# 
+   102   000F6A                     UEIR            equ	3946	;# 
+   103   000F6B                     UEIE            equ	3947	;# 
+   104   000F6C                     USTAT           equ	3948	;# 
+   105   000F6D                     UCON            equ	3949	;# 
+   106   000F6E                     UADDR           equ	3950	;# 
+   107   000F6F                     UCFG            equ	3951	;# 
+   108   000F70                     UEP0            equ	3952	;# 
+   109   000F71                     UEP1            equ	3953	;# 
+   110   000F72                     UEP2            equ	3954	;# 
+   111   000F73                     UEP3            equ	3955	;# 
+   112   000F74                     UEP4            equ	3956	;# 
+   113   000F75                     UEP5            equ	3957	;# 
+   114   000F76                     UEP6            equ	3958	;# 
+   115   000F77                     UEP7            equ	3959	;# 
+   116   000F78                     UEP8            equ	3960	;# 
+   117   000F79                     UEP9            equ	3961	;# 
+   118   000F7A                     UEP10           equ	3962	;# 
+   119   000F7B                     UEP11           equ	3963	;# 
+   120   000F7C                     UEP12           equ	3964	;# 
+   121   000F7D                     UEP13           equ	3965	;# 
+   122   000F7E                     UEP14           equ	3966	;# 
+   123   000F7F                     UEP15           equ	3967	;# 
+   124   000F80                     PORTA           equ	3968	;# 
+   125   000F81                     PORTB           equ	3969	;# 
+   126   000F82                     PORTC           equ	3970	;# 
+   127   000F83                     PORTD           equ	3971	;# 
+   128   000F84                     PORTE           equ	3972	;# 
+   129   000F89                     LATA            equ	3977	;# 
+   130   000F8A                     LATB            equ	3978	;# 
+   131   000F8B                     LATC            equ	3979	;# 
+   132   000F8C                     LATD            equ	3980	;# 
+   133   000F8D                     LATE            equ	3981	;# 
+   134   000F92                     TRISA           equ	3986	;# 
+   135   000F92                     DDRA            equ	3986	;# 
+   136   000F93                     TRISB           equ	3987	;# 
+   137   000F93                     DDRB            equ	3987	;# 
+   138   000F94                     TRISC           equ	3988	;# 
+   139   000F94                     DDRC            equ	3988	;# 
+   140   000F95                     TRISD           equ	3989	;# 
+   141   000F95                     DDRD            equ	3989	;# 
+   142   000F96                     TRISE           equ	3990	;# 
+   143   000F96                     DDRE            equ	3990	;# 
+   144   000F9B                     OSCTUNE         equ	3995	;# 
+   145   000F9D                     PIE1            equ	3997	;# 
+   146   000F9E                     PIR1            equ	3998	;# 
+   147   000F9F                     IPR1            equ	3999	;# 
+   148   000FA0                     PIE2            equ	4000	;# 
+   149   000FA1                     PIR2            equ	4001	;# 
+   150   000FA2                     IPR2            equ	4002	;# 
+   151   000FA6                     EECON1          equ	4006	;# 
+   152   000FA7                     EECON2          equ	4007	;# 
+   153   000FA8                     EEDATA          equ	4008	;# 
+   154   000FA9                     EEADR           equ	4009	;# 
+   155   000FAB                     RCSTA           equ	4011	;# 
+   156   000FAB                     RCSTA1          equ	4011	;# 
+   157   000FAC                     TXSTA           equ	4012	;# 
+   158   000FAC                     TXSTA1          equ	4012	;# 
+   159   000FAD                     TXREG           equ	4013	;# 
+   160   000FAD                     TXREG1          equ	4013	;# 
+   161   000FAE                     RCREG           equ	4014	;# 
+   162   000FAE                     RCREG1          equ	4014	;# 
+   163   000FAF                     SPBRG           equ	4015	;# 
+   164   000FAF                     SPBRG1          equ	4015	;# 
+   165   000FB0                     SPBRGH          equ	4016	;# 
+   166   000FB1                     T3CON           equ	4017	;# 
+   167   000FB2                     TMR3            equ	4018	;# 
+   168   000FB2                     TMR3L           equ	4018	;# 
+   169   000FB3                     TMR3H           equ	4019	;# 
+   170   000FB4                     CMCON           equ	4020	;# 
+   171   000FB5                     CVRCON          equ	4021	;# 
+   172   000FB6                     ECCP1AS         equ	4022	;# 
+   173   000FB6                     CCP1AS          equ	4022	;# 
+   174   000FB7                     ECCP1DEL        equ	4023	;# 
+   175   000FB7                     CCP1DEL         equ	4023	;# 
+   176   000FB8                     BAUDCON         equ	4024	;# 
+   177   000FB8                     BAUDCTL         equ	4024	;# 
+   178   000FBA                     CCP2CON         equ	4026	;# 
+   179   000FBB                     CCPR2           equ	4027	;# 
+   180   000FBB                     CCPR2L          equ	4027	;# 
+   181   000FBC                     CCPR2H          equ	4028	;# 
+   182   000FBD                     CCP1CON         equ	4029	;# 
+   183   000FBD                     ECCP1CON        equ	4029	;# 
+   184   000FBE                     CCPR1           equ	4030	;# 
+   185   000FBE                     CCPR1L          equ	4030	;# 
+   186   000FBF                     CCPR1H          equ	4031	;# 
+   187   000FC0                     ADCON2          equ	4032	;# 
+   188   000FC1                     ADCON1          equ	4033	;# 
+   189   000FC2                     ADCON0          equ	4034	;# 
+   190   000FC3                     ADRES           equ	4035	;# 
+   191   000FC3                     ADRESL          equ	4035	;# 
+   192   000FC4                     ADRESH          equ	4036	;# 
+   193   000FC5                     SSPCON2         equ	4037	;# 
+   194   000FC6                     SSPCON1         equ	4038	;# 
+   195   000FC7                     SSPSTAT         equ	4039	;# 
+   196   000FC8                     SSPADD          equ	4040	;# 
+   197   000FC9                     SSPBUF          equ	4041	;# 
+   198   000FCA                     T2CON           equ	4042	;# 
+   199   000FCB                     PR2             equ	4043	;# 
+   200   000FCB                     MEMCON          equ	4043	;# 
+   201   000FCC                     TMR2            equ	4044	;# 
+   202   000FCD                     T1CON           equ	4045	;# 
+   203   000FCE                     TMR1            equ	4046	;# 
+   204   000FCE                     TMR1L           equ	4046	;# 
+   205   000FCF                     TMR1H           equ	4047	;# 
+   206   000FD0                     RCON            equ	4048	;# 
+   207   000FD1                     WDTCON          equ	4049	;# 
+   208   000FD2                     HLVDCON         equ	4050	;# 
+   209   000FD2                     LVDCON          equ	4050	;# 
+   210   000FD3                     OSCCON          equ	4051	;# 
+   211   000FD5                     T0CON           equ	4053	;# 
+   212   000FD6                     TMR0            equ	4054	;# 
+   213   000FD6                     TMR0L           equ	4054	;# 
+   214   000FD7                     TMR0H           equ	4055	;# 
+   215   000FD8                     STATUS          equ	4056	;# 
+   216   000FD9                     FSR2            equ	4057	;# 
+   217   000FD9                     FSR2L           equ	4057	;# 
+   218   000FDA                     FSR2H           equ	4058	;# 
+   219   000FDB                     PLUSW2          equ	4059	;# 
+   220   000FDC                     PREINC2         equ	4060	;# 
+   221   000FDD                     POSTDEC2        equ	4061	;# 
+   222   000FDE                     POSTINC2        equ	4062	;# 
+   223   000FDF                     INDF2           equ	4063	;# 
+   224   000FE0                     BSR             equ	4064	;# 
+   225   000FE1                     FSR1            equ	4065	;# 
+   226   000FE1                     FSR1L           equ	4065	;# 
+   227   000FE2                     FSR1H           equ	4066	;# 
+   228   000FE3                     PLUSW1          equ	4067	;# 
+   229   000FE4                     PREINC1         equ	4068	;# 
+   230   000FE5                     POSTDEC1        equ	4069	;# 
+   231   000FE6                     POSTINC1        equ	4070	;# 
+   232   000FE7                     INDF1           equ	4071	;# 
+   233   000FE8                     WREG            equ	4072	;# 
+   234   000FE9                     FSR0            equ	4073	;# 
+   235   000FE9                     FSR0L           equ	4073	;# 
+   236   000FEA                     FSR0H           equ	4074	;# 
+   237   000FEB                     PLUSW0          equ	4075	;# 
+   238   000FEC                     PREINC0         equ	4076	;# 
+   239   000FED                     POSTDEC0        equ	4077	;# 
+   240   000FEE                     POSTINC0        equ	4078	;# 
+   241   000FEF                     INDF0           equ	4079	;# 
+   242   000FF0                     INTCON3         equ	4080	;# 
+   243   000FF1                     INTCON2         equ	4081	;# 
+   244   000FF2                     INTCON          equ	4082	;# 
+   245   000FF3                     PROD            equ	4083	;# 
+   246   000FF3                     PRODL           equ	4083	;# 
+   247   000FF4                     PRODH           equ	4084	;# 
+   248   000FF5                     TABLAT          equ	4085	;# 
+   249   000FF6                     TBLPTR          equ	4086	;# 
+   250   000FF6                     TBLPTRL         equ	4086	;# 
+   251   000FF7                     TBLPTRH         equ	4087	;# 
+   252   000FF8                     TBLPTRU         equ	4088	;# 
+   253   000FF9                     PCLAT           equ	4089	;# 
+   254   000FF9                     PC              equ	4089	;# 
+   255   000FF9                     PCL             equ	4089	;# 
+   256   000FFA                     PCLATH          equ	4090	;# 
+   257   000FFB                     PCLATU          equ	4091	;# 
+   258   000FFC                     STKPTR          equ	4092	;# 
+   259   000FFD                     TOS             equ	4093	;# 
+   260   000FFD                     TOSL            equ	4093	;# 
+   261   000FFE                     TOSH            equ	4094	;# 
+   262   000FFF                     TOSU            equ	4095	;# 
+   263   000F8C                     _LATDbits       set	3980
+   264   000F95                     _TRISDbits      set	3989
+   265   000FD3                     _OSCCON         set	4051
+   266   000FC3                     _ADRESL         set	4035
+   267   000FC4                     _ADRESH         set	4036
+   268   000FC2                     _ADCON0bits     set	4034
+   269   000FC2                     _ADCON0         set	4034
+   270   000FC0                     _ADCON2         set	4032
+   271   000FC1                     _ADCON1         set	4033
+   272   000F92                     _TRISAbits      set	3986
+   273                           
+   274                           ; #config settings
+   275                           
+   276                           	psect	cinit
+   277   000A44                     __pcinit:
+   278                           	callstack 0
+   279   000A44                     start_initialization:
+   280                           	callstack 0
+   281   000A44                     __initialization:
+   282                           	callstack 0
+   283   000A44                     end_of_initialization:
+   284                           	callstack 0
+   285   000A44                     __end_of__initialization:
+   286                           	callstack 0
+   287   000A44  0100               	movlb	0
+   288   000A46  EF01  F004         	goto	_main	;jump to C main() function
+   289                           
+   290                           	psect	cstackCOMRAM
+   291   000001                     __pcstackCOMRAM:
+   292                           	callstack 0
+   293   000001                     ?_ADC_Leer:
+   294                           	callstack 0
+   295   000001                     ?___lmul:
+   296                           	callstack 0
+   297   000001                     ___lmul@multiplier:
+   298                           	callstack 0
+   299   000001                     ??_ADC_Init:
+   300                           
+   301                           ; 1 bytes @ 0x0
+   302   000001                     	ds	2
+   303   000003                     ??_ADC_Leer:
+   304                           
+   305                           ; 1 bytes @ 0x2
+   306   000003                     	ds	2
+   307   000005                     ADC_Leer@canal:
+   308                           	callstack 0
+   309   000005                     ___lmul@multiplicand:
+   310                           	callstack 0
+   311                           
+   312                           ; 4 bytes @ 0x4
+   313   000005                     	ds	1
+   314   000006                     ?_ADC_LeerPromedio:
+   315                           	callstack 0
+   316                           
+   317                           ; 2 bytes @ 0x5
+   318   000006                     	ds	2
+   319   000008                     ??_ADC_LeerPromedio:
+   320                           
+   321                           ; 1 bytes @ 0x7
+   322   000008                     	ds	1
+   323   000009                     ___lmul@product:
+   324                           	callstack 0
+   325   000009                     
+   326                           ; 1 bytes @ 0x8
+   327   000009                     	ds	3
+   328   00000C                     ADC_LeerPromedio@canal:
+   329                           	callstack 0
+   330                           
+   331                           ; 1 bytes @ 0xB
+   332   00000C                     	ds	1
+   333   00000D                     ADC_LeerPromedio@suma:
+   334                           	callstack 0
+   335                           
+   336                           ; 4 bytes @ 0xC
+   337   00000D                     	ds	4
+   338   000011                     ADC_LeerPromedio@i:
+   339                           	callstack 0
+   340                           
+   341                           ; 1 bytes @ 0x10
+   342   000011                     	ds	1
+   343   000012                     ?_LM35_LeerTemperatura:
+   344                           	callstack 0
+   345                           
+   346                           ; 2 bytes @ 0x11
+   347   000012                     	ds	2
+   348   000014                     ??_LM35_LeerTemperatura:
+   349                           
+   350                           ; 1 bytes @ 0x13
+   351   000014                     	ds	4
+   352   000018                     LM35_LeerTemperatura@adc_val:
+   353                           	callstack 0
+   354                           
+   355                           ; 2 bytes @ 0x17
+   356   000018                     	ds	2
+   357   00001A                     LM35_LeerTemperatura@temp:
+   358                           	callstack 0
+   359                           
+   360                           ; 4 bytes @ 0x19
+   361   00001A                     	ds	4
+   362   00001E                     ??_main:
+   363                           
+   364                           ; 1 bytes @ 0x1D
+   365   00001E                     	ds	2
+   366   000020                     main@temperatura:
+   367                           	callstack 0
+   368                           
+   369                           ; 2 bytes @ 0x1F
+   370   000020                     	ds	2
+   371                           
+   372 ;;
+   373 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   374 ;;
+   375 ;; *************** function _main *****************
+   376 ;; Defined at:
+   377 ;;		line 192 in file "lm35.c"
+   378 ;; Parameters:    Size  Location     Type
+   379 ;;		None
+   380 ;; Auto vars:     Size  Location     Type
+   381 ;;  temperatura     2   31[COMRAM] unsigned int 
+   382 ;; Return value:  Size  Location     Type
+   383 ;;                  1    wreg      void 
+   384 ;; Registers used:
+   385 ;;		wreg, status,2, status,0, cstack
+   386 ;; Tracked objects:
+   387 ;;		On entry : 0/0
+   388 ;;		On exit  : 0/0
+   389 ;;		Unchanged: 0/0
+   390 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   391 ;;      Params:         0       0       0       0       0       0       0       0       0
+   392 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   393 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   394 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   395 ;;Total ram usage:        4 bytes
+   396 ;; Hardware stack levels required when called: 3
+   397 ;; This function calls:
+   398 ;;		_ADC_Init
+   399 ;;		_LM35_LeerTemperatura
+   400 ;; This function is called by:
+   401 ;;		Startup code after reset
+   402 ;; This function uses a non-reentrant model
+   403 ;;
+   404                           
+   405                           	psect	text0
+   406   000802                     __ptext0:
+   407                           	callstack 0
+   408   000802                     _main:
+   409                           	callstack 28
+   410   000802                     
+   411                           ;lm35.c: 194:     unsigned int temperatura;;lm35.c: 196:     OSCCON = 0x72;
+   412   000802  0E72               	movlw	114
+   413   000804  6ED3               	movwf	211,c	;volatile
+   414   000806                     
+   415                           ;lm35.c: 198:     TRISDbits.TRISD0 = 0;
+   416   000806  9095               	bcf	149,0,c	;volatile
+   417   000808                     
+   418                           ;lm35.c: 199:     LATDbits.LATD0 = 0;
+   419   000808  908C               	bcf	140,0,c	;volatile
+   420   00080A                     
+   421                           ;lm35.c: 201:     ADC_Init();
+   422   00080A  EC13  F005         	call	_ADC_Init	;wreg free
+   423   00080E                     
+   424                           ;lm35.c: 203:     _delay((unsigned long)((200)*(8000000/4000.0)));
+   425   00080E  0E03               	movlw	3
+   426   000810  6E1F               	movwf	(??_main+1)^0,c
+   427   000812  0E08               	movlw	8
+   428   000814  6E1E               	movwf	??_main^0,c
+   429   000816  0E77               	movlw	119
+   430   000818                     u177:
+   431   000818  2EE8               	decfsz	wreg,f,c
+   432   00081A  D7FE               	bra	u177
+   433   00081C  2E1E               	decfsz	??_main^0,f,c
+   434   00081E  D7FC               	bra	u177
+   435   000820  2E1F               	decfsz	(??_main+1)^0,f,c
+   436   000822  D7FA               	bra	u177
+   437   000824  0000               	nop	
+   438   000826                     l967:
+   439                           
+   440                           ;lm35.c: 207:         temperatura = LM35_LeerTemperatura();
+   441   000826  EC42  F004         	call	_LM35_LeerTemperatura	;wreg free
+   442   00082A  C012  F020         	movff	?_LM35_LeerTemperatura,main@temperatura
+   443   00082E  C013  F021         	movff	?_LM35_LeerTemperatura+1,main@temperatura+1
+   444   000832                     
+   445                           ;lm35.c: 210:         if(temperatura >= 30 && temperatura <= 36) {
+   446   000832  5021               	movf	(main@temperatura+1)^0,w,c
+   447   000834  E109               	bnz	u150
+   448   000836  0E1E               	movlw	30
+   449   000838  5C20               	subwf	main@temperatura^0,w,c
+   450   00083A  A0D8               	btfss	status,0,c
+   451   00083C  EF22  F004         	goto	u151
+   452   000840  EF24  F004         	goto	u150
+   453   000844                     u151:
+   454   000844  EF32  F004         	goto	l45
+   455   000848                     u150:
+   456   000848  5021               	movf	(main@temperatura+1)^0,w,c
+   457   00084A  E107               	bnz	u161
+   458   00084C  0E25               	movlw	37
+   459   00084E  5C20               	subwf	main@temperatura^0,w,c
+   460   000850  B0D8               	btfsc	status,0,c
+   461   000852  EF2D  F004         	goto	u161
+   462   000856  EF2F  F004         	goto	u160
+   463   00085A                     u161:
+   464   00085A  EF32  F004         	goto	l45
+   465   00085E                     u160:
+   466   00085E                     
+   467                           ;lm35.c: 211:             LATDbits.LATD0 = 1;
+   468   00085E  808C               	bsf	140,0,c	;volatile
+   469                           
+   470                           ;lm35.c: 212:         } else {
+   471   000860  EF33  F004         	goto	l975
+   472   000864                     l45:
+   473                           
+   474                           ;lm35.c: 213:             LATDbits.LATD0 = 0;
+   475   000864  908C               	bcf	140,0,c	;volatile
+   476   000866                     l975:
+   477                           
+   478                           ;lm35.c: 216:         _delay((unsigned long)((500)*(8000000/4000.0)));
+   479   000866  0E06               	movlw	6
+   480   000868  6E1F               	movwf	(??_main+1)^0,c
+   481   00086A  0E13               	movlw	19
+   482   00086C  6E1E               	movwf	??_main^0,c
+   483   00086E  0EAE               	movlw	174
+   484   000870                     u187:
+   485   000870  2EE8               	decfsz	wreg,f,c
+   486   000872  D7FE               	bra	u187
+   487   000874  2E1E               	decfsz	??_main^0,f,c
+   488   000876  D7FC               	bra	u187
+   489   000878  2E1F               	decfsz	(??_main+1)^0,f,c
+   490   00087A  D7FA               	bra	u187
+   491   00087C  EF13  F004         	goto	l967
+   492   000880  EFFE  F03F         	goto	start
+   493   000884                     __end_of_main:
+   494                           	callstack 0
+   495                           
+   496 ;; *************** function _LM35_LeerTemperatura *****************
+   497 ;; Defined at:
+   498 ;;		line 163 in file "lm35.c"
+   499 ;; Parameters:    Size  Location     Type
+   500 ;;		None
+   501 ;; Auto vars:     Size  Location     Type
+   502 ;;  temp            4   25[COMRAM] unsigned long 
+   503 ;;  adc_val         2   23[COMRAM] unsigned int 
+   504 ;; Return value:  Size  Location     Type
+   505 ;;                  2   17[COMRAM] unsigned int 
+   506 ;; Registers used:
+   507 ;;		wreg, status,2, status,0, cstack
+   508 ;; Tracked objects:
+   509 ;;		On entry : 0/0
+   510 ;;		On exit  : 0/0
+   511 ;;		Unchanged: 0/0
+   512 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   513 ;;      Params:         2       0       0       0       0       0       0       0       0
+   514 ;;      Locals:         6       0       0       0       0       0       0       0       0
+   515 ;;      Temps:          4       0       0       0       0       0       0       0       0
+   516 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   517 ;;Total ram usage:       12 bytes
+   518 ;; Hardware stack levels used: 1
+   519 ;; Hardware stack levels required when called: 2
+   520 ;; This function calls:
+   521 ;;		_ADC_LeerPromedio
+   522 ;;		___lmul
+   523 ;; This function is called by:
+   524 ;;		_main
+   525 ;; This function uses a non-reentrant model
+   526 ;;
+   527                           
+   528                           	psect	text1
+   529   000884                     __ptext1:
+   530                           	callstack 0
+   531   000884                     _LM35_LeerTemperatura:
+   532                           	callstack 28
+   533   000884                     
+   534                           ;lm35.c: 164:     unsigned int adc_val;;lm35.c: 165:     unsigned long temp;;lm35.c: 167
+      +                          :     adc_val = ADC_LeerPromedio(0);
+   535   000884  0E00               	movlw	0
+   536   000886  EC81  F004         	call	_ADC_LeerPromedio
+   537   00088A  C006  F018         	movff	?_ADC_LeerPromedio,LM35_LeerTemperatura@adc_val
+   538   00088E  C007  F019         	movff	?_ADC_LeerPromedio+1,LM35_LeerTemperatura@adc_val+1
+   539                           
+   540                           ;lm35.c: 169:     temp = (unsigned long)adc_val * 500;
+   541   000892  C018  F001         	movff	LM35_LeerTemperatura@adc_val,___lmul@multiplier
+   542   000896  C019  F002         	movff	LM35_LeerTemperatura@adc_val+1,___lmul@multiplier+1
+   543   00089A  6A03               	clrf	(___lmul@multiplier+2)^0,c
+   544   00089C  6A04               	clrf	(___lmul@multiplier+3)^0,c
+   545   00089E  0EF4               	movlw	244
+   546   0008A0  6E05               	movwf	___lmul@multiplicand^0,c
+   547   0008A2  0E01               	movlw	1
+   548   0008A4  6E06               	movwf	(___lmul@multiplicand+1)^0,c
+   549   0008A6  0E00               	movlw	0
+   550   0008A8  6E07               	movwf	(___lmul@multiplicand+2)^0,c
+   551   0008AA  0E00               	movlw	0
+   552   0008AC  6E08               	movwf	(___lmul@multiplicand+3)^0,c
+   553   0008AE  ECBE  F004         	call	___lmul	;wreg free
+   554   0008B2  C001  F01A         	movff	?___lmul,LM35_LeerTemperatura@temp
+   555   0008B6  C002  F01B         	movff	?___lmul+1,LM35_LeerTemperatura@temp+1
+   556   0008BA  C003  F01C         	movff	?___lmul+2,LM35_LeerTemperatura@temp+2
+   557   0008BE  C004  F01D         	movff	?___lmul+3,LM35_LeerTemperatura@temp+3
+   558   0008C2                     
+   559                           ;lm35.c: 170:     temp = temp / 1024;
+   560   0008C2  C01A  F014         	movff	LM35_LeerTemperatura@temp,??_LM35_LeerTemperatura
+   561   0008C6  C01B  F015         	movff	LM35_LeerTemperatura@temp+1,??_LM35_LeerTemperatura+1
+   562   0008CA  C01C  F016         	movff	LM35_LeerTemperatura@temp+2,??_LM35_LeerTemperatura+2
+   563   0008CE  C01D  F017         	movff	LM35_LeerTemperatura@temp+3,??_LM35_LeerTemperatura+3
+   564   0008D2  0E0B               	movlw	11
+   565   0008D4  EF71  F004         	goto	u140
+   566   0008D8                     u145:
+   567   0008D8  90D8               	bcf	status,0,c
+   568   0008DA  3217               	rrcf	(??_LM35_LeerTemperatura+3)^0,f,c
+   569   0008DC  3216               	rrcf	(??_LM35_LeerTemperatura+2)^0,f,c
+   570   0008DE  3215               	rrcf	(??_LM35_LeerTemperatura+1)^0,f,c
+   571   0008E0  3214               	rrcf	??_LM35_LeerTemperatura^0,f,c
+   572   0008E2                     u140:
+   573   0008E2  2EE8               	decfsz	wreg,f,c
+   574   0008E4  EF6C  F004         	goto	u145
+   575   0008E8  C014  F01A         	movff	??_LM35_LeerTemperatura,LM35_LeerTemperatura@temp
+   576   0008EC  C015  F01B         	movff	??_LM35_LeerTemperatura+1,LM35_LeerTemperatura@temp+1
+   577   0008F0  C016  F01C         	movff	??_LM35_LeerTemperatura+2,LM35_LeerTemperatura@temp+2
+   578   0008F4  C017  F01D         	movff	??_LM35_LeerTemperatura+3,LM35_LeerTemperatura@temp+3
+   579   0008F8                     
+   580                           ;lm35.c: 172:     return (unsigned int)temp;
+   581   0008F8  C01A  F012         	movff	LM35_LeerTemperatura@temp,?_LM35_LeerTemperatura
+   582   0008FC  C01B  F013         	movff	LM35_LeerTemperatura@temp+1,?_LM35_LeerTemperatura+1
+   583   000900  0012               	return		;funcret
+   584   000902                     __end_of_LM35_LeerTemperatura:
+   585                           	callstack 0
+   586                           
+   587 ;; *************** function ___lmul *****************
+   588 ;; Defined at:
+   589 ;;		line 15 in file "C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul32.c"
+   590 ;; Parameters:    Size  Location     Type
+   591 ;;  multiplier      4    0[COMRAM] unsigned long 
+   592 ;;  multiplicand    4    4[COMRAM] unsigned long 
+   593 ;; Auto vars:     Size  Location     Type
+   594 ;;  product         4    8[COMRAM] unsigned long 
+   595 ;; Return value:  Size  Location     Type
+   596 ;;                  4    0[COMRAM] unsigned long 
+   597 ;; Registers used:
+   598 ;;		wreg, status,2, status,0
+   599 ;; Tracked objects:
+   600 ;;		On entry : 0/0
+   601 ;;		On exit  : 0/0
+   602 ;;		Unchanged: 0/0
+   603 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   604 ;;      Params:         8       0       0       0       0       0       0       0       0
+   605 ;;      Locals:         4       0       0       0       0       0       0       0       0
+   606 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   607 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   608 ;;Total ram usage:       12 bytes
+   609 ;; Hardware stack levels used: 1
+   610 ;; This function calls:
+   611 ;;		Nothing
+   612 ;; This function is called by:
+   613 ;;		_LM35_LeerTemperatura
+   614 ;; This function uses a non-reentrant model
+   615 ;;
+   616                           
+   617                           	psect	text2
+   618   00097C                     __ptext2:
+   619                           	callstack 0
+   620   00097C                     ___lmul:
+   621                           	callstack 29
+   622   00097C  0E00               	movlw	0
+   623   00097E  6E09               	movwf	___lmul@product^0,c
+   624   000980  0E00               	movlw	0
+   625   000982  6E0A               	movwf	(___lmul@product+1)^0,c
+   626   000984  0E00               	movlw	0
+   627   000986  6E0B               	movwf	(___lmul@product+2)^0,c
+   628   000988  0E00               	movlw	0
+   629   00098A  6E0C               	movwf	(___lmul@product+3)^0,c
+   630   00098C                     l941:
+   631   00098C  A001               	btfss	___lmul@multiplier^0,0,c
+   632   00098E  EFCB  F004         	goto	u121
+   633   000992  EFCD  F004         	goto	u120
+   634   000996                     u121:
+   635   000996  EFD5  F004         	goto	l945
+   636   00099A                     u120:
+   637   00099A  5005               	movf	___lmul@multiplicand^0,w,c
+   638   00099C  2609               	addwf	___lmul@product^0,f,c
+   639   00099E  5006               	movf	(___lmul@multiplicand+1)^0,w,c
+   640   0009A0  220A               	addwfc	(___lmul@product+1)^0,f,c
+   641   0009A2  5007               	movf	(___lmul@multiplicand+2)^0,w,c
+   642   0009A4  220B               	addwfc	(___lmul@product+2)^0,f,c
+   643   0009A6  5008               	movf	(___lmul@multiplicand+3)^0,w,c
+   644   0009A8  220C               	addwfc	(___lmul@product+3)^0,f,c
+   645   0009AA                     l945:
+   646   0009AA  90D8               	bcf	status,0,c
+   647   0009AC  3605               	rlcf	___lmul@multiplicand^0,f,c
+   648   0009AE  3606               	rlcf	(___lmul@multiplicand+1)^0,f,c
+   649   0009B0  3607               	rlcf	(___lmul@multiplicand+2)^0,f,c
+   650   0009B2  3608               	rlcf	(___lmul@multiplicand+3)^0,f,c
+   651   0009B4  90D8               	bcf	status,0,c
+   652   0009B6  3204               	rrcf	(___lmul@multiplier+3)^0,f,c
+   653   0009B8  3203               	rrcf	(___lmul@multiplier+2)^0,f,c
+   654   0009BA  3202               	rrcf	(___lmul@multiplier+1)^0,f,c
+   655   0009BC  3201               	rrcf	___lmul@multiplier^0,f,c
+   656   0009BE  5001               	movf	___lmul@multiplier^0,w,c
+   657   0009C0  1002               	iorwf	(___lmul@multiplier+1)^0,w,c
+   658   0009C2  1003               	iorwf	(___lmul@multiplier+2)^0,w,c
+   659   0009C4  1004               	iorwf	(___lmul@multiplier+3)^0,w,c
+   660   0009C6  A4D8               	btfss	status,2,c
+   661   0009C8  EFE8  F004         	goto	u131
+   662   0009CC  EFEA  F004         	goto	u130
+   663   0009D0                     u131:
+   664   0009D0  EFC6  F004         	goto	l941
+   665   0009D4                     u130:
+   666   0009D4  C009  F001         	movff	___lmul@product,?___lmul
+   667   0009D8  C00A  F002         	movff	___lmul@product+1,?___lmul+1
+   668   0009DC  C00B  F003         	movff	___lmul@product+2,?___lmul+2
+   669   0009E0  C00C  F004         	movff	___lmul@product+3,?___lmul+3
+   670   0009E4  0012               	return		;funcret
+   671   0009E6                     __end_of___lmul:
+   672                           	callstack 0
+   673                           
+   674 ;; *************** function _ADC_LeerPromedio *****************
+   675 ;; Defined at:
+   676 ;;		line 143 in file "lm35.c"
+   677 ;; Parameters:    Size  Location     Type
+   678 ;;  canal           1    wreg     unsigned char 
+   679 ;; Auto vars:     Size  Location     Type
+   680 ;;  canal           1   11[COMRAM] unsigned char 
+   681 ;;  suma            4   12[COMRAM] unsigned long 
+   682 ;;  i               1   16[COMRAM] unsigned char 
+   683 ;; Return value:  Size  Location     Type
+   684 ;;                  2    5[COMRAM] unsigned int 
+   685 ;; Registers used:
+   686 ;;		wreg, status,2, status,0, cstack
+   687 ;; Tracked objects:
+   688 ;;		On entry : 0/0
+   689 ;;		On exit  : 0/0
+   690 ;;		Unchanged: 0/0
+   691 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   692 ;;      Params:         2       0       0       0       0       0       0       0       0
+   693 ;;      Locals:         6       0       0       0       0       0       0       0       0
+   694 ;;      Temps:          4       0       0       0       0       0       0       0       0
+   695 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   696 ;;Total ram usage:       12 bytes
+   697 ;; Hardware stack levels used: 1
+   698 ;; Hardware stack levels required when called: 1
+   699 ;; This function calls:
+   700 ;;		_ADC_Leer
+   701 ;; This function is called by:
+   702 ;;		_LM35_LeerTemperatura
+   703 ;; This function uses a non-reentrant model
+   704 ;;
+   705                           
+   706                           	psect	text3
+   707   000902                     __ptext3:
+   708                           	callstack 0
+   709   000902                     _ADC_LeerPromedio:
+   710                           	callstack 28
+   711                           
+   712                           ;incstack = 0
+   713                           ;ADC_LeerPromedio@canal stored from wreg
+   714   000902  6E0C               	movwf	ADC_LeerPromedio@canal^0,c
+   715   000904                     
+   716                           ;lm35.c: 144:     unsigned char i;;lm35.c: 145:     unsigned long suma = 0;
+   717   000904  0E00               	movlw	0
+   718   000906  6E0D               	movwf	ADC_LeerPromedio@suma^0,c
+   719   000908  0E00               	movlw	0
+   720   00090A  6E0E               	movwf	(ADC_LeerPromedio@suma+1)^0,c
+   721   00090C  0E00               	movlw	0
+   722   00090E  6E0F               	movwf	(ADC_LeerPromedio@suma+2)^0,c
+   723   000910  0E00               	movlw	0
+   724   000912  6E10               	movwf	(ADC_LeerPromedio@suma+3)^0,c
+   725   000914                     
+   726                           ;lm35.c: 147:     for(i = 0; i < 8; i++) {
+   727   000914  6A11               	clrf	ADC_LeerPromedio@i^0,c
+   728   000916                     l927:
+   729                           
+   730                           ;lm35.c: 148:         suma += ADC_Leer(canal);
+   731   000916  500C               	movf	ADC_LeerPromedio@canal^0,w,c
+   732   000918  ECF3  F004         	call	_ADC_Leer
+   733   00091C  5001               	movf	?_ADC_Leer^0,w,c
+   734   00091E  260D               	addwf	ADC_LeerPromedio@suma^0,f,c
+   735   000920  5002               	movf	(?_ADC_Leer+1)^0,w,c
+   736   000922  220E               	addwfc	(ADC_LeerPromedio@suma+1)^0,f,c
+   737   000924  0E00               	movlw	0
+   738   000926  220F               	addwfc	(ADC_LeerPromedio@suma+2)^0,f,c
+   739   000928  0E00               	movlw	0
+   740   00092A  2210               	addwfc	(ADC_LeerPromedio@suma+3)^0,f,c
+   741   00092C                     
+   742                           ;lm35.c: 149:         _delay((unsigned long)((1)*(8000000/4000.0)));
+   743   00092C  0E03               	movlw	3
+   744   00092E  6E08               	movwf	??_ADC_LeerPromedio^0,c
+   745   000930  0E98               	movlw	152
+   746   000932                     u197:
+   747   000932  2EE8               	decfsz	wreg,f,c
+   748   000934  D7FE               	bra	u197
+   749   000936  2E08               	decfsz	??_ADC_LeerPromedio^0,f,c
+   750   000938  D7FC               	bra	u197
+   751   00093A                     
+   752                           ;lm35.c: 150:     }
+   753   00093A  2A11               	incf	ADC_LeerPromedio@i^0,f,c
+   754   00093C  0E07               	movlw	7
+   755   00093E  6411               	cpfsgt	ADC_LeerPromedio@i^0,c
+   756   000940  EFA4  F004         	goto	u101
+   757   000944  EFA6  F004         	goto	u100
+   758   000948                     u101:
+   759   000948  EF8B  F004         	goto	l927
+   760   00094C                     u100:
+   761   00094C                     
+   762                           ;lm35.c: 152:     return (unsigned int)(suma / 8);
+   763   00094C  C00D  F008         	movff	ADC_LeerPromedio@suma,??_ADC_LeerPromedio
+   764   000950  C00E  F009         	movff	ADC_LeerPromedio@suma+1,??_ADC_LeerPromedio+1
+   765   000954  C00F  F00A         	movff	ADC_LeerPromedio@suma+2,??_ADC_LeerPromedio+2
+   766   000958  C010  F00B         	movff	ADC_LeerPromedio@suma+3,??_ADC_LeerPromedio+3
+   767   00095C  0E04               	movlw	4
+   768   00095E  EFB6  F004         	goto	u110
+   769   000962                     u115:
+   770   000962  90D8               	bcf	status,0,c
+   771   000964  320B               	rrcf	(??_ADC_LeerPromedio+3)^0,f,c
+   772   000966  320A               	rrcf	(??_ADC_LeerPromedio+2)^0,f,c
+   773   000968  3209               	rrcf	(??_ADC_LeerPromedio+1)^0,f,c
+   774   00096A  3208               	rrcf	??_ADC_LeerPromedio^0,f,c
+   775   00096C                     u110:
+   776   00096C  2EE8               	decfsz	wreg,f,c
+   777   00096E  EFB1  F004         	goto	u115
+   778   000972  C008  F006         	movff	??_ADC_LeerPromedio,?_ADC_LeerPromedio
+   779   000976  C009  F007         	movff	??_ADC_LeerPromedio+1,?_ADC_LeerPromedio+1
+   780   00097A  0012               	return		;funcret
+   781   00097C                     __end_of_ADC_LeerPromedio:
+   782                           	callstack 0
+   783                           
+   784 ;; *************** function _ADC_Leer *****************
+   785 ;; Defined at:
+   786 ;;		line 122 in file "lm35.c"
+   787 ;; Parameters:    Size  Location     Type
+   788 ;;  canal           1    wreg     unsigned char 
+   789 ;; Auto vars:     Size  Location     Type
+   790 ;;  canal           1    4[COMRAM] unsigned char 
+   791 ;; Return value:  Size  Location     Type
+   792 ;;                  2    0[COMRAM] unsigned int 
+   793 ;; Registers used:
+   794 ;;		wreg, status,2, status,0
+   795 ;; Tracked objects:
+   796 ;;		On entry : 0/0
+   797 ;;		On exit  : 0/0
+   798 ;;		Unchanged: 0/0
+   799 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   800 ;;      Params:         2       0       0       0       0       0       0       0       0
+   801 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   802 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   803 ;;      Totals:         5       0       0       0       0       0       0       0       0
+   804 ;;Total ram usage:        5 bytes
+   805 ;; Hardware stack levels used: 1
+   806 ;; This function calls:
+   807 ;;		Nothing
+   808 ;; This function is called by:
+   809 ;;		_ADC_LeerPromedio
+   810 ;; This function uses a non-reentrant model
+   811 ;;
+   812                           
+   813                           	psect	text4
+   814   0009E6                     __ptext4:
+   815                           	callstack 0
+   816   0009E6                     _ADC_Leer:
+   817                           	callstack 28
+   818                           
+   819                           ;incstack = 0
+   820                           ;ADC_Leer@canal stored from wreg
+   821   0009E6  6E05               	movwf	ADC_Leer@canal^0,c
+   822   0009E8                     
+   823                           ;lm35.c: 123:     ADCON0 = (ADCON0 & 0xC3) | ((canal & 0x0F) << 2);
+   824   0009E8  C005  F003         	movff	ADC_Leer@canal,??_ADC_Leer
+   825   0009EC  0E0F               	movlw	15
+   826   0009EE  1603               	andwf	??_ADC_Leer^0,f,c
+   827   0009F0  90D8               	bcf	status,0,c
+   828   0009F2  3603               	rlcf	??_ADC_Leer^0,f,c
+   829   0009F4  90D8               	bcf	status,0,c
+   830   0009F6  3603               	rlcf	??_ADC_Leer^0,f,c
+   831   0009F8  50C2               	movf	194,w,c	;volatile
+   832   0009FA  0BC3               	andlw	195
+   833   0009FC  1003               	iorwf	??_ADC_Leer^0,w,c
+   834   0009FE  6EC2               	movwf	194,c	;volatile
+   835   000A00                     
+   836                           ;lm35.c: 125:     _delay((unsigned long)((50)*(8000000/4000000.0)));
+   837   000A00  0E21               	movlw	33
+   838   000A02                     u207:
+   839   000A02  2EE8               	decfsz	wreg,f,c
+   840   000A04  D7FE               	bra	u207
+   841   000A06  0000               	nop	
+   842   000A08                     
+   843                           ;lm35.c: 127:     ADCON0bits.GO = 1;
+   844   000A08  82C2               	bsf	194,1,c	;volatile
+   845   000A0A                     l28:
+   846   000A0A  B2C2               	btfsc	194,1,c	;volatile
+   847   000A0C  EF0A  F005         	goto	u91
+   848   000A10  EF0C  F005         	goto	u90
+   849   000A14                     u91:
+   850   000A14  EF05  F005         	goto	l28
+   851   000A18                     u90:
+   852   000A18                     
+   853                           ;lm35.c: 130:     return ((unsigned int)(ADRESH << 8) | ADRESL);
+   854   000A18  50C4               	movf	196,w,c	;volatile
+   855   000A1A  6E03               	movwf	??_ADC_Leer^0,c
+   856   000A1C  50C3               	movf	195,w,c	;volatile
+   857   000A1E  6E01               	movwf	?_ADC_Leer^0,c
+   858   000A20  C003  F002         	movff	??_ADC_Leer,?_ADC_Leer+1
+   859   000A24  0012               	return		;funcret
+   860   000A26                     __end_of_ADC_Leer:
+   861                           	callstack 0
+   862                           
+   863 ;; *************** function _ADC_Init *****************
+   864 ;; Defined at:
+   865 ;;		line 106 in file "lm35.c"
+   866 ;; Parameters:    Size  Location     Type
+   867 ;;		None
+   868 ;; Auto vars:     Size  Location     Type
+   869 ;;		None
+   870 ;; Return value:  Size  Location     Type
+   871 ;;                  1    wreg      void 
+   872 ;; Registers used:
+   873 ;;		wreg, status,2
+   874 ;; Tracked objects:
+   875 ;;		On entry : 0/0
+   876 ;;		On exit  : 0/0
+   877 ;;		Unchanged: 0/0
+   878 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   879 ;;      Params:         0       0       0       0       0       0       0       0       0
+   880 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   881 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   882 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   883 ;;Total ram usage:        1 bytes
+   884 ;; Hardware stack levels used: 1
+   885 ;; This function calls:
+   886 ;;		Nothing
+   887 ;; This function is called by:
+   888 ;;		_main
+   889 ;; This function uses a non-reentrant model
+   890 ;;
+   891                           
+   892                           	psect	text5
+   893   000A26                     __ptext5:
+   894                           	callstack 0
+   895   000A26                     _ADC_Init:
+   896                           	callstack 30
+   897   000A26                     
+   898                           ;lm35.c: 107:     TRISAbits.TRISA0 = 1;
+   899   000A26  8092               	bsf	146,0,c	;volatile
+   900   000A28                     
+   901                           ;lm35.c: 109:     ADCON1 = 0x0E;
+   902   000A28  0E0E               	movlw	14
+   903   000A2A  6EC1               	movwf	193,c	;volatile
+   904                           
+   905                           ;lm35.c: 110:     ADCON2 = 0xBD;
+   906   000A2C  0EBD               	movlw	189
+   907   000A2E  6EC0               	movwf	192,c	;volatile
+   908                           
+   909                           ;lm35.c: 111:     ADCON0 = 0x01;
+   910   000A30  0E01               	movlw	1
+   911   000A32  6EC2               	movwf	194,c	;volatile
+   912   000A34                     
+   913                           ;lm35.c: 113:     _delay((unsigned long)((5)*(8000000/4000.0)));
+   914   000A34  0E0D               	movlw	13
+   915   000A36  6E01               	movwf	??_ADC_Init^0,c
+   916   000A38  0EFC               	movlw	252
+   917   000A3A                     u217:
+   918   000A3A  2EE8               	decfsz	wreg,f,c
+   919   000A3C  D7FE               	bra	u217
+   920   000A3E  2E01               	decfsz	??_ADC_Init^0,f,c
+   921   000A40  D7FC               	bra	u217
+   922   000A42  0012               	return		;funcret
+   923   000A44                     __end_of_ADC_Init:
+   924                           	callstack 0
+   925                           
+   926                           	psect	smallconst
+   927   000800                     __psmallconst:
+   928                           	callstack 0
+   929   000800  00                 	db	0
+   930   000801  00                 	db	0	; dummy byte at the end
+   931   000800                     __smallconst    set	__psmallconst
+   932   000800                     __mediumconst   set	__psmallconst
+   933   000000                     __activetblptr  equ	0
+   934                           
+   935                           	psect	rparam
+   936   000001                     ___rparam_used  equ	1
+   937   000000                     ___param_bank   equ	0
+   938   000000                     __Lparam        equ	__Lrparam
+   939   000000                     __Hparam        equ	__Hrparam
+   940                           
+   941                           	psect	config
+   942                           
+   943                           ;Config register CONFIG1L @ 0x300000
+   944                           ;	unspecified, using default values
+   945                           ;	PLL Prescaler Selection bits
+   946                           ;	PLLDIV = 0x0, unprogrammed default
+   947                           ;	System Clock Postscaler Selection bits
+   948                           ;	CPUDIV = 0x0, unprogrammed default
+   949                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+   950                           ;	USBDIV = 0x0, unprogrammed default
+   951   300000                     	org	3145728
+   952   300000  00                 	db	0
+   953                           
+   954                           ;Config register CONFIG1H @ 0x300001
+   955                           ;	Oscillator Selection bits
+   956                           ;	FOSC = INTOSC_EC, Internal oscillator, CLKO function on RA6, EC used by USB (INTCKO)
+   957                           ;	Fail-Safe Clock Monitor Enable bit
+   958                           ;	FCMEN = 0x0, unprogrammed default
+   959                           ;	Internal/External Oscillator Switchover bit
+   960                           ;	IESO = 0x0, unprogrammed default
+   961   300001                     	org	3145729
+   962   300001  09                 	db	9
+   963                           
+   964                           ;Config register CONFIG2L @ 0x300002
+   965                           ;	Power-up Timer Enable bit
+   966                           ;	PWRT = ON, PWRT enabled
+   967                           ;	Brown-out Reset Enable bits
+   968                           ;	BOR = 0x3, unprogrammed default
+   969                           ;	Brown-out Reset Voltage bits
+   970                           ;	BORV = 0x3, unprogrammed default
+   971                           ;	USB Voltage Regulator Enable bit
+   972                           ;	VREGEN = 0x0, unprogrammed default
+   973   300002                     	org	3145730
+   974   300002  1E                 	db	30
+   975                           
+   976                           ;Config register CONFIG2H @ 0x300003
+   977                           ;	Watchdog Timer Enable bit
+   978                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+   979                           ;	Watchdog Timer Postscale Select bits
+   980                           ;	WDTPS = 0xF, unprogrammed default
+   981   300003                     	org	3145731
+   982   300003  1E                 	db	30
+   983                           
+   984                           ; Padding undefined space
+   985   300004                     	org	3145732
+   986   300004  FF                 	db	255
+   987                           
+   988                           ;Config register CONFIG3H @ 0x300005
+   989                           ;	CCP2 MUX bit
+   990                           ;	CCP2MX = 0x1, unprogrammed default
+   991                           ;	PORTB A/D Enable bit
+   992                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+   993                           ;	Low-Power Timer 1 Oscillator Enable bit
+   994                           ;	LPT1OSC = 0x0, unprogrammed default
+   995                           ;	MCLR Pin Enable bit
+   996                           ;	MCLRE = OFF, RE3 input pin enabled; MCLR pin disabled
+   997   300005                     	org	3145733
+   998   300005  01                 	db	1
+   999                           
+  1000                           ;Config register CONFIG4L @ 0x300006
+  1001                           ;	Stack Full/Underflow Reset Enable bit
+  1002                           ;	STVREN = 0x1, unprogrammed default
+  1003                           ;	Single-Supply ICSP Enable bit
+  1004                           ;	LVP = OFF, Single-Supply ICSP disabled
+  1005                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  1006                           ;	ICPRT = 0x0, unprogrammed default
+  1007                           ;	Extended Instruction Set Enable bit
+  1008                           ;	XINST = OFF, Instruction set extension and Indexed Addressing mode disabled (Legacy mo
+      +                          de)
+  1009                           ;	Background Debugger Enable bit
+  1010                           ;	DEBUG = OFF, Background debugger disabled, RB6 and RB7 configured as general purpose I
+      +                          /O pins
+  1011   300006                     	org	3145734
+  1012   300006  81                 	db	129
+  1013                           
+  1014                           ; Padding undefined space
+  1015   300007                     	org	3145735
+  1016   300007  FF                 	db	255
+  1017                           tosu	equ	0xFFF
+  1018                           tosh	equ	0xFFE
+  1019                           tosl	equ	0xFFD
+  1020                           stkptr	equ	0xFFC
+  1021                           pclatu	equ	0xFFB
+  1022                           pclath	equ	0xFFA
+  1023                           pcl	equ	0xFF9
+  1024                           tblptru	equ	0xFF8
+  1025                           tblptrh	equ	0xFF7
+  1026                           tblptrl	equ	0xFF6
+  1027                           tablat	equ	0xFF5
+  1028                           prodh	equ	0xFF4
+  1029                           prodl	equ	0xFF3
+  1030                           indf0	equ	0xFEF
+  1031                           postinc0	equ	0xFEE
+  1032                           postdec0	equ	0xFED
+  1033                           preinc0	equ	0xFEC
+  1034                           plusw0	equ	0xFEB
+  1035                           fsr0h	equ	0xFEA
+  1036                           fsr0l	equ	0xFE9
+  1037                           wreg	equ	0xFE8
+  1038                           indf1	equ	0xFE7
+  1039                           postinc1	equ	0xFE6
+  1040                           postdec1	equ	0xFE5
+  1041                           preinc1	equ	0xFE4
+  1042                           plusw1	equ	0xFE3
+  1043                           fsr1h	equ	0xFE2
+  1044                           fsr1l	equ	0xFE1
+  1045                           bsr	equ	0xFE0
+  1046                           indf2	equ	0xFDF
+  1047                           postinc2	equ	0xFDE
+  1048                           postdec2	equ	0xFDD
+  1049                           preinc2	equ	0xFDC
+  1050                           plusw2	equ	0xFDB
+  1051                           fsr2h	equ	0xFDA
+  1052                           fsr2l	equ	0xFD9
+  1053                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     33      33
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_LM35_LeerTemperatura
+    _LM35_LeerTemperatura->_ADC_LeerPromedio
+    _ADC_LeerPromedio->_ADC_Leer
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 4     4      0     336
+                                             29 COMRAM     4     4      0
+                           _ADC_Init
+               _LM35_LeerTemperatura
+ ---------------------------------------------------------------------------------
+ (1) _LM35_LeerTemperatura                                12    10      2     291
+                                             17 COMRAM    12    10      2
+                   _ADC_LeerPromedio
+                             ___lmul
+ ---------------------------------------------------------------------------------
+ (2) ___lmul                                              12     4      8      94
+                                              0 COMRAM    12     4      8
+ ---------------------------------------------------------------------------------
+ (2) _ADC_LeerPromedio                                    12    10      2     128
+                                              5 COMRAM    12    10      2
+                           _ADC_Leer
+ ---------------------------------------------------------------------------------
+ (3) _ADC_Leer                                             5     3      2      29
+                                              0 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ (1) _ADC_Init                                             1     1      0       0
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _ADC_Init
+   _LM35_LeerTemperatura
+     _ADC_LeerPromedio
+       _ADC_Leer
+     ___lmul
+
+Address spaces:
+Name               Size   Autos  Total    Usage
+BITCOMRAM           95      0       0      0.0%
+BITBANK0           160      0       0      0.0%
+BITBANK1           256      0       0      0.0%
+BITBANK2           256      0       0      0.0%
+BITBANK3           256      0       0      0.0%
+BITBANK4           256      0       0      0.0%
+BITBANK5           256      0       0      0.0%
+BITBANK6           256      0       0      0.0%
+BITBANK7           256      0       0      0.0%
+BITBIGSFRh          61      0       0      0.0%
+BITBIGSFRlh         53      0       0      0.0%
+BITBIGSFRll         44      0       0      0.0%
+COMRAM              95     33      33     34.7%
+BANK0              160      0       0      0.0%
+BANK1              256      0       0      0.0%
+BANK2              256      0       0      0.0%
+BANK3              256      0       0      0.0%
+BANK4              256      0       0      0.0%
+BANK5              256      0       0      0.0%
+BANK6              256      0       0      0.0%
+BANK7              256      0       0      0.0%
+BIGRAM            2047      0       0      0.0%
+STACK                0      0       0      0.0%
+DATA                 0      0      33      0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
+Symbol Table                                                                                   Mon Apr 20 16:00:58 2026
+
+        ADC_LeerPromedio@suma 000D                            l31 0A24                            l25 0A42  
+                          l28 0A0A                            l36 097A                            l45 0864  
+                          l63 09D4                            l39 0900                            l64 09E4  
+                          u90 0A18                            u91 0A14                           l911 0A00  
+                         l913 0A08                           l921 0914                           l915 0A18  
+                         l931 093A                           l909 09E8                           l933 093C  
+                         l941 098C                           l935 094C                           l927 0916  
+                         l919 0904                           l943 099A                           l951 08C2  
+                         l929 092C                           l945 09AA                           l953 08F8  
+                         l961 0808                           l875 0A26                           l947 09B4  
+                         l939 097C                           l971 0848                           l963 080A  
+                         l877 0A28                           l949 0884                           l973 085E  
+                         l965 080E                           l957 0802                           l879 0A34  
+                         l975 0866                           l967 0826                           l959 0806  
+                         l969 0832                           u100 094C                           u101 0948  
+                         u110 096C                           u120 099A                           u121 0996  
+                         u130 09D4                           u115 0962                           u131 09D0  
+                         u140 08E2                           u150 0848                           u207 0A02  
+                         u151 0844                           u160 085E                           u217 0A3A  
+                         u145 08D8                           u161 085A                           u177 0818  
+                         u187 0870                           u197 0932                           wreg 0FE8  
+ LM35_LeerTemperatura@adc_val 0018                          _main 0802              __end_of_ADC_Leer 0A26  
+            __end_of_ADC_Init 0A44                          start 7FFC                  ___param_bank 0000  
+            _ADC_LeerPromedio 0902                         ?_main 0001           ___lmul@multiplicand 0005  
+                       status 0FD8               __initialization 0A44                  __end_of_main 0884  
+                      ??_main 001E                 __activetblptr 0000                        _ADCON0 0FC2  
+                      _ADCON1 0FC1                        _ADCON2 0FC0                        _ADRESH 0FC4  
+                      _ADRESL 0FC3                        _OSCCON 0FD3                        ___lmul 097C  
+                      isa$std 0001                     ?_ADC_Leer 0001                     ?_ADC_Init 0001  
+                __mediumconst 0800                    __accesstop 0060       __end_of__initialization 0A44  
+               ___rparam_used 0001                __pcstackCOMRAM 0001                    ??_ADC_Leer 0003  
+                  ??_ADC_Init 0001      __end_of_ADC_LeerPromedio 097C                       ?___lmul 0001  
+              ___lmul@product 0009                       __Hparam 0000                       __Lparam 0000  
+                __psmallconst 0800                       __pcinit 0A44                       __ramtop 0800  
+                     __ptext0 0802                       __ptext1 0884                       __ptext2 097C  
+                     __ptext3 0902                       __ptext4 09E6                       __ptext5 0A26  
+        end_of_initialization 0A44  __end_of_LM35_LeerTemperatura 0902                     _TRISAbits 0F92  
+                   _TRISDbits 0F95                __end_of___lmul 09E6           start_initialization 0A44  
+           ?_ADC_LeerPromedio 0006            ??_ADC_LeerPromedio 0008                      ??___lmul 0009  
+        _LM35_LeerTemperatura 0884             ADC_LeerPromedio@i 0011         ?_LM35_LeerTemperatura 0012  
+                 __smallconst 0800                      _ADC_Leer 09E6                      _ADC_Init 0A26  
+                    _LATDbits 0F8C                    _ADCON0bits 0FC2             ___lmul@multiplier 0001  
+               ADC_Leer@canal 0005                      __Hrparam 0000                      __Lrparam 0000  
+      ??_LM35_LeerTemperatura 0014      LM35_LeerTemperatura@temp 001A                      isa$xinst 0000  
+             main@temperatura 0020         ADC_LeerPromedio@canal 000C  
