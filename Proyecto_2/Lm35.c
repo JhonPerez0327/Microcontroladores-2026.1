@@ -85,9 +85,9 @@ unsigned int ADC_Read(void) {
 
         //Si la temperatura es mayor a 33°C encender led
         if (temp > 27) {
-            LATDbits.LATD0 = 1; 
+            LATDbits.LATD3 = 1; 
         } else {
-            LATDbits.LATD0 = 0;
+            LATDbits.LATD3 = 0;
         }
         // Mostrar en OLED
         OLED_SetCursor(2, 20); // Fila 2, centro aproximado
