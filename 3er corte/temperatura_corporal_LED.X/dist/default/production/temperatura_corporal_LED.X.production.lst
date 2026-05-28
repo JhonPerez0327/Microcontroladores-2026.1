@@ -1,0 +1,1621 @@
+
+
+Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
+                                                                                               Tue May 26 07:39:23 2026
+
+Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	cinit,global,reloc=2,class=CODE,space=0,delta=1
+     6                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     7                           	psect	text0,global,reloc=2,class=CODE,space=0,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,space=0,delta=1
+     9                           	psect	text2,global,reloc=2,class=CODE,space=0,delta=1,group=1
+    10                           	psect	text3,global,reloc=2,class=CODE,space=0,delta=1,group=1
+    11                           	psect	text4,global,reloc=2,class=CODE,space=0,delta=1
+    12                           	psect	text5,global,reloc=2,class=CODE,space=0,delta=1
+    13                           	psect	text6,global,reloc=2,class=CODE,space=0,delta=1
+    14                           	psect	text7,global,reloc=2,class=CODE,space=0,delta=1
+    15                           	psect	smallconst,global,reloc=2,class=SMALLCONST,space=0,delta=1,noexec
+    16                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    17                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    18                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    19   000000                     
+    20                           ; Generated 17/01/2025 GMT
+    21                           ; 
+    22                           ; Copyright © 2025, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    23                           ; All rights reserved.
+    24                           ; 
+    25                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    26                           ; 
+    27                           ; Redistribution and use in source and binary forms, with or without modification, are
+    28                           ; permitted provided that the following conditions are met:
+    29                           ; 
+    30                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    31                           ;        conditions and the following disclaimer.
+    32                           ; 
+    33                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    34                           ;        of conditions and the following disclaimer in the documentation and/or other
+    35                           ;        materials provided with the distribution. Publication is not required when
+    36                           ;        this file is used in an embedded application.
+    37                           ; 
+    38                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    39                           ;        software without specific prior written permission.
+    40                           ; 
+    41                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    42                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    43                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    44                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    45                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    46                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    47                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    48                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    49                           ; 
+    50                           ; 
+    51                           ; Code-generator required, PIC18F4550 Definitions
+    52                           ; 
+    53                           ; SFR Addresses
+    54   000FE0                     bsr             equ	4064
+    55   000FE9                     fsr0            equ	4073
+    56   000FEA                     fsr0h           equ	4074
+    57   000FE9                     fsr0l           equ	4073
+    58   000FE1                     fsr1            equ	4065
+    59   000FE2                     fsr1h           equ	4066
+    60   000FE1                     fsr1l           equ	4065
+    61   000FD9                     fsr2            equ	4057
+    62   000FDA                     fsr2h           equ	4058
+    63   000FD9                     fsr2l           equ	4057
+    64   000FEF                     indf0           equ	4079
+    65   000FE7                     indf1           equ	4071
+    66   000FDF                     indf2           equ	4063
+    67   000FF2                     intcon          equ	4082
+    68   000000                     nvmcon          equ	0
+    69   000FF9                     pcl             equ	4089
+    70   000FFA                     pclath          equ	4090
+    71   000FFB                     pclatu          equ	4091
+    72   000FEB                     plusw0          equ	4075
+    73   000FE3                     plusw1          equ	4067
+    74   000FDB                     plusw2          equ	4059
+    75   000FED                     postdec0        equ	4077
+    76   000FE5                     postdec1        equ	4069
+    77   000FDD                     postdec2        equ	4061
+    78   000FEE                     postinc0        equ	4078
+    79   000FE6                     postinc1        equ	4070
+    80   000FDE                     postinc2        equ	4062
+    81   000FEC                     preinc0         equ	4076
+    82   000FE4                     preinc1         equ	4068
+    83   000FDC                     preinc2         equ	4060
+    84   000FF3                     prod            equ	4083
+    85   000FF4                     prodh           equ	4084
+    86   000FF3                     prodl           equ	4083
+    87   000FD8                     status          equ	4056
+    88   000FF5                     tablat          equ	4085
+    89   000FF6                     tblptr          equ	4086
+    90   000FF7                     tblptrh         equ	4087
+    91   000FF6                     tblptrl         equ	4086
+    92   000FF8                     tblptru         equ	4088
+    93   000FFD                     tosl            equ	4093
+    94   000FE8                     wreg            equ	4072
+    95   000F62                     SPPDATA         equ	3938	;# 
+    96   000F63                     SPPCFG          equ	3939	;# 
+    97   000F64                     SPPEPS          equ	3940	;# 
+    98   000F65                     SPPCON          equ	3941	;# 
+    99   000F66                     UFRM            equ	3942	;# 
+   100   000F66                     UFRML           equ	3942	;# 
+   101   000F67                     UFRMH           equ	3943	;# 
+   102   000F68                     UIR             equ	3944	;# 
+   103   000F69                     UIE             equ	3945	;# 
+   104   000F6A                     UEIR            equ	3946	;# 
+   105   000F6B                     UEIE            equ	3947	;# 
+   106   000F6C                     USTAT           equ	3948	;# 
+   107   000F6D                     UCON            equ	3949	;# 
+   108   000F6E                     UADDR           equ	3950	;# 
+   109   000F6F                     UCFG            equ	3951	;# 
+   110   000F70                     UEP0            equ	3952	;# 
+   111   000F71                     UEP1            equ	3953	;# 
+   112   000F72                     UEP2            equ	3954	;# 
+   113   000F73                     UEP3            equ	3955	;# 
+   114   000F74                     UEP4            equ	3956	;# 
+   115   000F75                     UEP5            equ	3957	;# 
+   116   000F76                     UEP6            equ	3958	;# 
+   117   000F77                     UEP7            equ	3959	;# 
+   118   000F78                     UEP8            equ	3960	;# 
+   119   000F79                     UEP9            equ	3961	;# 
+   120   000F7A                     UEP10           equ	3962	;# 
+   121   000F7B                     UEP11           equ	3963	;# 
+   122   000F7C                     UEP12           equ	3964	;# 
+   123   000F7D                     UEP13           equ	3965	;# 
+   124   000F7E                     UEP14           equ	3966	;# 
+   125   000F7F                     UEP15           equ	3967	;# 
+   126   000F80                     PORTA           equ	3968	;# 
+   127   000F81                     PORTB           equ	3969	;# 
+   128   000F82                     PORTC           equ	3970	;# 
+   129   000F83                     PORTD           equ	3971	;# 
+   130   000F84                     PORTE           equ	3972	;# 
+   131   000F89                     LATA            equ	3977	;# 
+   132   000F8A                     LATB            equ	3978	;# 
+   133   000F8B                     LATC            equ	3979	;# 
+   134   000F8C                     LATD            equ	3980	;# 
+   135   000F8D                     LATE            equ	3981	;# 
+   136   000F92                     TRISA           equ	3986	;# 
+   137   000F92                     DDRA            equ	3986	;# 
+   138   000F93                     TRISB           equ	3987	;# 
+   139   000F93                     DDRB            equ	3987	;# 
+   140   000F94                     TRISC           equ	3988	;# 
+   141   000F94                     DDRC            equ	3988	;# 
+   142   000F95                     TRISD           equ	3989	;# 
+   143   000F95                     DDRD            equ	3989	;# 
+   144   000F96                     TRISE           equ	3990	;# 
+   145   000F96                     DDRE            equ	3990	;# 
+   146   000F9B                     OSCTUNE         equ	3995	;# 
+   147   000F9D                     PIE1            equ	3997	;# 
+   148   000F9E                     PIR1            equ	3998	;# 
+   149   000F9F                     IPR1            equ	3999	;# 
+   150   000FA0                     PIE2            equ	4000	;# 
+   151   000FA1                     PIR2            equ	4001	;# 
+   152   000FA2                     IPR2            equ	4002	;# 
+   153   000FA6                     EECON1          equ	4006	;# 
+   154   000FA7                     EECON2          equ	4007	;# 
+   155   000FA8                     EEDATA          equ	4008	;# 
+   156   000FA9                     EEADR           equ	4009	;# 
+   157   000FAB                     RCSTA           equ	4011	;# 
+   158   000FAB                     RCSTA1          equ	4011	;# 
+   159   000FAC                     TXSTA           equ	4012	;# 
+   160   000FAC                     TXSTA1          equ	4012	;# 
+   161   000FAD                     TXREG           equ	4013	;# 
+   162   000FAD                     TXREG1          equ	4013	;# 
+   163   000FAE                     RCREG           equ	4014	;# 
+   164   000FAE                     RCREG1          equ	4014	;# 
+   165   000FAF                     SPBRG           equ	4015	;# 
+   166   000FAF                     SPBRG1          equ	4015	;# 
+   167   000FB0                     SPBRGH          equ	4016	;# 
+   168   000FB1                     T3CON           equ	4017	;# 
+   169   000FB2                     TMR3            equ	4018	;# 
+   170   000FB2                     TMR3L           equ	4018	;# 
+   171   000FB3                     TMR3H           equ	4019	;# 
+   172   000FB4                     CMCON           equ	4020	;# 
+   173   000FB5                     CVRCON          equ	4021	;# 
+   174   000FB6                     ECCP1AS         equ	4022	;# 
+   175   000FB6                     CCP1AS          equ	4022	;# 
+   176   000FB7                     ECCP1DEL        equ	4023	;# 
+   177   000FB7                     CCP1DEL         equ	4023	;# 
+   178   000FB8                     BAUDCON         equ	4024	;# 
+   179   000FB8                     BAUDCTL         equ	4024	;# 
+   180   000FBA                     CCP2CON         equ	4026	;# 
+   181   000FBB                     CCPR2           equ	4027	;# 
+   182   000FBB                     CCPR2L          equ	4027	;# 
+   183   000FBC                     CCPR2H          equ	4028	;# 
+   184   000FBD                     CCP1CON         equ	4029	;# 
+   185   000FBD                     ECCP1CON        equ	4029	;# 
+   186   000FBE                     CCPR1           equ	4030	;# 
+   187   000FBE                     CCPR1L          equ	4030	;# 
+   188   000FBF                     CCPR1H          equ	4031	;# 
+   189   000FC0                     ADCON2          equ	4032	;# 
+   190   000FC1                     ADCON1          equ	4033	;# 
+   191   000FC2                     ADCON0          equ	4034	;# 
+   192   000FC3                     ADRES           equ	4035	;# 
+   193   000FC3                     ADRESL          equ	4035	;# 
+   194   000FC4                     ADRESH          equ	4036	;# 
+   195   000FC5                     SSPCON2         equ	4037	;# 
+   196   000FC6                     SSPCON1         equ	4038	;# 
+   197   000FC7                     SSPSTAT         equ	4039	;# 
+   198   000FC8                     SSPADD          equ	4040	;# 
+   199   000FC9                     SSPBUF          equ	4041	;# 
+   200   000FCA                     T2CON           equ	4042	;# 
+   201   000FCB                     PR2             equ	4043	;# 
+   202   000FCB                     MEMCON          equ	4043	;# 
+   203   000FCC                     TMR2            equ	4044	;# 
+   204   000FCD                     T1CON           equ	4045	;# 
+   205   000FCE                     TMR1            equ	4046	;# 
+   206   000FCE                     TMR1L           equ	4046	;# 
+   207   000FCF                     TMR1H           equ	4047	;# 
+   208   000FD0                     RCON            equ	4048	;# 
+   209   000FD1                     WDTCON          equ	4049	;# 
+   210   000FD2                     HLVDCON         equ	4050	;# 
+   211   000FD2                     LVDCON          equ	4050	;# 
+   212   000FD3                     OSCCON          equ	4051	;# 
+   213   000FD5                     T0CON           equ	4053	;# 
+   214   000FD6                     TMR0            equ	4054	;# 
+   215   000FD6                     TMR0L           equ	4054	;# 
+   216   000FD7                     TMR0H           equ	4055	;# 
+   217   000FD8                     STATUS          equ	4056	;# 
+   218   000FD9                     FSR2            equ	4057	;# 
+   219   000FD9                     FSR2L           equ	4057	;# 
+   220   000FDA                     FSR2H           equ	4058	;# 
+   221   000FDB                     PLUSW2          equ	4059	;# 
+   222   000FDC                     PREINC2         equ	4060	;# 
+   223   000FDD                     POSTDEC2        equ	4061	;# 
+   224   000FDE                     POSTINC2        equ	4062	;# 
+   225   000FDF                     INDF2           equ	4063	;# 
+   226   000FE0                     BSR             equ	4064	;# 
+   227   000FE1                     FSR1            equ	4065	;# 
+   228   000FE1                     FSR1L           equ	4065	;# 
+   229   000FE2                     FSR1H           equ	4066	;# 
+   230   000FE3                     PLUSW1          equ	4067	;# 
+   231   000FE4                     PREINC1         equ	4068	;# 
+   232   000FE5                     POSTDEC1        equ	4069	;# 
+   233   000FE6                     POSTINC1        equ	4070	;# 
+   234   000FE7                     INDF1           equ	4071	;# 
+   235   000FE8                     WREG            equ	4072	;# 
+   236   000FE9                     FSR0            equ	4073	;# 
+   237   000FE9                     FSR0L           equ	4073	;# 
+   238   000FEA                     FSR0H           equ	4074	;# 
+   239   000FEB                     PLUSW0          equ	4075	;# 
+   240   000FEC                     PREINC0         equ	4076	;# 
+   241   000FED                     POSTDEC0        equ	4077	;# 
+   242   000FEE                     POSTINC0        equ	4078	;# 
+   243   000FEF                     INDF0           equ	4079	;# 
+   244   000FF0                     INTCON3         equ	4080	;# 
+   245   000FF1                     INTCON2         equ	4081	;# 
+   246   000FF2                     INTCON          equ	4082	;# 
+   247   000FF3                     PROD            equ	4083	;# 
+   248   000FF3                     PRODL           equ	4083	;# 
+   249   000FF4                     PRODH           equ	4084	;# 
+   250   000FF5                     TABLAT          equ	4085	;# 
+   251   000FF6                     TBLPTR          equ	4086	;# 
+   252   000FF6                     TBLPTRL         equ	4086	;# 
+   253   000FF7                     TBLPTRH         equ	4087	;# 
+   254   000FF8                     TBLPTRU         equ	4088	;# 
+   255   000FF9                     PCLAT           equ	4089	;# 
+   256   000FF9                     PC              equ	4089	;# 
+   257   000FF9                     PCL             equ	4089	;# 
+   258   000FFA                     PCLATH          equ	4090	;# 
+   259   000FFB                     PCLATU          equ	4091	;# 
+   260   000FFC                     STKPTR          equ	4092	;# 
+   261   000FFD                     TOS             equ	4093	;# 
+   262   000FFD                     TOSL            equ	4093	;# 
+   263   000FFE                     TOSH            equ	4094	;# 
+   264   000FFF                     TOSU            equ	4095	;# 
+   265   000F8C                     _LATDbits       set	3980
+   266   000F95                     _TRISDbits      set	3989
+   267   000FD3                     _OSCCON         set	4051
+   268   000F81                     _PORTBbits      set	3969
+   269   000F8A                     _LATBbits       set	3978
+   270   000F93                     _TRISBbits      set	3987
+   271                           
+   272                           ; #config settings
+   273                           
+   274                           	psect	cinit
+   275   000B62                     __pcinit:
+   276                           	callstack 0
+   277   000B62                     start_initialization:
+   278                           	callstack 0
+   279   000B62                     __initialization:
+   280                           	callstack 0
+   281   000B62                     end_of_initialization:
+   282                           	callstack 0
+   283   000B62                     __end_of__initialization:
+   284                           	callstack 0
+   285   000B62  0100               	movlb	0
+   286   000B64  EF01  F004         	goto	_main	;jump to C main() function
+   287                           
+   288                           	psect	cstackCOMRAM
+   289   000001                     __pcstackCOMRAM:
+   290                           	callstack 0
+   291   000001                     ?___lmul:
+   292                           	callstack 0
+   293   000001                     ?___lldiv:
+   294                           	callstack 0
+   295   000001                     OW_WriteByte@dato:
+   296                           	callstack 0
+   297   000001                     OW_ReadByte@dato:
+   298                           	callstack 0
+   299   000001                     ___lmul@multiplier:
+   300                           	callstack 0
+   301   000001                     ___lldiv@dividend:
+   302                           	callstack 0
+   303   000001                     
+   304                           ; 1 bytes @ 0x0
+   305   000001                     	ds	1
+   306   000002                     OW_WriteByte@i:
+   307                           	callstack 0
+   308   000002                     OW_ReadByte@i:
+   309                           	callstack 0
+   310                           
+   311                           ; 1 bytes @ 0x1
+   312   000002                     	ds	1
+   313   000003                     ??_DS18B20_IniciarConversion:
+   314                           
+   315                           ; 1 bytes @ 0x2
+   316   000003                     	ds	2
+   317   000005                     ___lmul@multiplicand:
+   318                           	callstack 0
+   319   000005                     ___lldiv@divisor:
+   320                           	callstack 0
+   321                           
+   322                           ; 4 bytes @ 0x4
+   323   000005                     	ds	4
+   324   000009                     ___lmul@product:
+   325                           	callstack 0
+   326   000009                     ___lldiv@quotient:
+   327                           	callstack 0
+   328   000009                     
+   329                           ; 1 bytes @ 0x8
+   330   000009                     	ds	4
+   331   00000D                     ___lldiv@counter:
+   332                           	callstack 0
+   333                           
+   334                           ; 1 bytes @ 0xC
+   335   00000D                     	ds	1
+   336   00000E                     DS18B20_LeerTemperatura@entero:
+   337                           	callstack 0
+   338                           
+   339                           ; 1 bytes @ 0xD
+   340   00000E                     	ds	1
+   341   00000F                     DS18B20_LeerTemperatura@decimal:
+   342                           	callstack 0
+   343                           
+   344                           ; 1 bytes @ 0xE
+   345   00000F                     	ds	1
+   346   000010                     ??_DS18B20_LeerTemperatura:
+   347                           
+   348                           ; 1 bytes @ 0xF
+   349   000010                     	ds	3
+   350   000013                     DS18B20_LeerTemperatura@frac:
+   351                           	callstack 0
+   352                           
+   353                           ; 4 bytes @ 0x12
+   354   000013                     	ds	4
+   355   000017                     DS18B20_LeerTemperatura@byte_bajo:
+   356                           	callstack 0
+   357                           
+   358                           ; 1 bytes @ 0x16
+   359   000017                     	ds	1
+   360   000018                     DS18B20_LeerTemperatura@byte_alto:
+   361                           	callstack 0
+   362                           
+   363                           ; 1 bytes @ 0x17
+   364   000018                     	ds	1
+   365   000019                     DS18B20_LeerTemperatura@raw:
+   366                           	callstack 0
+   367                           
+   368                           ; 2 bytes @ 0x18
+   369   000019                     	ds	2
+   370   00001B                     ??_main:
+   371                           
+   372                           ; 1 bytes @ 0x1A
+   373   00001B                     	ds	2
+   374   00001D                     main@en_rango:
+   375                           	callstack 0
+   376                           
+   377                           ; 1 bytes @ 0x1C
+   378   00001D                     	ds	1
+   379   00001E                     main@temp_dec:
+   380                           	callstack 0
+   381                           
+   382                           ; 1 bytes @ 0x1D
+   383   00001E                     	ds	1
+   384   00001F                     main@temp_ent:
+   385                           	callstack 0
+   386                           
+   387                           ; 1 bytes @ 0x1E
+   388   00001F                     	ds	1
+   389                           
+   390 ;;
+   391 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   392 ;;
+   393 ;; *************** function _main *****************
+   394 ;; Defined at:
+   395 ;;		line 243 in file "main.c"
+   396 ;; Parameters:    Size  Location     Type
+   397 ;;		None
+   398 ;; Auto vars:     Size  Location     Type
+   399 ;;  temp_ent        1   30[COMRAM] unsigned char 
+   400 ;;  temp_dec        1   29[COMRAM] unsigned char 
+   401 ;;  en_rango        1   28[COMRAM] unsigned char 
+   402 ;; Return value:  Size  Location     Type
+   403 ;;                  1    wreg      void 
+   404 ;; Registers used:
+   405 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   406 ;; Tracked objects:
+   407 ;;		On entry : 0/0
+   408 ;;		On exit  : 0/0
+   409 ;;		Unchanged: 0/0
+   410 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   411 ;;      Params:         0       0       0       0       0       0       0       0       0
+   412 ;;      Locals:         3       0       0       0       0       0       0       0       0
+   413 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   414 ;;      Totals:         5       0       0       0       0       0       0       0       0
+   415 ;;Total ram usage:        5 bytes
+   416 ;; Hardware stack levels required when called: 2
+   417 ;; This function calls:
+   418 ;;		_DS18B20_IniciarConversion
+   419 ;;		_DS18B20_LeerTemperatura
+   420 ;; This function is called by:
+   421 ;;		Startup code after reset
+   422 ;; This function uses a non-reentrant model
+   423 ;;
+   424                           
+   425                           	psect	text0
+   426   000802                     __ptext0:
+   427                           	callstack 0
+   428   000802                     _main:
+   429                           	callstack 29
+   430   000802                     
+   431                           ;main.c: 244:     unsigned char temp_ent, temp_dec;;main.c: 245:     unsigned char en_ra
+      +                          ngo;;main.c: 247:     OSCCON = 0x72;
+   432   000802  0E72               	movlw	114
+   433   000804  6ED3               	movwf	211,c	;volatile
+   434   000806                     
+   435                           ;main.c: 249:     TRISDbits.TRISD0 = 0;
+   436   000806  9095               	bcf	149,0,c	;volatile
+   437   000808                     
+   438                           ;main.c: 250:     LATDbits.LATD0 = 0;
+   439   000808  908C               	bcf	140,0,c	;volatile
+   440   00080A                     
+   441                           ;main.c: 252:     _delay((unsigned long)((200)*(8000000/4000.0)));
+   442   00080A  0E03               	movlw	3
+   443   00080C  6E1C               	movwf	(??_main+1)^0,c
+   444   00080E  0E08               	movlw	8
+   445   000810  6E1B               	movwf	??_main^0,c
+   446   000812  0E77               	movlw	119
+   447   000814                     u297:
+   448   000814  2EE8               	decfsz	wreg,f,c
+   449   000816  D7FE               	bra	u297
+   450   000818  2E1B               	decfsz	??_main^0,f,c
+   451   00081A  D7FC               	bra	u297
+   452   00081C  2E1C               	decfsz	(??_main+1)^0,f,c
+   453   00081E  D7FA               	bra	u297
+   454   000820  0000               	nop	
+   455   000822                     l1063:
+   456                           
+   457                           ;main.c: 255:         DS18B20_IniciarConversion();
+   458   000822  EC8C  F005         	call	_DS18B20_IniciarConversion	;wreg free
+   459   000826                     
+   460                           ;main.c: 256:         DS18B20_LeerTemperatura(&temp_ent, &temp_dec);
+   461   000826  0E1F               	movlw	low main@temp_ent
+   462   000828  6E0E               	movwf	DS18B20_LeerTemperatura@entero^0,c
+   463   00082A  0E1E               	movlw	low main@temp_dec
+   464   00082C  6E0F               	movwf	DS18B20_LeerTemperatura@decimal^0,c
+   465   00082E  EC60  F004         	call	_DS18B20_LeerTemperatura	;wreg free
+   466   000832                     
+   467                           ;main.c: 259:         en_rango = 0;
+   468   000832  6A1D               	clrf	main@en_rango^0,c
+   469   000834                     
+   470                           ;main.c: 261:         if(temp_ent > 36 && temp_ent < 37) {
+   471   000834  0E24               	movlw	36
+   472   000836  641F               	cpfsgt	main@temp_ent^0,c
+   473   000838  EF20  F004         	goto	u231
+   474   00083C  EF22  F004         	goto	u230
+   475   000840                     u231:
+   476   000840  EF2E  F004         	goto	l1075
+   477   000844                     u230:
+   478   000844  0E25               	movlw	37
+   479   000846  601F               	cpfslt	main@temp_ent^0,c
+   480   000848  EF28  F004         	goto	u241
+   481   00084C  EF2A  F004         	goto	u240
+   482   000850                     u241:
+   483   000850  EF2E  F004         	goto	l1075
+   484   000854                     u240:
+   485   000854                     l1073:
+   486                           
+   487                           ;main.c: 263:             en_rango = 1;
+   488   000854  0E01               	movlw	1
+   489   000856  6E1D               	movwf	main@en_rango^0,c
+   490                           
+   491                           ;main.c: 264:         } else if(temp_ent == 36 && temp_dec >= 0) {
+   492   000858  EF4C  F004         	goto	l1085
+   493   00085C                     l1075:
+   494   00085C  0E24               	movlw	36
+   495   00085E  181F               	xorwf	main@temp_ent^0,w,c
+   496   000860  A4D8               	btfss	status,2,c
+   497   000862  EF35  F004         	goto	u251
+   498   000866  EF37  F004         	goto	u250
+   499   00086A                     u251:
+   500   00086A  EF39  F004         	goto	l1079
+   501   00086E                     u250:
+   502   00086E  EF2A  F004         	goto	l1073
+   503   000872                     l1079:
+   504   000872  0E25               	movlw	37
+   505   000874  181F               	xorwf	main@temp_ent^0,w,c
+   506   000876  A4D8               	btfss	status,2,c
+   507   000878  EF40  F004         	goto	u261
+   508   00087C  EF42  F004         	goto	u260
+   509   000880                     u261:
+   510   000880  EF4C  F004         	goto	l1085
+   511   000884                     u260:
+   512   000884  0E06               	movlw	6
+   513   000886  601E               	cpfslt	main@temp_dec^0,c
+   514   000888  EF48  F004         	goto	u271
+   515   00088C  EF4A  F004         	goto	u270
+   516   000890                     u271:
+   517   000890  EF4C  F004         	goto	l1085
+   518   000894                     u270:
+   519   000894  EF2A  F004         	goto	l1073
+   520   000898                     l1085:
+   521                           
+   522                           ;main.c: 272:         LATDbits.LATD0 = en_rango;
+   523   000898  B01D               	btfsc	main@en_rango^0,0,c
+   524   00089A  D002               	bra	u285
+   525   00089C  908C               	bcf	140,0,c	;volatile
+   526   00089E  D001               	bra	u286
+   527   0008A0                     u285:
+   528   0008A0  808C               	bsf	140,0,c	;volatile
+   529   0008A2                     u286:
+   530   0008A2                     
+   531                           ;main.c: 274:         _delay((unsigned long)((500)*(8000000/4000.0)));
+   532   0008A2  0E06               	movlw	6
+   533   0008A4  6E1C               	movwf	(??_main+1)^0,c
+   534   0008A6  0E13               	movlw	19
+   535   0008A8  6E1B               	movwf	??_main^0,c
+   536   0008AA  0EAE               	movlw	174
+   537   0008AC                     u307:
+   538   0008AC  2EE8               	decfsz	wreg,f,c
+   539   0008AE  D7FE               	bra	u307
+   540   0008B0  2E1B               	decfsz	??_main^0,f,c
+   541   0008B2  D7FC               	bra	u307
+   542   0008B4  2E1C               	decfsz	(??_main+1)^0,f,c
+   543   0008B6  D7FA               	bra	u307
+   544   0008B8  EF11  F004         	goto	l1063
+   545   0008BC  EFFE  F03F         	goto	start
+   546   0008C0                     __end_of_main:
+   547                           	callstack 0
+   548                           
+   549 ;; *************** function _DS18B20_LeerTemperatura *****************
+   550 ;; Defined at:
+   551 ;;		line 208 in file "main.c"
+   552 ;; Parameters:    Size  Location     Type
+   553 ;;  entero          1   13[COMRAM] PTR unsigned char 
+   554 ;;		 -> main@temp_ent(1), 
+   555 ;;  decimal         1   14[COMRAM] PTR unsigned char 
+   556 ;;		 -> main@temp_dec(1), 
+   557 ;; Auto vars:     Size  Location     Type
+   558 ;;  frac            4   18[COMRAM] unsigned long 
+   559 ;;  raw             2   24[COMRAM] unsigned int 
+   560 ;;  byte_alto       1   23[COMRAM] unsigned char 
+   561 ;;  byte_bajo       1   22[COMRAM] unsigned char 
+   562 ;; Return value:  Size  Location     Type
+   563 ;;                  1    wreg      void 
+   564 ;; Registers used:
+   565 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   566 ;; Tracked objects:
+   567 ;;		On entry : 0/0
+   568 ;;		On exit  : 0/0
+   569 ;;		Unchanged: 0/0
+   570 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   571 ;;      Params:         2       0       0       0       0       0       0       0       0
+   572 ;;      Locals:         8       0       0       0       0       0       0       0       0
+   573 ;;      Temps:          3       0       0       0       0       0       0       0       0
+   574 ;;      Totals:        13       0       0       0       0       0       0       0       0
+   575 ;;Total ram usage:       13 bytes
+   576 ;; Hardware stack levels used: 1
+   577 ;; Hardware stack levels required when called: 1
+   578 ;; This function calls:
+   579 ;;		_OW_ReadByte
+   580 ;;		_OW_Reset
+   581 ;;		_OW_WriteByte
+   582 ;;		___lldiv
+   583 ;;		___lmul
+   584 ;; This function is called by:
+   585 ;;		_main
+   586 ;; This function uses a non-reentrant model
+   587 ;;
+   588                           
+   589                           	psect	text1
+   590   0008C0                     __ptext1:
+   591                           	callstack 0
+   592   0008C0                     _DS18B20_LeerTemperatura:
+   593                           	callstack 29
+   594   0008C0                     
+   595                           ;main.c: 209:     unsigned char byte_bajo, byte_alto;;main.c: 210:     unsigned int raw;
+      +                          ;main.c: 211:     unsigned long frac;;main.c: 213:     OW_Reset();
+   596   0008C0  ECA0  F005         	call	_OW_Reset	;wreg free
+   597   0008C4                     
+   598                           ;main.c: 214:     OW_WriteByte(0xCC);
+   599   0008C4  0ECC               	movlw	204
+   600   0008C6  EC42  F005         	call	_OW_WriteByte
+   601   0008CA                     
+   602                           ;main.c: 215:     OW_WriteByte(0xBE);
+   603   0008CA  0EBE               	movlw	190
+   604   0008CC  EC42  F005         	call	_OW_WriteByte
+   605   0008D0                     
+   606                           ;main.c: 217:     byte_bajo = OW_ReadByte();
+   607   0008D0  EC6A  F005         	call	_OW_ReadByte	;wreg free
+   608   0008D4  6E17               	movwf	DS18B20_LeerTemperatura@byte_bajo^0,c
+   609   0008D6                     
+   610                           ;main.c: 218:     byte_alto = OW_ReadByte();
+   611   0008D6  EC6A  F005         	call	_OW_ReadByte	;wreg free
+   612   0008DA  6E18               	movwf	DS18B20_LeerTemperatura@byte_alto^0,c
+   613   0008DC                     
+   614                           ;main.c: 220:     raw = ((unsigned int)byte_alto << 8) | byte_bajo;
+   615   0008DC  5018               	movf	DS18B20_LeerTemperatura@byte_alto^0,w,c
+   616   0008DE  6E10               	movwf	??_DS18B20_LeerTemperatura^0,c
+   617   0008E0  5017               	movf	DS18B20_LeerTemperatura@byte_bajo^0,w,c
+   618   0008E2  6E19               	movwf	DS18B20_LeerTemperatura@raw^0,c
+   619   0008E4  C010  F01A         	movff	??_DS18B20_LeerTemperatura,DS18B20_LeerTemperatura@raw+1
+   620   0008E8                     
+   621                           ;main.c: 223:     *entero = (unsigned char)(raw >> 4);
+   622   0008E8  500E               	movf	DS18B20_LeerTemperatura@entero^0,w,c
+   623   0008EA  6ED9               	movwf	fsr2l,c
+   624   0008EC  6ADA               	clrf	fsr2h,c
+   625   0008EE  C019  F010         	movff	DS18B20_LeerTemperatura@raw,??_DS18B20_LeerTemperatura
+   626   0008F2  C01A  F011         	movff	DS18B20_LeerTemperatura@raw+1,??_DS18B20_LeerTemperatura+1
+   627   0008F6  0E04               	movlw	4
+   628   0008F8  6E12               	movwf	(??_DS18B20_LeerTemperatura+2)^0,c
+   629   0008FA                     u225:
+   630   0008FA  90D8               	bcf	status,0,c
+   631   0008FC  3211               	rrcf	(??_DS18B20_LeerTemperatura+1)^0,f,c
+   632   0008FE  3210               	rrcf	??_DS18B20_LeerTemperatura^0,f,c
+   633   000900  2E12               	decfsz	(??_DS18B20_LeerTemperatura+2)^0,f,c
+   634   000902  EF7D  F004         	goto	u225
+   635   000906  5010               	movf	??_DS18B20_LeerTemperatura^0,w,c
+   636   000908  6EDF               	movwf	indf2,c
+   637   00090A                     
+   638                           ;main.c: 227:     frac = (raw & 0x0F) * 625UL;
+   639   00090A  0E0F               	movlw	15
+   640   00090C  1419               	andwf	DS18B20_LeerTemperatura@raw^0,w,c
+   641   00090E  6E10               	movwf	??_DS18B20_LeerTemperatura^0,c
+   642   000910  0E00               	movlw	0
+   643   000912  141A               	andwf	(DS18B20_LeerTemperatura@raw+1)^0,w,c
+   644   000914  6E11               	movwf	(??_DS18B20_LeerTemperatura+1)^0,c
+   645   000916  C010  F001         	movff	??_DS18B20_LeerTemperatura,___lmul@multiplier
+   646   00091A  C011  F002         	movff	??_DS18B20_LeerTemperatura+1,___lmul@multiplier+1
+   647   00091E  6A03               	clrf	(___lmul@multiplier+2)^0,c
+   648   000920  6A04               	clrf	(___lmul@multiplier+3)^0,c
+   649   000922  0E71               	movlw	113
+   650   000924  6E05               	movwf	___lmul@multiplicand^0,c
+   651   000926  0E02               	movlw	2
+   652   000928  6E06               	movwf	(___lmul@multiplicand+1)^0,c
+   653   00092A  0E00               	movlw	0
+   654   00092C  6E07               	movwf	(___lmul@multiplicand+2)^0,c
+   655   00092E  0E00               	movlw	0
+   656   000930  6E08               	movwf	(___lmul@multiplicand+3)^0,c
+   657   000932  EC0D  F005         	call	___lmul	;wreg free
+   658   000936  C001  F013         	movff	?___lmul,DS18B20_LeerTemperatura@frac
+   659   00093A  C002  F014         	movff	?___lmul+1,DS18B20_LeerTemperatura@frac+1
+   660   00093E  C003  F015         	movff	?___lmul+2,DS18B20_LeerTemperatura@frac+2
+   661   000942  C004  F016         	movff	?___lmul+3,DS18B20_LeerTemperatura@frac+3
+   662   000946                     
+   663                           ;main.c: 228:     *decimal = (unsigned char)(frac / 1000);
+   664   000946  500F               	movf	DS18B20_LeerTemperatura@decimal^0,w,c
+   665   000948  6ED9               	movwf	fsr2l,c
+   666   00094A  6ADA               	clrf	fsr2h,c
+   667   00094C  C013  F001         	movff	DS18B20_LeerTemperatura@frac,___lldiv@dividend
+   668   000950  C014  F002         	movff	DS18B20_LeerTemperatura@frac+1,___lldiv@dividend+1
+   669   000954  C015  F003         	movff	DS18B20_LeerTemperatura@frac+2,___lldiv@dividend+2
+   670   000958  C016  F004         	movff	DS18B20_LeerTemperatura@frac+3,___lldiv@dividend+3
+   671   00095C  0EE8               	movlw	232
+   672   00095E  6E05               	movwf	___lldiv@divisor^0,c
+   673   000960  0E03               	movlw	3
+   674   000962  6E06               	movwf	(___lldiv@divisor+1)^0,c
+   675   000964  0E00               	movlw	0
+   676   000966  6E07               	movwf	(___lldiv@divisor+2)^0,c
+   677   000968  0E00               	movlw	0
+   678   00096A  6E08               	movwf	(___lldiv@divisor+3)^0,c
+   679   00096C  ECBB  F004         	call	___lldiv	;wreg free
+   680   000970  5001               	movf	?___lldiv^0,w,c
+   681   000972  6EDF               	movwf	indf2,c
+   682   000974  0012               	return		;funcret
+   683   000976                     __end_of_DS18B20_LeerTemperatura:
+   684                           	callstack 0
+   685                           
+   686 ;; *************** function ___lmul *****************
+   687 ;; Defined at:
+   688 ;;		line 15 in file "C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul32.c"
+   689 ;; Parameters:    Size  Location     Type
+   690 ;;  multiplier      4    0[COMRAM] unsigned long 
+   691 ;;  multiplicand    4    4[COMRAM] unsigned long 
+   692 ;; Auto vars:     Size  Location     Type
+   693 ;;  product         4    8[COMRAM] unsigned long 
+   694 ;; Return value:  Size  Location     Type
+   695 ;;                  4    0[COMRAM] unsigned long 
+   696 ;; Registers used:
+   697 ;;		wreg, status,2, status,0
+   698 ;; Tracked objects:
+   699 ;;		On entry : 0/0
+   700 ;;		On exit  : 0/0
+   701 ;;		Unchanged: 0/0
+   702 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   703 ;;      Params:         8       0       0       0       0       0       0       0       0
+   704 ;;      Locals:         4       0       0       0       0       0       0       0       0
+   705 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   706 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   707 ;;Total ram usage:       12 bytes
+   708 ;; Hardware stack levels used: 1
+   709 ;; This function calls:
+   710 ;;		Nothing
+   711 ;; This function is called by:
+   712 ;;		_DS18B20_LeerTemperatura
+   713 ;; This function uses a non-reentrant model
+   714 ;;
+   715                           
+   716                           	psect	text2
+   717   000A1A                     __ptext2:
+   718                           	callstack 0
+   719   000A1A                     ___lmul:
+   720                           	callstack 29
+   721   000A1A  0E00               	movlw	0
+   722   000A1C  6E09               	movwf	___lmul@product^0,c
+   723   000A1E  0E00               	movlw	0
+   724   000A20  6E0A               	movwf	(___lmul@product+1)^0,c
+   725   000A22  0E00               	movlw	0
+   726   000A24  6E0B               	movwf	(___lmul@product+2)^0,c
+   727   000A26  0E00               	movlw	0
+   728   000A28  6E0C               	movwf	(___lmul@product+3)^0,c
+   729   000A2A                     l1007:
+   730   000A2A  A001               	btfss	___lmul@multiplier^0,0,c
+   731   000A2C  EF1A  F005         	goto	u171
+   732   000A30  EF1C  F005         	goto	u170
+   733   000A34                     u171:
+   734   000A34  EF24  F005         	goto	l1011
+   735   000A38                     u170:
+   736   000A38  5005               	movf	___lmul@multiplicand^0,w,c
+   737   000A3A  2609               	addwf	___lmul@product^0,f,c
+   738   000A3C  5006               	movf	(___lmul@multiplicand+1)^0,w,c
+   739   000A3E  220A               	addwfc	(___lmul@product+1)^0,f,c
+   740   000A40  5007               	movf	(___lmul@multiplicand+2)^0,w,c
+   741   000A42  220B               	addwfc	(___lmul@product+2)^0,f,c
+   742   000A44  5008               	movf	(___lmul@multiplicand+3)^0,w,c
+   743   000A46  220C               	addwfc	(___lmul@product+3)^0,f,c
+   744   000A48                     l1011:
+   745   000A48  90D8               	bcf	status,0,c
+   746   000A4A  3605               	rlcf	___lmul@multiplicand^0,f,c
+   747   000A4C  3606               	rlcf	(___lmul@multiplicand+1)^0,f,c
+   748   000A4E  3607               	rlcf	(___lmul@multiplicand+2)^0,f,c
+   749   000A50  3608               	rlcf	(___lmul@multiplicand+3)^0,f,c
+   750   000A52  90D8               	bcf	status,0,c
+   751   000A54  3204               	rrcf	(___lmul@multiplier+3)^0,f,c
+   752   000A56  3203               	rrcf	(___lmul@multiplier+2)^0,f,c
+   753   000A58  3202               	rrcf	(___lmul@multiplier+1)^0,f,c
+   754   000A5A  3201               	rrcf	___lmul@multiplier^0,f,c
+   755   000A5C  5001               	movf	___lmul@multiplier^0,w,c
+   756   000A5E  1002               	iorwf	(___lmul@multiplier+1)^0,w,c
+   757   000A60  1003               	iorwf	(___lmul@multiplier+2)^0,w,c
+   758   000A62  1004               	iorwf	(___lmul@multiplier+3)^0,w,c
+   759   000A64  A4D8               	btfss	status,2,c
+   760   000A66  EF37  F005         	goto	u181
+   761   000A6A  EF39  F005         	goto	u180
+   762   000A6E                     u181:
+   763   000A6E  EF15  F005         	goto	l1007
+   764   000A72                     u180:
+   765   000A72  C009  F001         	movff	___lmul@product,?___lmul
+   766   000A76  C00A  F002         	movff	___lmul@product+1,?___lmul+1
+   767   000A7A  C00B  F003         	movff	___lmul@product+2,?___lmul+2
+   768   000A7E  C00C  F004         	movff	___lmul@product+3,?___lmul+3
+   769   000A82  0012               	return		;funcret
+   770   000A84                     __end_of___lmul:
+   771                           	callstack 0
+   772                           
+   773 ;; *************** function ___lldiv *****************
+   774 ;; Defined at:
+   775 ;;		line 7 in file "C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\__lldiv.c"
+   776 ;; Parameters:    Size  Location     Type
+   777 ;;  dividend        4    0[COMRAM] unsigned long 
+   778 ;;  divisor         4    4[COMRAM] unsigned long 
+   779 ;; Auto vars:     Size  Location     Type
+   780 ;;  quotient        4    8[COMRAM] unsigned long 
+   781 ;;  counter         1   12[COMRAM] unsigned char 
+   782 ;; Return value:  Size  Location     Type
+   783 ;;                  4    0[COMRAM] unsigned long 
+   784 ;; Registers used:
+   785 ;;		wreg, status,2, status,0
+   786 ;; Tracked objects:
+   787 ;;		On entry : 0/0
+   788 ;;		On exit  : 0/0
+   789 ;;		Unchanged: 0/0
+   790 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   791 ;;      Params:         8       0       0       0       0       0       0       0       0
+   792 ;;      Locals:         5       0       0       0       0       0       0       0       0
+   793 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   794 ;;      Totals:        13       0       0       0       0       0       0       0       0
+   795 ;;Total ram usage:       13 bytes
+   796 ;; Hardware stack levels used: 1
+   797 ;; This function calls:
+   798 ;;		Nothing
+   799 ;; This function is called by:
+   800 ;;		_DS18B20_LeerTemperatura
+   801 ;; This function uses a non-reentrant model
+   802 ;;
+   803                           
+   804                           	psect	text3
+   805   000976                     __ptext3:
+   806                           	callstack 0
+   807   000976                     ___lldiv:
+   808                           	callstack 29
+   809   000976  0E00               	movlw	0
+   810   000978  6E09               	movwf	___lldiv@quotient^0,c
+   811   00097A  0E00               	movlw	0
+   812   00097C  6E0A               	movwf	(___lldiv@quotient+1)^0,c
+   813   00097E  0E00               	movlw	0
+   814   000980  6E0B               	movwf	(___lldiv@quotient+2)^0,c
+   815   000982  0E00               	movlw	0
+   816   000984  6E0C               	movwf	(___lldiv@quotient+3)^0,c
+   817   000986  5005               	movf	___lldiv@divisor^0,w,c
+   818   000988  1006               	iorwf	(___lldiv@divisor+1)^0,w,c
+   819   00098A  1007               	iorwf	(___lldiv@divisor+2)^0,w,c
+   820   00098C  1008               	iorwf	(___lldiv@divisor+3)^0,w,c
+   821   00098E  B4D8               	btfsc	status,2,c
+   822   000990  EFCC  F004         	goto	u191
+   823   000994  EFCE  F004         	goto	u190
+   824   000998                     u191:
+   825   000998  EF04  F005         	goto	l95
+   826   00099C                     u190:
+   827   00099C  0E01               	movlw	1
+   828   00099E  6E0D               	movwf	___lldiv@counter^0,c
+   829   0009A0  EFD8  F004         	goto	l1023
+   830   0009A4                     l1021:
+   831   0009A4  90D8               	bcf	status,0,c
+   832   0009A6  3605               	rlcf	___lldiv@divisor^0,f,c
+   833   0009A8  3606               	rlcf	(___lldiv@divisor+1)^0,f,c
+   834   0009AA  3607               	rlcf	(___lldiv@divisor+2)^0,f,c
+   835   0009AC  3608               	rlcf	(___lldiv@divisor+3)^0,f,c
+   836   0009AE  2A0D               	incf	___lldiv@counter^0,f,c
+   837   0009B0                     l1023:
+   838   0009B0  AE08               	btfss	(___lldiv@divisor+3)^0,7,c
+   839   0009B2  EFDD  F004         	goto	u201
+   840   0009B6  EFDF  F004         	goto	u200
+   841   0009BA                     u201:
+   842   0009BA  EFD2  F004         	goto	l1021
+   843   0009BE                     u200:
+   844   0009BE                     l1025:
+   845   0009BE  90D8               	bcf	status,0,c
+   846   0009C0  3609               	rlcf	___lldiv@quotient^0,f,c
+   847   0009C2  360A               	rlcf	(___lldiv@quotient+1)^0,f,c
+   848   0009C4  360B               	rlcf	(___lldiv@quotient+2)^0,f,c
+   849   0009C6  360C               	rlcf	(___lldiv@quotient+3)^0,f,c
+   850   0009C8  5005               	movf	___lldiv@divisor^0,w,c
+   851   0009CA  5C01               	subwf	___lldiv@dividend^0,w,c
+   852   0009CC  5006               	movf	(___lldiv@divisor+1)^0,w,c
+   853   0009CE  5802               	subwfb	(___lldiv@dividend+1)^0,w,c
+   854   0009D0  5007               	movf	(___lldiv@divisor+2)^0,w,c
+   855   0009D2  5803               	subwfb	(___lldiv@dividend+2)^0,w,c
+   856   0009D4  5008               	movf	(___lldiv@divisor+3)^0,w,c
+   857   0009D6  5804               	subwfb	(___lldiv@dividend+3)^0,w,c
+   858   0009D8  A0D8               	btfss	status,0,c
+   859   0009DA  EFF1  F004         	goto	u211
+   860   0009DE  EFF3  F004         	goto	u210
+   861   0009E2                     u211:
+   862   0009E2  EFFC  F004         	goto	l1033
+   863   0009E6                     u210:
+   864   0009E6  5005               	movf	___lldiv@divisor^0,w,c
+   865   0009E8  5E01               	subwf	___lldiv@dividend^0,f,c
+   866   0009EA  5006               	movf	(___lldiv@divisor+1)^0,w,c
+   867   0009EC  5A02               	subwfb	(___lldiv@dividend+1)^0,f,c
+   868   0009EE  5007               	movf	(___lldiv@divisor+2)^0,w,c
+   869   0009F0  5A03               	subwfb	(___lldiv@dividend+2)^0,f,c
+   870   0009F2  5008               	movf	(___lldiv@divisor+3)^0,w,c
+   871   0009F4  5A04               	subwfb	(___lldiv@dividend+3)^0,f,c
+   872   0009F6  8009               	bsf	___lldiv@quotient^0,0,c
+   873   0009F8                     l1033:
+   874   0009F8  90D8               	bcf	status,0,c
+   875   0009FA  3208               	rrcf	(___lldiv@divisor+3)^0,f,c
+   876   0009FC  3207               	rrcf	(___lldiv@divisor+2)^0,f,c
+   877   0009FE  3206               	rrcf	(___lldiv@divisor+1)^0,f,c
+   878   000A00  3205               	rrcf	___lldiv@divisor^0,f,c
+   879   000A02  2E0D               	decfsz	___lldiv@counter^0,f,c
+   880   000A04  EFDF  F004         	goto	l1025
+   881   000A08                     l95:
+   882   000A08  C009  F001         	movff	___lldiv@quotient,?___lldiv
+   883   000A0C  C00A  F002         	movff	___lldiv@quotient+1,?___lldiv+1
+   884   000A10  C00B  F003         	movff	___lldiv@quotient+2,?___lldiv+2
+   885   000A14  C00C  F004         	movff	___lldiv@quotient+3,?___lldiv+3
+   886   000A18  0012               	return		;funcret
+   887   000A1A                     __end_of___lldiv:
+   888                           	callstack 0
+   889                           
+   890 ;; *************** function _OW_ReadByte *****************
+   891 ;; Defined at:
+   892 ;;		line 152 in file "main.c"
+   893 ;; Parameters:    Size  Location     Type
+   894 ;;		None
+   895 ;; Auto vars:     Size  Location     Type
+   896 ;;  i               1    1[COMRAM] unsigned char 
+   897 ;;  dato            1    0[COMRAM] unsigned char 
+   898 ;; Return value:  Size  Location     Type
+   899 ;;                  1    wreg      unsigned char 
+   900 ;; Registers used:
+   901 ;;		wreg, status,2, status,0
+   902 ;; Tracked objects:
+   903 ;;		On entry : 0/0
+   904 ;;		On exit  : 0/0
+   905 ;;		Unchanged: 0/0
+   906 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   907 ;;      Params:         0       0       0       0       0       0       0       0       0
+   908 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   909 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   910 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   911 ;;Total ram usage:        2 bytes
+   912 ;; Hardware stack levels used: 1
+   913 ;; This function calls:
+   914 ;;		Nothing
+   915 ;; This function is called by:
+   916 ;;		_DS18B20_LeerTemperatura
+   917 ;; This function uses a non-reentrant model
+   918 ;;
+   919                           
+   920                           	psect	text4
+   921   000AD4                     __ptext4:
+   922                           	callstack 0
+   923   000AD4                     _OW_ReadByte:
+   924                           	callstack 29
+   925   000AD4                     
+   926                           ;main.c: 153:     unsigned char i, dato = 0;
+   927   000AD4  6A01               	clrf	OW_ReadByte@dato^0,c
+   928                           
+   929                           ;main.c: 155:     for(i = 0; i < 8; i++) {
+   930   000AD6  6A02               	clrf	OW_ReadByte@i^0,c
+   931   000AD8                     l887:
+   932                           
+   933                           ;main.c: 156:         dato >>= 1;
+   934   000AD8  90D8               	bcf	status,0,c
+   935   000ADA  3201               	rrcf	OW_ReadByte@dato^0,f,c
+   936   000ADC  9093               	bcf	147,0,c	;volatile
+   937   000ADE  908A               	bcf	138,0,c	;volatile
+   938   000AE0                     
+   939                           ;main.c: 159:         _delay((unsigned long)((2)*(8000000/4000000.0)));
+   940   000AE0  D000               	nop2		;2 cycle nop
+   941   000AE2  D000               	nop2		;2 cycle nop
+   942   000AE4  8093               	bsf	147,0,c	;volatile
+   943   000AE6                     
+   944                           ;main.c: 162:         _delay((unsigned long)((12)*(8000000/4000000.0)));
+   945   000AE6  0E08               	movlw	8
+   946   000AE8                     u317:
+   947   000AE8  2EE8               	decfsz	wreg,f,c
+   948   000AEA  D7FE               	bra	u317
+   949   000AEC                     
+   950                           ;main.c: 164:         if((PORTBbits.RB0)) {
+   951   000AEC  A081               	btfss	129,0,c	;volatile
+   952   000AEE  EF7B  F005         	goto	u31
+   953   000AF2  EF7D  F005         	goto	u30
+   954   000AF6                     u31:
+   955   000AF6  EF7E  F005         	goto	l903
+   956   000AFA                     u30:
+   957   000AFA                     
+   958                           ;main.c: 165:             dato |= 0x80;
+   959   000AFA  8E01               	bsf	OW_ReadByte@dato^0,7,c
+   960   000AFC                     l903:
+   961                           
+   962                           ;main.c: 168:         _delay((unsigned long)((45)*(8000000/4000000.0)));
+   963   000AFC  0E1E               	movlw	30
+   964   000AFE                     u327:
+   965   000AFE  2EE8               	decfsz	wreg,f,c
+   966   000B00  D7FE               	bra	u327
+   967   000B02                     
+   968                           ;main.c: 169:     }
+   969   000B02  2A02               	incf	OW_ReadByte@i^0,f,c
+   970   000B04  0E07               	movlw	7
+   971   000B06  6402               	cpfsgt	OW_ReadByte@i^0,c
+   972   000B08  EF88  F005         	goto	u41
+   973   000B0C  EF8A  F005         	goto	u40
+   974   000B10                     u41:
+   975   000B10  EF6C  F005         	goto	l887
+   976   000B14                     u40:
+   977   000B14                     
+   978                           ;main.c: 171:     return dato;
+   979   000B14  5001               	movf	OW_ReadByte@dato^0,w,c
+   980   000B16  0012               	return		;funcret
+   981   000B18                     __end_of_OW_ReadByte:
+   982                           	callstack 0
+   983                           
+   984 ;; *************** function _DS18B20_IniciarConversion *****************
+   985 ;; Defined at:
+   986 ;;		line 184 in file "main.c"
+   987 ;; Parameters:    Size  Location     Type
+   988 ;;		None
+   989 ;; Auto vars:     Size  Location     Type
+   990 ;;		None
+   991 ;; Return value:  Size  Location     Type
+   992 ;;                  1    wreg      void 
+   993 ;; Registers used:
+   994 ;;		wreg, status,2, status,0, cstack
+   995 ;; Tracked objects:
+   996 ;;		On entry : 0/0
+   997 ;;		On exit  : 0/0
+   998 ;;		Unchanged: 0/0
+   999 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1000 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1001 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1002 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1003 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1004 ;;Total ram usage:        2 bytes
+  1005 ;; Hardware stack levels used: 1
+  1006 ;; Hardware stack levels required when called: 1
+  1007 ;; This function calls:
+  1008 ;;		_OW_Reset
+  1009 ;;		_OW_WriteByte
+  1010 ;; This function is called by:
+  1011 ;;		_main
+  1012 ;; This function uses a non-reentrant model
+  1013 ;;
+  1014                           
+  1015                           	psect	text5
+  1016   000B18                     __ptext5:
+  1017                           	callstack 0
+  1018   000B18                     _DS18B20_IniciarConversion:
+  1019                           	callstack 29
+  1020   000B18                     
+  1021                           ;main.c: 185:     OW_Reset();
+  1022   000B18  ECA0  F005         	call	_OW_Reset	;wreg free
+  1023   000B1C                     
+  1024                           ;main.c: 186:     OW_WriteByte(0xCC);
+  1025   000B1C  0ECC               	movlw	204
+  1026   000B1E  EC42  F005         	call	_OW_WriteByte
+  1027   000B22                     
+  1028                           ;main.c: 187:     OW_WriteByte(0x44);
+  1029   000B22  0E44               	movlw	68
+  1030   000B24  EC42  F005         	call	_OW_WriteByte
+  1031   000B28                     
+  1032                           ;main.c: 188:     _delay((unsigned long)((750)*(8000000/4000.0)));
+  1033   000B28  0E08               	movlw	8
+  1034   000B2A  6E04               	movwf	(??_DS18B20_IniciarConversion+1)^0,c
+  1035   000B2C  0E9D               	movlw	157
+  1036   000B2E  6E03               	movwf	??_DS18B20_IniciarConversion^0,c
+  1037   000B30  0E06               	movlw	6
+  1038   000B32                     u337:
+  1039   000B32  2EE8               	decfsz	wreg,f,c
+  1040   000B34  D7FE               	bra	u337
+  1041   000B36  2E03               	decfsz	??_DS18B20_IniciarConversion^0,f,c
+  1042   000B38  D7FC               	bra	u337
+  1043   000B3A  2E04               	decfsz	(??_DS18B20_IniciarConversion+1)^0,f,c
+  1044   000B3C  D7FA               	bra	u337
+  1045   000B3E  0012               	return		;funcret
+  1046   000B40                     __end_of_DS18B20_IniciarConversion:
+  1047                           	callstack 0
+  1048                           
+  1049 ;; *************** function _OW_WriteByte *****************
+  1050 ;; Defined at:
+  1051 ;;		line 120 in file "main.c"
+  1052 ;; Parameters:    Size  Location     Type
+  1053 ;;  dato            1    wreg     unsigned char 
+  1054 ;; Auto vars:     Size  Location     Type
+  1055 ;;  dato            1    0[COMRAM] unsigned char 
+  1056 ;;  i               1    1[COMRAM] unsigned char 
+  1057 ;; Return value:  Size  Location     Type
+  1058 ;;                  1    wreg      void 
+  1059 ;; Registers used:
+  1060 ;;		wreg, status,2, status,0
+  1061 ;; Tracked objects:
+  1062 ;;		On entry : 0/0
+  1063 ;;		On exit  : 0/0
+  1064 ;;		Unchanged: 0/0
+  1065 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1066 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1067 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1068 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1069 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  1070 ;;Total ram usage:        2 bytes
+  1071 ;; Hardware stack levels used: 1
+  1072 ;; This function calls:
+  1073 ;;		Nothing
+  1074 ;; This function is called by:
+  1075 ;;		_DS18B20_IniciarConversion
+  1076 ;;		_DS18B20_LeerTemperatura
+  1077 ;; This function uses a non-reentrant model
+  1078 ;;
+  1079                           
+  1080                           	psect	text6
+  1081   000A84                     __ptext6:
+  1082                           	callstack 0
+  1083   000A84                     _OW_WriteByte:
+  1084                           	callstack 29
+  1085                           
+  1086                           ;incstack = 0
+  1087                           ;OW_WriteByte@dato stored from wreg
+  1088   000A84  6E01               	movwf	OW_WriteByte@dato^0,c
+  1089   000A86                     
+  1090                           ;main.c: 121:     unsigned char i;;main.c: 123:     for(i = 0; i < 8; i++) {
+  1091   000A86  6A02               	clrf	OW_WriteByte@i^0,c
+  1092   000A88                     l24:
+  1093                           
+  1094                           ;main.c: 124:         if(dato & 0x01) {
+  1095   000A88  A001               	btfss	OW_WriteByte@dato^0,0,c
+  1096   000A8A  EF49  F005         	goto	u11
+  1097   000A8E  EF4B  F005         	goto	u10
+  1098   000A92                     u11:
+  1099   000A92  EF56  F005         	goto	l32
+  1100   000A96                     u10:
+  1101   000A96  9093               	bcf	147,0,c	;volatile
+  1102   000A98  908A               	bcf	138,0,c	;volatile
+  1103   000A9A                     
+  1104                           ;main.c: 127:             _delay((unsigned long)((6)*(8000000/4000000.0)));
+  1105   000A9A  0E04               	movlw	4
+  1106   000A9C                     u347:
+  1107   000A9C  2EE8               	decfsz	wreg,f,c
+  1108   000A9E  D7FE               	bra	u347
+  1109   000AA0  8093               	bsf	147,0,c	;volatile
+  1110   000AA2                     
+  1111                           ;main.c: 129:             _delay((unsigned long)((54)*(8000000/4000000.0)));
+  1112   000AA2  0E24               	movlw	36
+  1113   000AA4                     u357:
+  1114   000AA4  2EE8               	decfsz	wreg,f,c
+  1115   000AA6  D7FE               	bra	u357
+  1116                           
+  1117                           ;main.c: 130:         } else {
+  1118   000AA8  EF5E  F005         	goto	l877
+  1119   000AAC                     l32:
+  1120   000AAC  9093               	bcf	147,0,c	;volatile
+  1121   000AAE  908A               	bcf	138,0,c	;volatile
+  1122   000AB0                     
+  1123                           ;main.c: 133:             _delay((unsigned long)((60)*(8000000/4000000.0)));
+  1124   000AB0  0E28               	movlw	40
+  1125   000AB2                     u367:
+  1126   000AB2  2EE8               	decfsz	wreg,f,c
+  1127   000AB4  D7FE               	bra	u367
+  1128   000AB6  8093               	bsf	147,0,c	;volatile
+  1129   000AB8                     
+  1130                           ;main.c: 135:             _delay((unsigned long)((2)*(8000000/4000000.0)));
+  1131   000AB8  D000               	nop2		;2 cycle nop
+  1132   000ABA  D000               	nop2		;2 cycle nop
+  1133   000ABC                     l877:
+  1134                           
+  1135                           ;main.c: 137:         dato >>= 1;
+  1136   000ABC  90D8               	bcf	status,0,c
+  1137   000ABE  3201               	rrcf	OW_WriteByte@dato^0,f,c
+  1138                           
+  1139                           ;main.c: 138:     }
+  1140   000AC0  2A02               	incf	OW_WriteByte@i^0,f,c
+  1141   000AC2  0E07               	movlw	7
+  1142   000AC4  6402               	cpfsgt	OW_WriteByte@i^0,c
+  1143   000AC6  EF67  F005         	goto	u21
+  1144   000ACA  EF69  F005         	goto	u20
+  1145   000ACE                     u21:
+  1146   000ACE  EF44  F005         	goto	l24
+  1147   000AD2                     u20:
+  1148   000AD2  0012               	return		;funcret
+  1149   000AD4                     __end_of_OW_WriteByte:
+  1150                           	callstack 0
+  1151                           
+  1152 ;; *************** function _OW_Reset *****************
+  1153 ;; Defined at:
+  1154 ;;		line 96 in file "main.c"
+  1155 ;; Parameters:    Size  Location     Type
+  1156 ;;		None
+  1157 ;; Auto vars:     Size  Location     Type
+  1158 ;;  presencia       1    0        unsigned char 
+  1159 ;; Return value:  Size  Location     Type
+  1160 ;;                  1    wreg      unsigned char 
+  1161 ;; Registers used:
+  1162 ;;		wreg
+  1163 ;; Tracked objects:
+  1164 ;;		On entry : 0/0
+  1165 ;;		On exit  : 0/0
+  1166 ;;		Unchanged: 0/0
+  1167 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1168 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1169 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1170 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1171 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1172 ;;Total ram usage:        0 bytes
+  1173 ;; Hardware stack levels used: 1
+  1174 ;; This function calls:
+  1175 ;;		Nothing
+  1176 ;; This function is called by:
+  1177 ;;		_DS18B20_IniciarConversion
+  1178 ;;		_DS18B20_LeerTemperatura
+  1179 ;; This function uses a non-reentrant model
+  1180 ;;
+  1181                           
+  1182                           	psect	text7
+  1183   000B40                     __ptext7:
+  1184                           	callstack 0
+  1185   000B40                     _OW_Reset:
+  1186                           	callstack 29
+  1187   000B40  9093               	bcf	147,0,c	;volatile
+  1188   000B42  908A               	bcf	138,0,c	;volatile
+  1189   000B44                     
+  1190                           ;main.c: 100:     _delay((unsigned long)((480)*(8000000/4000000.0)));
+  1191   000B44  0EC0               	movlw	192
+  1192   000B46                     u377:
+  1193   000B46  D000               	nop2	
+  1194   000B48  2EE8               	decfsz	wreg,f,c
+  1195   000B4A  D7FD               	bra	u377
+  1196   000B4C  8093               	bsf	147,0,c	;volatile
+  1197   000B4E                     
+  1198                           ;main.c: 103:     _delay((unsigned long)((70)*(8000000/4000000.0)));
+  1199   000B4E  0E2E               	movlw	46
+  1200   000B50                     u387:
+  1201   000B50  2EE8               	decfsz	wreg,f,c
+  1202   000B52  D7FE               	bra	u387
+  1203   000B54  D000               	nop2	
+  1204   000B56  5081               	movf	129,w,c	;volatile
+  1205   000B58                     
+  1206                           ;main.c: 106:     _delay((unsigned long)((410)*(8000000/4000000.0)));
+  1207   000B58  0EA4               	movlw	164
+  1208   000B5A                     u397:
+  1209   000B5A  D000               	nop2	
+  1210   000B5C  2EE8               	decfsz	wreg,f,c
+  1211   000B5E  D7FD               	bra	u397
+  1212   000B60  0012               	return		;funcret
+  1213   000B62                     __end_of_OW_Reset:
+  1214                           	callstack 0
+  1215                           
+  1216                           	psect	smallconst
+  1217   000800                     __psmallconst:
+  1218                           	callstack 0
+  1219   000800  00                 	db	0
+  1220   000801  00                 	db	0	; dummy byte at the end
+  1221   000800                     __smallconst    set	__psmallconst
+  1222   000800                     __mediumconst   set	__psmallconst
+  1223   000000                     __activetblptr  equ	0
+  1224                           
+  1225                           	psect	rparam
+  1226   000001                     ___rparam_used  equ	1
+  1227   000000                     ___param_bank   equ	0
+  1228   000000                     __Lparam        equ	__Lrparam
+  1229   000000                     __Hparam        equ	__Hrparam
+  1230                           
+  1231                           	psect	config
+  1232                           
+  1233                           ;Config register CONFIG1L @ 0x300000
+  1234                           ;	unspecified, using default values
+  1235                           ;	PLL Prescaler Selection bits
+  1236                           ;	PLLDIV = 0x0, unprogrammed default
+  1237                           ;	System Clock Postscaler Selection bits
+  1238                           ;	CPUDIV = 0x0, unprogrammed default
+  1239                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+  1240                           ;	USBDIV = 0x0, unprogrammed default
+  1241   300000                     	org	3145728
+  1242   300000  00                 	db	0
+  1243                           
+  1244                           ;Config register CONFIG1H @ 0x300001
+  1245                           ;	Oscillator Selection bits
+  1246                           ;	FOSC = INTOSC_EC, Internal oscillator, CLKO function on RA6, EC used by USB (INTCKO)
+  1247                           ;	Fail-Safe Clock Monitor Enable bit
+  1248                           ;	FCMEN = 0x0, unprogrammed default
+  1249                           ;	Internal/External Oscillator Switchover bit
+  1250                           ;	IESO = 0x0, unprogrammed default
+  1251   300001                     	org	3145729
+  1252   300001  09                 	db	9
+  1253                           
+  1254                           ;Config register CONFIG2L @ 0x300002
+  1255                           ;	Power-up Timer Enable bit
+  1256                           ;	PWRT = ON, PWRT enabled
+  1257                           ;	Brown-out Reset Enable bits
+  1258                           ;	BOR = 0x3, unprogrammed default
+  1259                           ;	Brown-out Reset Voltage bits
+  1260                           ;	BORV = 0x3, unprogrammed default
+  1261                           ;	USB Voltage Regulator Enable bit
+  1262                           ;	VREGEN = 0x0, unprogrammed default
+  1263   300002                     	org	3145730
+  1264   300002  1E                 	db	30
+  1265                           
+  1266                           ;Config register CONFIG2H @ 0x300003
+  1267                           ;	Watchdog Timer Enable bit
+  1268                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  1269                           ;	Watchdog Timer Postscale Select bits
+  1270                           ;	WDTPS = 0xF, unprogrammed default
+  1271   300003                     	org	3145731
+  1272   300003  1E                 	db	30
+  1273                           
+  1274                           ; Padding undefined space
+  1275   300004                     	org	3145732
+  1276   300004  FF                 	db	255
+  1277                           
+  1278                           ;Config register CONFIG3H @ 0x300005
+  1279                           ;	CCP2 MUX bit
+  1280                           ;	CCP2MX = 0x1, unprogrammed default
+  1281                           ;	PORTB A/D Enable bit
+  1282                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+  1283                           ;	Low-Power Timer 1 Oscillator Enable bit
+  1284                           ;	LPT1OSC = 0x0, unprogrammed default
+  1285                           ;	MCLR Pin Enable bit
+  1286                           ;	MCLRE = OFF, RE3 input pin enabled; MCLR pin disabled
+  1287   300005                     	org	3145733
+  1288   300005  01                 	db	1
+  1289                           
+  1290                           ;Config register CONFIG4L @ 0x300006
+  1291                           ;	Stack Full/Underflow Reset Enable bit
+  1292                           ;	STVREN = 0x1, unprogrammed default
+  1293                           ;	Single-Supply ICSP Enable bit
+  1294                           ;	LVP = OFF, Single-Supply ICSP disabled
+  1295                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  1296                           ;	ICPRT = 0x0, unprogrammed default
+  1297                           ;	Extended Instruction Set Enable bit
+  1298                           ;	XINST = OFF, Instruction set extension and Indexed Addressing mode disabled (Legacy mo
+      +                          de)
+  1299                           ;	Background Debugger Enable bit
+  1300                           ;	DEBUG = OFF, Background debugger disabled, RB6 and RB7 configured as general purpose I
+      +                          /O pins
+  1301   300006                     	org	3145734
+  1302   300006  81                 	db	129
+  1303                           
+  1304                           ; Padding undefined space
+  1305   300007                     	org	3145735
+  1306   300007  FF                 	db	255
+  1307                           tosu	equ	0xFFF
+  1308                           tosh	equ	0xFFE
+  1309                           tosl	equ	0xFFD
+  1310                           stkptr	equ	0xFFC
+  1311                           pclatu	equ	0xFFB
+  1312                           pclath	equ	0xFFA
+  1313                           pcl	equ	0xFF9
+  1314                           tblptru	equ	0xFF8
+  1315                           tblptrh	equ	0xFF7
+  1316                           tblptrl	equ	0xFF6
+  1317                           tablat	equ	0xFF5
+  1318                           prodh	equ	0xFF4
+  1319                           prodl	equ	0xFF3
+  1320                           indf0	equ	0xFEF
+  1321                           postinc0	equ	0xFEE
+  1322                           postdec0	equ	0xFED
+  1323                           preinc0	equ	0xFEC
+  1324                           plusw0	equ	0xFEB
+  1325                           fsr0h	equ	0xFEA
+  1326                           fsr0l	equ	0xFE9
+  1327                           wreg	equ	0xFE8
+  1328                           indf1	equ	0xFE7
+  1329                           postinc1	equ	0xFE6
+  1330                           postdec1	equ	0xFE5
+  1331                           preinc1	equ	0xFE4
+  1332                           plusw1	equ	0xFE3
+  1333                           fsr1h	equ	0xFE2
+  1334                           fsr1l	equ	0xFE1
+  1335                           bsr	equ	0xFE0
+  1336                           indf2	equ	0xFDF
+  1337                           postinc2	equ	0xFDE
+  1338                           postdec2	equ	0xFDD
+  1339                           preinc2	equ	0xFDC
+  1340                           plusw2	equ	0xFDB
+  1341                           fsr2h	equ	0xFDA
+  1342                           fsr2l	equ	0xFD9
+  1343                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     31      31
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    DS18B20_LeerTemperatura@decimal	PTR unsigned char  size(1) Largest target is 1
+		 -> main@temp_dec(COMRAM[1]), 
+
+    DS18B20_LeerTemperatura@entero	PTR unsigned char  size(1) Largest target is 1
+		 -> main@temp_ent(COMRAM[1]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_DS18B20_LeerTemperatura
+    _DS18B20_LeerTemperatura->___lldiv
+    _DS18B20_IniciarConversion->_OW_WriteByte
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 5     5      0     747
+                                             26 COMRAM     5     5      0
+          _DS18B20_IniciarConversion
+            _DS18B20_LeerTemperatura
+ ---------------------------------------------------------------------------------
+ (1) _DS18B20_LeerTemperatura                             13    11      2     513
+                                             13 COMRAM    13    11      2
+                        _OW_ReadByte
+                           _OW_Reset
+                       _OW_WriteByte
+                            ___lldiv
+                             ___lmul
+ ---------------------------------------------------------------------------------
+ (2) ___lmul                                              12     4      8      94
+                                              0 COMRAM    12     4      8
+ ---------------------------------------------------------------------------------
+ (2) ___lldiv                                             13     5      8     164
+                                              0 COMRAM    13     5      8
+ ---------------------------------------------------------------------------------
+ (2) _OW_ReadByte                                          2     2      0      45
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _DS18B20_IniciarConversion                            2     2      0      50
+                                              2 COMRAM     2     2      0
+                           _OW_Reset
+                       _OW_WriteByte
+ ---------------------------------------------------------------------------------
+ (2) _OW_WriteByte                                         2     2      0      45
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (2) _OW_Reset                                             1     1      0       5
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _DS18B20_IniciarConversion
+     _OW_Reset
+     _OW_WriteByte
+   _DS18B20_LeerTemperatura
+     _OW_ReadByte
+     _OW_Reset
+     _OW_WriteByte
+     ___lldiv
+     ___lmul
+
+Address spaces:
+Name               Size   Autos  Total    Usage
+BITCOMRAM           95      0       0      0.0%
+BITBANK0           160      0       0      0.0%
+BITBANK1           256      0       0      0.0%
+BITBANK2           256      0       0      0.0%
+BITBANK3           256      0       0      0.0%
+BITBANK4           256      0       0      0.0%
+BITBANK5           256      0       0      0.0%
+BITBANK6           256      0       0      0.0%
+BITBANK7           256      0       0      0.0%
+BITBIGSFRh         126      0       0      0.0%
+BITBIGSFRl          33      0       0      0.0%
+COMRAM              95     31      31     32.6%
+BANK0              160      0       0      0.0%
+BANK1              256      0       0      0.0%
+BANK2              256      0       0      0.0%
+BANK3              256      0       0      0.0%
+BANK4              256      0       0      0.0%
+BANK5              256      0       0      0.0%
+BANK6              256      0       0      0.0%
+BANK7              256      0       0      0.0%
+BIGRAM            2047      0       0      0.0%
+STACK                0      0       0      0.0%
+DATA                 0      0      31      0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
+Symbol Table                                                                                   Tue May 26 07:39:23 2026
+
+                               l20 0B4E                                 l21 0B60  
+                               l30 0AA2                                 l32 0AAC  
+                               l24 0A88                                 l17 0B40  
+                               l27 0A96                                 l36 0AD2  
+                               l52 0974                                 l46 0B16  
+                               l80 0A82                                 l49 0B3E  
+                               l95 0A08                                 l79 0A72  
+                               u10 0A96                                 u11 0A92  
+                               u20 0AD2                                 u21 0ACE  
+                               u30 0AFA                                 u31 0AF6  
+                               u40 0B14                                 u41 0B10  
+                              l102 0A18                                l901 0AFA  
+                              l903 0AFC                                l905 0B02  
+                              l851 0B44                                l907 0B04  
+                              l853 0B4C                                l861 0A86  
+                              l909 0B14                                l855 0B56  
+                              l871 0AB0                                l951 0B28  
+                              l857 0B58                                l873 0AB6  
+                              l945 0B18                                l881 0AD4  
+                              l875 0AB8                                l867 0A9A  
+                              l947 0B1C                                l891 0ADE  
+                              l877 0ABC                                l869 0AA0  
+                              l949 0B22                                l893 0AE0  
+                              l879 0AC2                                l895 0AE4  
+                              l887 0AD8                                l897 0AE6  
+                              l889 0ADC                                l899 0AEC  
+                              u200 09BE                                u201 09BA  
+                              u210 09E6                                u211 09E2  
+                              u230 0844                                u231 0840  
+                              u240 0854                                u225 08FA  
+                              u241 0850                                u170 0A38  
+                              u250 086E                                u171 0A34  
+                              u307 08AC                                u251 086A  
+                              u180 0A72                                u260 0884  
+                              u317 0AE8                                u181 0A6E  
+                              u261 0880                                u190 099C  
+                              u270 0894                                u327 0AFE  
+                              u191 0998                                u271 0890  
+                              u337 0B32                                u347 0A9C  
+                              u357 0AA4                                u285 08A0  
+                              u286 08A2                                u367 0AB2  
+                              u377 0B46                                u297 0814  
+                              u387 0B50                                u397 0B5A  
+                              wreg 0FE8                               l1011 0A48  
+                             l1021 09A4                               l1013 0A52  
+                             l1005 0A1A                               l1031 09F6  
+                             l1023 09B0                               l1015 0976  
+                             l1007 0A2A                               l1033 09F8  
+                             l1025 09BE                               l1017 0986  
+                             l1009 0A38                               l1041 08CA  
+                             l1035 0A02                               l1027 09C8  
+                             l1019 099C                               l1051 090A  
+                             l1043 08D0                               l1029 09E6  
+                             l1053 0946                               l1045 08D6  
+                             l1037 08C0                               l1061 080A  
+                             l1047 08DC                               l1039 08C4  
+                             l1071 0844                               l1063 0822  
+                             l1055 0802                               l1049 08E8  
+                             l1081 0884                               l1073 0854  
+                             l1065 0826                               l1057 0806  
+                             l1075 085C                               l1067 0832  
+                             l1059 0808                               l1085 0898  
+                             l1069 0834                               l1087 08A2  
+                             l1079 0872                               _main 0802  
+                             fsr2h 0FDA                               indf2 0FDF  
+                             fsr2l 0FD9                               start 7FFC  
+                     ___param_bank 0000                   OW_WriteByte@dato 0001  
+                      _OW_ReadByte 0AD4                       main@en_rango 001D  
+                            ?_main 0001                    __end_of___lldiv 0A1A  
+              ___lmul@multiplicand 0005                       main@temp_dec 001E  
+                     main@temp_ent 001F                              status 0FD8  
+    DS18B20_LeerTemperatura@entero 000E           ?_DS18B20_LeerTemperatura 000E  
+                 __end_of_OW_Reset 0B62                    __initialization 0B62  
+                    OW_WriteByte@i 0002                       __end_of_main 08C0  
+                           ??_main 001B                      __activetblptr 0000  
+                           _OSCCON 0FD3                             ___lmul 0A1A  
+                        ??___lldiv 0009                       _OW_WriteByte 0A84  
+                           isa$std 0001                       __mediumconst 0800  
+   DS18B20_LeerTemperatura@decimal 000F    __end_of_DS18B20_LeerTemperatura 0976  
+                       __accesstop 0060            __end_of__initialization 0B62  
+                    ___rparam_used 0001                     __pcstackCOMRAM 0001  
+                        ?_OW_Reset 0001                            ?___lmul 0001  
+                     ?_OW_ReadByte 0001                     ___lmul@product 0009  
+                       ??_OW_Reset 0001         ?_DS18B20_IniciarConversion 0001  
+                          __Hparam 0000                            __Lparam 0000  
+                          ___lldiv 0976                       __psmallconst 0800  
+                          __pcinit 0B62                            __ramtop 0800  
+                          __ptext0 0802                            __ptext1 08C0  
+                          __ptext2 0A1A                            __ptext3 0976  
+                          __ptext4 0AD4                            __ptext5 0B18  
+                          __ptext6 0A84                            __ptext7 0B40  
+                     OW_ReadByte@i 0002                    OW_ReadByte@dato 0001  
+       DS18B20_LeerTemperatura@raw 0019               end_of_initialization 0B62  
+__end_of_DS18B20_IniciarConversion 0B40                    ___lldiv@divisor 0005  
+                  ___lldiv@counter 000D                          _PORTBbits 0F81  
+                        _TRISBbits 0F93                          _TRISDbits 0F95  
+                   __end_of___lmul 0A84                start_initialization 0B62  
+                         ??___lmul 0009            _DS18B20_LeerTemperatura 08C0  
+      ??_DS18B20_IniciarConversion 0003                           ?___lldiv 0001  
+                      __smallconst 0800                           _LATBbits 0F8A  
+                         _LATDbits 0F8C          ??_DS18B20_LeerTemperatura 0010  
+        _DS18B20_IniciarConversion 0B18                      ?_OW_WriteByte 0001  
+                         _OW_Reset 0B40                  ___lmul@multiplier 0001  
+                         __Hrparam 0000                           __Lrparam 0000  
+                   ??_OW_WriteByte 0001                           isa$xinst 0000  
+                    ??_OW_ReadByte 0001        DS18B20_LeerTemperatura@frac 0013  
+                 ___lldiv@dividend 0001                __end_of_OW_ReadByte 0B18  
+                 ___lldiv@quotient 0009   DS18B20_LeerTemperatura@byte_bajo 0017  
+ DS18B20_LeerTemperatura@byte_alto 0018               __end_of_OW_WriteByte 0AD4  
