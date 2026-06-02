@@ -1,8 +1,8 @@
 /**
- * @file main_v3.c
+ * @file main_v4.c
  * @brief Práctica 3 - Monitor de Signos Vitales 
- * @details Se integra la configuración a 9600 baudios del periférico de comunicación
- * serie y funciones primitivas de escritura de datos para testeo inicial.
+ * @details Adquisición continua compartiendo I2C para pantalla y sensor, 
+ * con formateo de datos y transmisión serial UART instantánea sin bloqueos.
  */
 
 #include <xc.h>
@@ -10,22 +10,26 @@
 
 #define _XTAL_FREQ 8000000        
 
-/* ============== CONFIGURACIÓN MÓDULO UART (NUEVO) ============== */
+/* ============== MODULO UART FINAL ============== */
 void UART_Init() {
-    TRISCbits.TRISC6 = 1;         /**< Pin TX de la EUSART como entrada (Hardware toma el control) */
-    TRISCbits.TRISC7 = 1;         /**< Pin RX de la EUSART como entrada */
-    
-    SPBRG = 51;                   /**< Baudios: 9600 utilizando Fosc = 8MHz en alta velocidad */
-    TXSTA = 0x24;                 /**< Transmisión habilitada (TXEN=1), Asíncrono, Alta velocidad (BRGH=1) */
-    RCSTA = 0x90;                 /**< Habilita puerto serie (SPEN=1) y recepción continua */
+    TRISCbits.TRISC6 = 1; TRISCbits.TRISC7 = 1;
+    SPBRG = 51; TXSTA = 0x24; RCSTA = 0x90;
 }
 
 void UART_Write(char dato) {
-    while(!TXSTAbits.TRMT);       /**< Bloquea hasta que el registro de transmisión esté libre */
-    TXREG = dato;                 /**< Envía el byte */
+    while(!TXSTAbits.TRMT); TXREG = dato;
 }
 
-/* ============== REGISTROS Y FUNCIONES (I2C/OLED/MAX) ============== */
+/**
+ * @brief Transmite tramas complejas de texto completo por el canal serie.
+ */
+void UART_Write_Text(const char *texto) {
+    while(*texto) {
+        UART_Write(*texto++);
+    }
+}
+
+/* ============== RESTO DEL HARDWARE INTEGRADO ============== */
 #define OLED_ADDR       0x78      
 #define MAX30102_ADDR   0xAE      
 #define REG_FIFO_DATA     0x07
@@ -76,29 +80,37 @@ const unsigned char font5x8[][5] = {
 void main() {
     OSCCON = 0x72;                
     I2C_Init();                   
-    UART_Init();                  /**< Agregado en el flujo de arranque */
+    UART_Init();                  
     OLED_Init();                  
     MAX30102_Init();              
     
     unsigned long datos_crudos = 0;
     unsigned int pulsos = 0;
+    char buffer_serie[25];        /**< Almacén de caracteres para empaquetado TX */
     
-    OLED_SetCursor(1, 10);
-    OLED_Str("TEST UART ACTIVO");
+    OLED_SetCursor(0, 15);
+    OLED_Str("SISTEMA COMPLETO");
     
     while(1) {
+        /* 1. Captura del Sensor */
         datos_crudos = MAX30102_GetRawData();
         
+        /* 2. Lógica Dinámica y Salida OLED */
+        OLED_SetCursor(4, 15);
         if(datos_crudos < 15000) {
             pulsos = 0;
-            OLED_SetCursor(4, 15);  OLED_Str("PULSO: -- BPM  ");
+            OLED_Str("PULSO: -- BPM  ");
+            sprintf(buffer_serie, "PULSO: NO DETECTADO\r\n");
         } else {
             pulsos = (unsigned int)(66 + (datos_crudos % 20));
-            OLED_SetCursor(4, 15);  OLED_Str("PULSO: "); OLED_Num(pulsos); OLED_Str(" BPM   ");
+            OLED_Str("PULSO: ");
+            OLED_Num(pulsos);
+            OLED_Str(" BPM   ");
+            sprintf(buffer_serie, "PULSO: %u BPM\r\n", pulsos);
         }
         
-        /* TEST LÍNEA TX SERIAL: Transmite una señal constante sin frenar el flujo */
-        UART_Write('A'); 
+        /* 3. Transmisión Serial sin Pausas */
+        UART_Write_Text(buffer_serie);
         
         __delay_ms(100); 
     }
