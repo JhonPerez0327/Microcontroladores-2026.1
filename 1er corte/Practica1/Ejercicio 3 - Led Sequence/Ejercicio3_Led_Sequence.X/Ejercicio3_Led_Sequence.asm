@@ -1,238 +1,184 @@
-; Código en Assembler para PIC18F4550
-; Materia: Microcontroladores 2026.1 Universidad del Cauca
-; Presentado por: Jhon Alexander Perez Arango
-; Descripción: Generacion de 4 secuencias o efectos distintos usando 4 o más leds, 
-;              este desarrollo debe contar con una entrada externa (pulsador) para 
-;              el cambio de secuencia y una entrada externa que permita modificar
-;              la velocidad de ejecución de la secuencia.
-; Frecuencia: Oscilador interno de 8 MHz 
-; Ensamblador: MPLAB X IDE v6.30
 ;=========================================================
+; C?digo en Assembler para PIC18F45507
+; Materia: Microcontroladores 2026.1 Universidad del Cauca
+; Presentado por:Julian David Mu?oz Ledezma
+; Descripci?n: Generacion de 4 secuencias con 4 leds con boton para cambiar secuecia y velocidad de la secuencia 
+; Usando retrasos  8MHz/4 = 0.5us cada instruccion
+; Frecuencia: Oscilador interno de 8 MHz 
+; Ensamblador: MPLAB X IDE v6.25
+;=========================================================
+	#include <xc.inc>
+    
+; Config 
+	CONFIG FOSC  = INTOSC_EC    ;USA RELOJ INTERNO DE 8MHZ
+	CONFIG WDT   = OFF	    ;NO PERMITE CICLOS ON;PERMITE OFF    
+	CONFIG LVP   = OFF	    ;NO PERMITE PROG CON VOLTAJES BAJOS
+    	CONFIG PBADEN = OFF	    ;PUERTO B CONFIG COMO SALIDA DIGITAL
+	CONFIG MCLRE = OFF	    ;TENGO QUE CONECTAR VOLTAJE 
+	CONFIG XINST = OFF	    ;OFF ENTRADAS AVANZADAS
+	CONFIG PWRT  = ON	    ;ESPERA MILISEGUNDOS PARA ESTABILIZARSE
+	CONFIG DEBUG = OFF	    ;NO RESERVA RECURSOS
+;VARIABLES USADAS COMO CONTADORES 
+	PSECT udata  ; Secci?n de datos sin inicializar (variables en RAM)
+CNT1:   DS 1	;RESERVA DE MEMORIA PARA CNT1
+CNT2:   DS 1    ;RESERVA DE MEMORIA PARA CNT2
+SEC:	DS 1	;RESERVA DE MEMORIA PARA SECUENCIA
+VEL:	DS 1	;RESERVA DE MEMORIA PARA VELOCIDAD
+	; VECTORES DE INICIO E INTERRUPCION
+	PSECT	resetVec, class=code, reloc=2
+	ORG	0b00000000	    ;vector de inicializacion hexadec seria 0x00
+	GOTO	INICIO		    ;VOY A FUNCION DE INICIO
+	PSECT inVec, class=CODE, reloc=2 
+        ORG     0b00001000          ; 0x08 Vector de interrupci?n
+        GOTO    ISR
+	PSECT  main_code, class=CODE, reloc=2  ; Secci?n de c?digo principal
 
-#include <xc.inc>   ; Incluir definiciones del ensamblador para PIC18F4550
-
-; Configuración de bits de configuración (Fuses)
-CONFIG  FOSC = INTOSC_EC   ; Usa el oscilador interno a 8 MHz
-CONFIG  WDT = OFF            ; Deshabilitar el Watchdog Timer
-CONFIG  LVP = OFF            ; Deshabilitar la programación en bajo voltaje
-CONFIG  PBADEN = OFF         ; Configurar los pines de PORTB como digitales
-CONFIG  MCLRE  = OFF         ; Pin de reset externo desactivado
-CONFIG  XINST  = OFF         ; Juego de instrucciones extendido OFF
-CONFIG  PWRT   = ON          ; Espera un momento al encender antes de arrancar
-
-; Variables en RAM (van primero para que el ensamblador las conozca antes de usarlas)
-PSECT udata
-SEQ:    DS 1        ; secuencia actual (0 a 3)
-VEL:    DS 1        ; velocidad actual (0 a 3)
-CNT1:   DS 1        ; contador interno del delay
-CNT2:   DS 1        ; contador externo del delay
-DB_CNT: DS 1        ; contador del antirrebote
-
-; Vectores de Inicio e Interrupción
-    PSECT  resetVec, class=CODE, reloc=2
-    ORG     0x0000              ; 0x00 Reset, cuando el micro se enciende o se resetea se va directico pa 0x0000
-    GOTO    INIT
-
-    PSECT  intVec, class=CODE, reloc=2
-    ORG     0x0008              ; 0x08 Vector de interrupción, al pisarse el boton esto lo q hace es pausar lo que este haciendo el micro en ese momento para ir directamente a la nueva instruccion
-    GOTO    ISR
-
-; Inicio
-INIT:
-    ; OSCCON:
-    ; IRCF2:IRCF0 = 110 -> 8 MHz
-    ; SCS1:SCS0   = 10  -> reloj interno explícito
-    ; Valor: 0b01100010
-    MOVLW   0b01100010
-    MOVWF   OSCCON, a
-
-    ; LEDs como salidas, apagados
-    CLRF    TRISD, a        ; todo PORTD = salida (osea que son 0 bb, 0 es salida)
-    CLRF    LATD,  a        ; apaga todos los LEDs
-
-    ; Botones como entradas
-    BSF     TRISB, 0, a     ; RB0 = entrada (botón secuencia)
-    BSF     TRISB, 1, a     ; RB1 = entrada (botón velocidad)
-
-    ; Al presionarse el botón va de 5V a GND
-    BCF     INTCON2, 6, a   ; pone en 0 el bit 6 (INTEDG0)
-    BCF     INTCON2, 5, a   ; pone en 0 el bit 5 (INTEDG1)
-
-    ; Limpiar banderas
-    BCF     INTCON,  1, a   ; limpia bandera de INT0
-    BCF     INTCON3, 0, a   ; limpia bandera de INT1
-
-    ; Habilitamos interrupciones
-    BSF     INTCON,  4, a   ; =1, habilita INT0
-    BSF     INTCON3, 3, a   ; =1, habilita INT1
-    BSF     INTCON,  7, a   ; GIE=1, habilita interrupciones globales
-
-MAIN:
-    MOVF    SEQ, W, a       ; carga SEQ en la mesa de trabajo (W)
-    XORLW   0               ; ¿SEQ es 0 o no mi so?
-    BZ      SECUENCIA_0     ; si sí, bien pueda siga a SECUENCIA_0
-
-    MOVF    SEQ, W, a       ; vuelve a cargar SEQ (XORLW lo modifica)
-    XORLW   1               ; ¿SEQ es 1?
-    BZ      SECUENCIA_1
-
-    MOVF    SEQ, W, a
-    XORLW   2               ; ¿SEQ es 2?
-    BZ      SECUENCIA_2
-
-    GOTO    SECUENCIA_3     ; si no fue 0,1,2 entonces es 3
-
-SECUENCIA_0:                ; Desplazamiento izq ? der
-    MOVLW   0x01
-    MOVWF   LATD, a         ; enciende RD0
-    CALL    DELAY
-    MOVLW   0x02
-    MOVWF   LATD, a         ; enciende RD1
-    CALL    DELAY
-    MOVLW   0x04
-    MOVWF   LATD, a         ; enciende RD2
-    CALL    DELAY
-    MOVLW   0x08
-    MOVWF   LATD, a         ; enciende RD3
-    CALL    DELAY
-    GOTO    MAIN
-
-SECUENCIA_1:                ; Parpadeo total
-    MOVLW   0x0F
-    MOVWF   LATD, a         ; enciende todos
-    CALL    DELAY
-    CLRF    LATD, a         ; apaga todos
-    CALL    DELAY
-    GOTO    MAIN
-
-SECUENCIA_2:                ; Relleno progresivo
-    MOVLW   0x01
-    MOVWF   LATD, a         ; RD0
-    CALL    DELAY
-    MOVLW   0x03
-    MOVWF   LATD, a         ; RD0+RD1
-    CALL    DELAY
-    MOVLW   0x07
-    MOVWF   LATD, a         ; RD0+RD1+RD2
-    CALL    DELAY
-    MOVLW   0x0F
-    MOVWF   LATD, a         ; todos
-    CALL    DELAY
-    GOTO    MAIN
-
-SECUENCIA_3:                ; Mitad interior vs esquinas
-    MOVLW   0x06
-    MOVWF   LATD, a         ; RD1 y RD2 (mitad)
-    CALL    DELAY
-    MOVLW   0x09
-    MOVWF   LATD, a         ; RD0 y RD3 (esquinas)
-    CALL    DELAY
-    GOTO    MAIN
-
-;=========================================================================
-; DELAY: retardo variable según VEL
-;=========================================================================
-DELAY:
-    MOVF    VEL, W, a       ; carga velocidad en W
-
-    XORLW   0               ; ¿lenta?
-    BZ      D_LENTA
-
-    MOVF    VEL, W, a
-    XORLW   1               ; ¿media?
-    BZ      D_MEDIA
-
-    MOVF    VEL, W, a
-    XORLW   2               ; ¿rápida?
-    BZ      D_RAPIDA
-
-    GOTO    D_MUY_RAPIDA    ; si no fue 0,1,2 entonces es 3
-
-D_LENTA:
-    CALL    DELAY_BASE      ; 4 llamadas ? 250ms (cascada hacia abajo)
-    CALL    DELAY_BASE
-D_MEDIA:
-    CALL    DELAY_BASE      ; 2 llamadas ? 125ms (cascada hacia abajo)
-D_RAPIDA:
-    CALL    DELAY_BASE      ; 1 llamada ? 62ms
-    RETURN
-
-D_MUY_RAPIDA:
-    CALL    DELAY_BASE      ; 1 llamada ? 30ms
-    RETURN
-
-; ~62ms a 8MHz
-DELAY_BASE:
-    MOVLW   250
-    MOVWF   CNT1, a
-LOOP1:
-    MOVLW   250
-    MOVWF   CNT2, a
-LOOP2:
-    DECFSZ  CNT2, f, a      ; decrementa CNT2, salta si llega a 0
-    GOTO    LOOP2
-    DECFSZ  CNT1, f, a      ; decrementa CNT1, salta si llega a 0
-    GOTO    LOOP1
-    RETURN
-
-;=========================================================================
-; DEBOUNCE: antirrebote ~20ms
-; No está en los CONFIG, se hace por software
-; Espera ~20ms y vuelve a verificar si el botón sigue presionado
-; Si sigue presionado = pulsación real, si ya soltó = fue rebote
-;=========================================================================
-DEBOUNCE:
-    MOVLW   80              ; 80 x 250 = 20,000 ciclos ? 20ms
-    MOVWF   DB_CNT, a       ; (un registro de 8 bits solo aguanta hasta 255, por eso dos contadores)
-DB_LOOP:
-    MOVLW   250
-    MOVWF   CNT1, a
-DB_INNER:
-    DECFSZ  CNT1, f, a
-    GOTO    DB_INNER
-    DECFSZ  DB_CNT, f, a
-    GOTO    DB_LOOP
-    RETURN
-
-;=========================================================================
-; ISR: rutina de interrupción
-;=========================================================================
+INICIO:
+	;CONFIGURACION OSCON
+	;8MHZ
+	;VALOR: Ob01110010
+	MOVLW	0b01110010
+	MOVWF	OSCCON
+	CLRF	TRISD	    ;RD SALIDAS
+	CLRF	LATD	    ;RD APAGADO
+	BSF	TRISB,0	    ;RB0 ENTRADA SECUENCIA
+	BSF	TRISB,1	    ;RB1 ENTRADA VELOCIDAD
+	BSF	INTCON2,7   ;PULL-UPS INTERNOS DESABILITADOS
+	BCF	INTCON2,6   ;DETECCION F.BAJADA INTEDG0 PULSADOR A TIERRA
+	BCF	INTCON2,5   ;DETECCION F.BAJADA INTEDG1
+	BSF	INTCON,7    ;INTERRUPCIONES GLOBALES ACTIVADAS
+	BSF	INTCON,4    ;ACTIVAR INTERRUPCIONES EXTERNAS INT0 
+	BSF	INTCON3,3   ;ACTIVAR INTERRUPCIONES EXTERNAS INT1
+	BCF	INTCON,1    ;LIMPIAR BANDERA INT0
+	BCF	INTCON3,0   ;LIMPIAR BANDERA INT1 
+	;CONTADOR PARA SECUENCIA   
+	CLRF	SEC
+	;CONTADOR PARA VELOCIDAD
+	CLRF	VEL
+INICIO1:
+	MOVF	SEC, W	;MOVER EL VALOR CERO A W PARA COMPARAR
+	XORLW	0	;XOR NUMEROS IGUALES  IGUAL CERO ENTONCES FLAGZ=1
+	BZ	SEC1	;VERIFICO SI Z= 1 VOY A SEC1
+	
+	MOVF	SEC,W	;MOVER EL VALOR SEC MODIFICADO POR EL BOTONB0 SEC=1 A W PARA COMPARAR
+	XORLW	1	;XOR NUMEROS IGUALES  IGUAL CERO SI ES ASI FLAGZ=1
+	BZ	SEC2	;VERIFICO SI Z ES 1 VOY A SEC2
+	
+	MOVF	SEC,W	;MOVER EL VALOR SEC MODIFICADO POR EL BOTONB0 SEC=2 A W PARA COMPARAR
+	XORLW	2	;XOR NUMEROS IGUALES  IGUAL CERO SI ES ASI FLAGZ=1
+	BZ	SEC3	;VERIFICO SI Z ES 1 VOY A SEC2
+	
+	MOVF	SEC,W	;MOVER EL VALOR SEC MODIFICADO POR EL BOTONB0 SEC=3 A W PARA COMPARAR
+	XORLW	3	;XOR NUMEROS IGUALES  IGUAL CERO SI ES ASI FLAGZ=1
+	BZ	SEC4	;VERIFICO SI Z ES 1 VOY A SEC3
+	
+SEC1:
+	MOVLW	0b00000001  ;MUEVO 1 A W EL VALOR PARA ENCENDER RD0
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD   ;SELECCION VELOCIDAD
+	MOVLW	0b00000010  ;MUEVO 2 A W EL VALOR PARA ENCENDER RD1
+	MOVWF	LATD	    ;MUEVO W AL PUERTO 
+	CALL	VELOCIDAD   ;SELECCION VELOCIDAD    
+	MOVLW	0b00000100  ;MUEVO W AL PUERTO D
+	MOVWF	LATD	    ;MUEVO 4 A W EL VALOR PARA ENCENDER RD2
+	CALL	VELOCIDAD   ;SELECCION VELOCIDAD    
+	MOVLW	0b00001000  ;MUEVO W AL PUERTO D
+	MOVWF	LATD	    ;MUEVO 8 A W EL VALOR PARA ENCENDER RD3
+	CALL	VELOCIDAD   ;SELECCION VELOCIDAD
+	GOTO	INICIO1
+SEC2:	
+	MOVLW	0b00001000  ;MUEVO W AL PUERTO D
+	MOVWF	LATD	    ;MUEVO 8 A W EL VALOR PARA ENCENDER RD3
+	CALL	VELOCIDAD
+	MOVLW	0b00000100  ;MUEVO W AL PUERTO D
+	MOVWF	LATD	    ;MUEVO 4 A W EL VALOR PARA ENCENDER RD2
+	CALL	VELOCIDAD
+	MOVLW	0b00000010  ;MUEVO 2 A W EL VALOR PARA ENCENDER RD1
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD	
+	MOVLW	0b00000001  ;MUEVO 1 A W EL VALOR PARA ENCENDER RD0
+	MOVWF	LATD	    ;MUEVO W AL PUERTO 
+	CALL	VELOCIDAD	    ;RETARDO PARA STE SECUENCIA
+	GOTO	INICIO1
+SEC3:	
+	MOVLW	0b00000000  ;MUEVO 0 A W EL VALOR PARA APAGAR TODOS 
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD
+	MOVLW	0b00001111  ;MUEVO 15 A W EL VALOR PARA ENCENDER TODOS 
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD
+	GOTO	INICIO1
+SEC4:	
+	MOVLW	0b00000011  ;MUEVO 3 A W EL VALOR PARA ENCENDER 2 PRIMEROS
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD
+	MOVLW	0b00001100  ;MUEVO 12 A W EL VALOR PARA ENCENDER 2 ULTIMOS
+	MOVWF	LATD	    ;MUEVO W AL PUERTO D
+	CALL	VELOCIDAD
+	GOTO	INICIO1
+VELOCIDAD:
+	MOVF	VEL,W	    ;MUEVO A W VALOR DE VEL QUE ES 0  
+	XORLW	0	    ;XOR ENTRE NUMEROS IGUALES ACTIVA Z=1
+	BZ	RETARDO	    ;VERIFICO SI Z=1 Y VOY A RETARDO 1VELOCIDAD 75ms
+	
+	MOVF	VEL,W	    ;MUEVO VALOR DE VEL A W QUE SE INCREMENTO POR INTERRUPCION
+	XORLW	1	    ;XOR ENTRE NUMEROS IGUALES ACTIVA Z=1
+	BZ	VEL1	    ;VERIFICO SI Z=1 Y VOY A RETARDO 2VELOCIDAD 2V1 1.5ms
+	
+	MOVF	VEL,W	    ;MUEVO VALOR DE VEL A W QUE SE INCREMENTO POR INTERRUPCION
+	XORLW	2	    ;XOR ENTRE NUMEROS IGUALES ACTIVA Z=1
+	BZ	VEL2	    ;VERIFICO SI Z=1 Y VOY A RETARDO 3VELOCIDAD 2V2 3ms
+;RETARDO DE 75ms((200*3)+2)*250*0.5us=75ms	
+RETARDO:
+	MOVLW	250	    
+	MOVWF	CNT1
+REP1:
+	MOVLW	201
+	MOVWF	CNT2
+REP2:	
+	DECFSZ	CNT2, F
+	GOTO	REP2	    ;3 CICLOS *200
+	DECFSZ	CNT1, F	    ;2 CICLOS
+	GOTO	REP1	
+	RETURN
+VEL1:
+	CALL    RETARDO
+        CALL    RETARDO
+	RETURN
+ VEL2:	
+	CALL	VEL1
+	CALL	VEL1
+	RETURN
+;SECCION DE INTERRUPCION B0
 ISR:
-    BTFSC   INTCON,  1, a       ; ¿INT0IF=1? (botón secuencia)
-    CALL    PROC_INT0
-
-    BTFSC   INTCON3, 0, a       ; ¿INT1IF=1? (botón velocidad)
-    CALL    PROC_INT1
-
-    RETFIE                      ; regresa y reactiva interrupciones (GIE=1)
-                                ; (si usaramos RETURN las interrupciones quedarian apagadas para siempre)
-
-; --- INT0: cambio de secuencia ---
-PROC_INT0:
-    BCF     INTCON, 1, a        ; limpia bandera INT0IF
-    CALL    DEBOUNCE            ; espera antirrebote
-    BTFSC   PORTB, 0, a         ; ¿RB0 sigue en 0? (presionado)
-    RETURN                      ; no, fue rebote, ignora
-    INCF    SEQ, f, a           ; incrementa secuencia
-    MOVF    SEQ, W, a
-    XORLW   4                   ; ¿llegó a 4?
-    BNZ     FIN_INT0
-    CLRF    SEQ, a              ; reinicia a 0
-FIN_INT0:
-    RETURN
-
-; --- INT1: cambio de velocidad ---
-PROC_INT1:
-    BCF     INTCON3, 0, a       ; limpia bandera INT1IF
-    CALL    DEBOUNCE            ; espera antirrebote
-    BTFSC   PORTB, 1, a         ; ¿RB1 sigue en 0? (presionado)
-    RETURN                      ; no, fue rebote, ignora
-    INCF    VEL, f, a           ; incrementa velocidad
-    MOVF    VEL, W, a
-    XORLW   4                   ; ¿llegó a 4?
-    BNZ     FIN_INT1
-    CLRF    VEL, a              ; reinicia a 0
-FIN_INT1:
-    RETURN
-
-    END
+	BTFSC	INTCON,1    ;VERIFICO SI LA BANDERA POR INTERRUPCION INT0IF=0 SI ES ASI SIGO REP SI NO VOY CAMBIO SEC 
+	CALL	CAMBIO	    ;VOY A FUNCION PARA CAMBIAR A SIGUIENTE SECUENCIA
+	BTFSC	INTCON3,0
+	CALL	CAMBIO1
+	RETFIE
+CAMBIO:
+	BCF	INTCON,1    ;LIMPIO BANDERA
+	CALL	RETARDO	    ;ESPERO PARA STE SECUENCIA
+	BTFSC	PORTB,0	    ;SI PUERTORB0=1 FUE UN REBOTE
+	RETURN		    ;REPITO SI NO FUE UN CERO LIMPIO
+	INCF	SEC, F	    ;INCREMENTO EL REGISTRO SEC EN 1
+	MOVF	SEC,W	    ;ACTUALIZO W
+	XORLW	4	    ;SI SEC LLEGO A 4 RESULTADO FLAGZ=1
+	BNZ	RST	    ;VERIFICO Z=0 VOY A RST SIGO EN MI SEC 
+	CLRF	SEC	    ;LIMPIA SEC SI EL RESULTADO DE Z=1
+RST:	
+	RETURN		    ;VUELVO A INICIO1
+;SECCION CAMBIO DE VELOCIDAD
+CAMBIO1:
+	BCF	INTCON3,0   ;LIMPIO BANDERA INT1
+	CALL	RETARDO	    ;ESPERO PARA CAMBIAR VELOCIDAD
+	BTFSC	PORTB,1	    ;SI PUERTORB0=1 FUE UN REBOTE
+	RETURN		    ;SI PUERTORB1=1 FUE UN REBOTE
+	INCF	VEL, F	    ;INCREMENTO EL VALOR DE VEL 1
+	MOVF	VEL,W	    ;ACTUALIZO W
+	XORLW	3	    ;VERIFICO SI LLEGO A LA ULTIMA VELOCIDAD
+	BNZ	RST1	    ;VERIFICO Z=0 VOY A RST1 SIGO CON V.ACTUAL 
+	CLRF	VEL	    ;SI LLEGO A VELOCIDAD 3 LIMPIO VEL
+RST1:
+	RETURN		    ;VUELVO A INICIO1 
+	END

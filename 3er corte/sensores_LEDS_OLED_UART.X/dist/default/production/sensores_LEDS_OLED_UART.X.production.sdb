@@ -1,0 +1,577 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"144 C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\3er corte\sensores_LEDS_OLED_UART.X\main.c
+[v _I2C_Init I2C_Init `(v  1 e 1 0 ]
+"152
+[v _I2C_Start I2C_Start `(v  1 e 1 0 ]
+"153
+[v _I2C_Stop I2C_Stop `(v  1 e 1 0 ]
+"155
+[v _I2C_Write I2C_Write `(v  1 e 1 0 ]
+"161
+[v _I2C_Read I2C_Read `(uc  1 e 1 0 ]
+"176
+[v _MAX30102_WriteReg MAX30102_WriteReg `(v  1 e 1 0 ]
+"187
+[v _MAX30102_Init MAX30102_Init `(v  1 e 1 0 ]
+"201
+[v _MAX30102_GetRawData MAX30102_GetRawData `(ul  1 e 4 0 ]
+"214
+[v _DS18B20_Reset DS18B20_Reset `(uc  1 e 1 0 ]
+"223
+[v _DS18B20_WriteByte DS18B20_WriteByte `(v  1 e 1 0 ]
+"234
+[v _DS18B20_ReadByte DS18B20_ReadByte `(uc  1 e 1 0 ]
+"249
+[v _DS18B20_ReadTemp DS18B20_ReadTemp `(ui  1 e 2 0 ]
+"284
+[v _OLED_Cmd OLED_Cmd `(v  1 e 1 0 ]
+"285
+[v _OLED_Data OLED_Data `(v  1 e 1 0 ]
+"286
+[v _OLED_SetCursor OLED_SetCursor `(v  1 e 1 0 ]
+"288
+[v _OLED_Char OLED_Char `(v  1 e 1 0 ]
+"295
+[v _OLED_Str OLED_Str `(v  1 e 1 0 ]
+"297
+[v _OLED_Num OLED_Num `(v  1 e 1 0 ]
+"304
+[v _OLED_Clear OLED_Clear `(v  1 e 1 0 ]
+"312
+[v _OLED_Init OLED_Init `(v  1 e 1 0 ]
+"328
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+"337
+[v _UART_EnviarByte UART_EnviarByte `(v  1 e 1 0 ]
+"342
+[v _UART_EnviarTexto UART_EnviarTexto `(v  1 e 1 0 ]
+"346
+[v _UART_EnviarNumero UART_EnviarNumero `(v  1 e 1 0 ]
+"353
+[v _UART_EnviarSeparador UART_EnviarSeparador `(v  1 e 1 0 ]
+"372
+[v _main main `(v  1 e 1 0 ]
+[s S33 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"2481 C:/Program Files/Microchip/MPLABX/v6.30/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8\pic\include\proc/pic18f4550.h
+[s S245 . 1 `uc 1 INT0 1 0 :1:0 
+`uc 1 INT1 1 0 :1:1 
+`uc 1 INT2 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 PGM 1 0 :1:5 
+`uc 1 PGC 1 0 :1:6 
+`uc 1 PGD 1 0 :1:7 
+]
+[s S253 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 CCP2_PA2 1 0 :1:3 
+]
+[u S256 . 1 `S33 1 . 1 0 `S245 1 . 1 0 `S253 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES256  1 e 1 @3969 ]
+"3261
+[v _LATD LATD `VEuc  1 e 1 @3980 ]
+[s S411 . 1 `uc 1 LATD0 1 0 :1:0 
+`uc 1 LATD1 1 0 :1:1 
+`uc 1 LATD2 1 0 :1:2 
+`uc 1 LATD3 1 0 :1:3 
+`uc 1 LATD4 1 0 :1:4 
+`uc 1 LATD5 1 0 :1:5 
+`uc 1 LATD6 1 0 :1:6 
+`uc 1 LATD7 1 0 :1:7 
+]
+"3288
+[s S420 . 1 `uc 1 LD0 1 0 :1:0 
+`uc 1 LD1 1 0 :1:1 
+`uc 1 LD2 1 0 :1:2 
+`uc 1 LD3 1 0 :1:3 
+`uc 1 LD4 1 0 :1:4 
+`uc 1 LD5 1 0 :1:5 
+`uc 1 LD6 1 0 :1:6 
+`uc 1 LD7 1 0 :1:7 
+]
+[u S429 . 1 `S411 1 . 1 0 `S420 1 . 1 0 ]
+[v _LATDbits LATDbits `VES429  1 e 1 @3980 ]
+[s S24 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"3655
+[u S42 . 1 `S24 1 . 1 0 `S33 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES42  1 e 1 @3987 ]
+[s S281 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"3873
+[s S288 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+[u S295 . 1 `S281 1 . 1 0 `S288 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES295  1 e 1 @3988 ]
+[s S370 . 1 `uc 1 TRISD0 1 0 :1:0 
+`uc 1 TRISD1 1 0 :1:1 
+`uc 1 TRISD2 1 0 :1:2 
+`uc 1 TRISD3 1 0 :1:3 
+`uc 1 TRISD4 1 0 :1:4 
+`uc 1 TRISD5 1 0 :1:5 
+`uc 1 TRISD6 1 0 :1:6 
+`uc 1 TRISD7 1 0 :1:7 
+]
+"4031
+[s S379 . 1 `uc 1 RD0 1 0 :1:0 
+`uc 1 RD1 1 0 :1:1 
+`uc 1 RD2 1 0 :1:2 
+`uc 1 RD3 1 0 :1:3 
+`uc 1 RD4 1 0 :1:4 
+`uc 1 RD5 1 0 :1:5 
+`uc 1 RD6 1 0 :1:6 
+`uc 1 RD7 1 0 :1:7 
+]
+[u S388 . 1 `S370 1 . 1 0 `S379 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES388  1 e 1 @3989 ]
+"4934
+[v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
+"5144
+[v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
+[s S316 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 SENDB 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"5183
+[s S325 . 1 `uc 1 TX9D1 1 0 :1:0 
+`uc 1 TRMT1 1 0 :1:1 
+`uc 1 BRGH1 1 0 :1:2 
+`uc 1 SENDB1 1 0 :1:3 
+`uc 1 SYNC1 1 0 :1:4 
+`uc 1 TXEN1 1 0 :1:5 
+`uc 1 TX91 1 0 :1:6 
+`uc 1 CSRC1 1 0 :1:7 
+]
+[s S334 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 TX8_9 1 0 :1:6 
+]
+[s S337 . 1 `uc 1 TXD8 1 0 :1:0 
+]
+[u S339 . 1 `S316 1 . 1 0 `S325 1 . 1 0 `S334 1 . 1 0 `S337 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES339  1 e 1 @4012 ]
+"5400
+[v _TXREG TXREG `VEuc  1 e 1 @4013 ]
+"5424
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+[s S67 . 1 `uc 1 SEN 1 0 :1:0 
+`uc 1 RSEN 1 0 :1:1 
+`uc 1 PEN 1 0 :1:2 
+`uc 1 RCEN 1 0 :1:3 
+`uc 1 ACKEN 1 0 :1:4 
+`uc 1 ACKDT 1 0 :1:5 
+`uc 1 ACKSTAT 1 0 :1:6 
+`uc 1 GCEN 1 0 :1:7 
+]
+"6821
+[u S76 . 1 `S67 1 . 1 0 ]
+[v _SSPCON2bits SSPCON2bits `VES76  1 e 1 @4037 ]
+"6866
+[v _SSPCON1 SSPCON1 `VEuc  1 e 1 @4038 ]
+"6936
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @4039 ]
+[s S89 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_NOT_W 1 0 :1:2 
+]
+"7019
+[s S92 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 D_NOT_A 1 0 :1:5 
+]
+[s S95 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+[s S104 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S109 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 I2C_READ 1 0 :1:2 
+`uc 1 I2C_START 1 0 :1:3 
+`uc 1 I2C_STOP 1 0 :1:4 
+`uc 1 I2C_DAT 1 0 :1:5 
+]
+[s S115 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S120 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_WRITE 1 0 :1:2 
+]
+[s S123 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_ADDRESS 1 0 :1:5 
+]
+[s S126 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S131 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 READ_WRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 DATA_ADDRESS 1 0 :1:5 
+]
+[s S136 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S141 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 RW 1 0 :1:2 
+`uc 1 START 1 0 :1:3 
+`uc 1 STOP 1 0 :1:4 
+`uc 1 DA 1 0 :1:5 
+]
+[s S147 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 NOT_A 1 0 :1:5 
+]
+[u S152 . 1 `S89 1 . 1 0 `S92 1 . 1 0 `S95 1 . 1 0 `S104 1 . 1 0 `S109 1 . 1 0 `S115 1 . 1 0 `S120 1 . 1 0 `S123 1 . 1 0 `S126 1 . 1 0 `S131 1 . 1 0 `S136 1 . 1 0 `S141 1 . 1 0 `S147 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES152  1 e 1 @4039 ]
+"7184
+[v _SSPADD SSPADD `VEuc  1 e 1 @4040 ]
+"7191
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
+"7984
+[v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
+"266 C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\3er corte\sensores_LEDS_OLED_UART.X\main.c
+[v _font5x8 font5x8 `C[59][5]uc  1 e 295 0 ]
+"372
+[v _main main `(v  1 e 1 0 ]
+{
+"374
+[v main@suma_raw suma_raw `ul  1 a 4 26 ]
+"375
+[v main@pulso pulso `ui  1 a 2 32 ]
+"376
+[v main@temp temp `ui  1 a 2 30 ]
+"552
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+{
+"10
+[v ___llmod@counter counter `uc  1 a 1 8 ]
+"7
+[v ___llmod@dividend dividend `ul  1 p 4 0 ]
+[v ___llmod@divisor divisor `ul  1 p 4 4 ]
+"25
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"10
+[v ___lldiv@quotient quotient `ul  1 a 4 8 ]
+"11
+[v ___lldiv@counter counter `uc  1 a 1 12 ]
+"7
+[v ___lldiv@dividend dividend `ul  1 p 4 0 ]
+[v ___lldiv@divisor divisor `ul  1 p 4 4 ]
+"30
+} 0
+"328 C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\3er corte\sensores_LEDS_OLED_UART.X\main.c
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+{
+"335
+} 0
+"353
+[v _UART_EnviarSeparador UART_EnviarSeparador `(v  1 e 1 0 ]
+{
+"355
+} 0
+"342
+[v _UART_EnviarTexto UART_EnviarTexto `(v  1 e 1 0 ]
+{
+[v UART_EnviarTexto@t t `*.32Cuc  1 p 2 1 ]
+"344
+} 0
+"346
+[v _UART_EnviarNumero UART_EnviarNumero `(v  1 e 1 0 ]
+{
+"347
+[v UART_EnviarNumero@b b `[6]uc  1 a 6 9 ]
+[v UART_EnviarNumero@i i `i  1 a 2 15 ]
+"346
+[v UART_EnviarNumero@n n `ui  1 p 2 7 ]
+"351
+} 0
+"337
+[v _UART_EnviarByte UART_EnviarByte `(v  1 e 1 0 ]
+{
+[v UART_EnviarByte@dato dato `uc  1 p 1 wreg ]
+[v UART_EnviarByte@dato dato `uc  1 p 1 wreg ]
+[v UART_EnviarByte@dato dato `uc  1 p 1 0 ]
+"340
+} 1
+"295
+[v _OLED_Str OLED_Str `(v  1 e 1 0 ]
+{
+[v OLED_Str@s s `*.32Cuc  1 p 2 8 ]
+} 0
+"297
+[v _OLED_Num OLED_Num `(v  1 e 1 0 ]
+{
+"298
+[v OLED_Num@b b `[6]uc  1 a 6 10 ]
+[v OLED_Num@i i `i  1 a 2 16 ]
+"297
+[v OLED_Num@n n `ui  1 p 2 8 ]
+"302
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwmod@counter counter `uc  1 a 1 4 ]
+"7
+[v ___lwmod@dividend dividend `ui  1 p 2 0 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 2 ]
+"25
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+"11
+[v ___lwdiv@counter counter `uc  1 a 1 6 ]
+"7
+[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
+"30
+} 0
+"288 C:\Users\alexa\OneDrive\Documentos\5to semestre\Microcontroladores\3er corte\sensores_LEDS_OLED_UART.X\main.c
+[v _OLED_Char OLED_Char `(v  1 e 1 0 ]
+{
+[v OLED_Char@c c `uc  1 p 1 wreg ]
+"289
+[v OLED_Char@i i `uc  1 a 1 7 ]
+"288
+[v OLED_Char@c c `uc  1 p 1 wreg ]
+"290
+[v OLED_Char@c c `uc  1 p 1 6 ]
+"293
+} 1
+"312
+[v _OLED_Init OLED_Init `(v  1 e 1 0 ]
+{
+"318
+} 0
+"304
+[v _OLED_Clear OLED_Clear `(v  1 e 1 0 ]
+{
+"305
+[v OLED_Clear@j j `i  1 a 2 4 ]
+[v OLED_Clear@i i `uc  1 a 1 6 ]
+"310
+} 0
+"286
+[v _OLED_SetCursor OLED_SetCursor `(v  1 e 1 0 ]
+{
+[v OLED_SetCursor@p p `uc  1 p 1 wreg ]
+[v OLED_SetCursor@p p `uc  1 p 1 wreg ]
+[v OLED_SetCursor@c c `uc  1 p 1 2 ]
+[v OLED_SetCursor@p p `uc  1 p 1 3 ]
+} 1
+"284
+[v _OLED_Cmd OLED_Cmd `(v  1 e 1 0 ]
+{
+[v OLED_Cmd@c c `uc  1 p 1 wreg ]
+[v OLED_Cmd@c c `uc  1 p 1 wreg ]
+[v OLED_Cmd@c c `uc  1 p 1 1 ]
+} 1
+"285
+[v _OLED_Data OLED_Data `(v  1 e 1 0 ]
+{
+[v OLED_Data@d d `uc  1 p 1 wreg ]
+[v OLED_Data@d d `uc  1 p 1 wreg ]
+[v OLED_Data@d d `uc  1 p 1 1 ]
+} 1
+"187
+[v _MAX30102_Init MAX30102_Init `(v  1 e 1 0 ]
+{
+"195
+} 0
+"176
+[v _MAX30102_WriteReg MAX30102_WriteReg `(v  1 e 1 0 ]
+{
+[v MAX30102_WriteReg@reg reg `uc  1 p 1 wreg ]
+[v MAX30102_WriteReg@reg reg `uc  1 p 1 wreg ]
+[v MAX30102_WriteReg@val val `uc  1 p 1 1 ]
+[v MAX30102_WriteReg@reg reg `uc  1 p 1 2 ]
+"182
+} 1
+"201
+[v _MAX30102_GetRawData MAX30102_GetRawData `(ul  1 e 4 0 ]
+{
+"202
+[v MAX30102_GetRawData@l l `uc  1 a 1 25 ]
+[v MAX30102_GetRawData@h h `uc  1 a 1 24 ]
+[v MAX30102_GetRawData@m m `uc  1 a 1 23 ]
+"208
+} 0
+"155
+[v _I2C_Write I2C_Write `(v  1 e 1 0 ]
+{
+[v I2C_Write@d d `uc  1 p 1 wreg ]
+[v I2C_Write@d d `uc  1 p 1 wreg ]
+[v I2C_Write@d d `uc  1 p 1 0 ]
+"159
+} 1
+"153
+[v _I2C_Stop I2C_Stop `(v  1 e 1 0 ]
+{
+} 0
+"152
+[v _I2C_Start I2C_Start `(v  1 e 1 0 ]
+{
+} 0
+"161
+[v _I2C_Read I2C_Read `(uc  1 e 1 0 ]
+{
+[v I2C_Read@ack ack `uc  1 p 1 wreg ]
+"162
+[v I2C_Read@t t `uc  1 a 1 2 ]
+"161
+[v I2C_Read@ack ack `uc  1 p 1 wreg ]
+"163
+[v I2C_Read@ack ack `uc  1 p 1 1 ]
+"170
+} 1
+"144
+[v _I2C_Init I2C_Init `(v  1 e 1 0 ]
+{
+"150
+} 0
+"249
+[v _DS18B20_ReadTemp DS18B20_ReadTemp `(ui  1 e 2 0 ]
+{
+"250
+[v DS18B20_ReadTemp@alto alto `uc  1 a 1 10 ]
+[v DS18B20_ReadTemp@bajo bajo `uc  1 a 1 9 ]
+"261
+} 0
+"223
+[v _DS18B20_WriteByte DS18B20_WriteByte `(v  1 e 1 0 ]
+{
+[v DS18B20_WriteByte@dato dato `uc  1 p 1 wreg ]
+"224
+[v DS18B20_WriteByte@i i `uc  1 a 1 1 ]
+"223
+[v DS18B20_WriteByte@dato dato `uc  1 p 1 wreg ]
+"225
+[v DS18B20_WriteByte@dato dato `uc  1 p 1 0 ]
+"232
+} 1
+"214
+[v _DS18B20_Reset DS18B20_Reset `(uc  1 e 1 0 ]
+{
+"221
+} 0
+"234
+[v _DS18B20_ReadByte DS18B20_ReadByte `(uc  1 e 1 0 ]
+{
+"235
+[v DS18B20_ReadByte@i i `uc  1 a 1 3 ]
+[v DS18B20_ReadByte@dato dato `uc  1 a 1 2 ]
+"243
+} 0
